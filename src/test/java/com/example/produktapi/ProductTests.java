@@ -2,6 +2,10 @@ package com.example.produktapi;
 
 import com.example.produktapi.model.Product;
 import org.junit.jupiter.api.Assertions;
+
+
+
+
 import org.junit.jupiter.api.Test;
 
 
@@ -34,6 +38,23 @@ public class ProductTests {
         Assertions.assertEquals(123.222, productPrice);
     }
 
+
+}
+
+@Test
+    void checkProductId(){
+    Product products= new Product();
+    
+    products.setId(1001);
+    Assertions.assertEquals(1001,products.getId());
+    
+    products.setId(-777);
+    Assertions.assertEquals(-777,products.getId());
+
+
+}
+
+
     @Test
     public void setNewPriceAndCheckThatNewPriceReturns(){
         //Declare and set a new price to an existing price.
@@ -44,4 +65,5 @@ public class ProductTests {
         // check the price is correct.
         Assertions.assertEquals(newPrice, productPrice);
     }
+
 }
