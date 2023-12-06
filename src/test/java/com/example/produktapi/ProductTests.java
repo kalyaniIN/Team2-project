@@ -43,14 +43,13 @@ public class ProductTests {
 
 @Test
     void checkProductId(){
-    Product p1= new Product();
-    Product p2= new Product();
-
-    p1.setId(1001);
-    p2.setId(-777);
-
-    Assertions.assertEquals(1001,p1.getId());
-    Assertions.assertEquals(-777,p2.getId());
+    Product products= new Product();
+    
+    products.setId(1001);
+    Assertions.assertEquals(1001,products.getId());
+    
+    products.setId(-777);
+    Assertions.assertEquals(-777,products.getId());
 
 
 }
