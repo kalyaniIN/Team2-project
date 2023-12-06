@@ -2,16 +2,42 @@ package com.example.produktapi;
 
 import com.example.produktapi.model.Product;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.DisplayName;
+
+
+
+
 import org.junit.jupiter.api.Test;
+
+
 
 public class ProductTests {
 
-    Product a =new Product("SchoolBag",123.222,"Bag","Adidas","img.jpg");
-@Test
-public void checkProductTitle(){
+    Product product =new Product("SchoolBag",123.222,"Bag","Adidas","img.jpg");
+    @Test
+    public void checkProductCategory(){
+        //Get the category.
+        String productCategory = product.getCategory();
+        // check the category is correct.
+        Assertions.assertEquals("Bag", productCategory);
+    }
+    @Test
+    public void setNewCategoryAndCheckThatNewCategoryRetuns(){
+        //Declare and set a new category to an existing category.
+        String newCategory = "Backpack";
+        product.setCategory(newCategory);
+        //Get the new category.
+        String productCategory = product.getCategory();
+        // check the category is correct.
+        Assertions.assertEquals(newCategory, productCategory);
+    }
+    @Test
+    public void checkProductPrice(){
+        //Get the price.
+        Double productPrice = product.getPrice();
+        // check the price is correct.
+        Assertions.assertEquals(123.222, productPrice);
+    }
 
-    System.out.println(a.getTitle());
 
 }
 
@@ -28,5 +54,17 @@ public void checkProductTitle(){
 
 
 }
+
+
+    @Test
+    public void setNewPriceAndCheckThatNewPriceReturns(){
+        //Declare and set a new price to an existing price.
+        Double newPrice = 109.99;
+        product.setPrice(newPrice);
+        //Get the new price.
+        Double productPrice = product.getPrice();
+        // check the price is correct.
+        Assertions.assertEquals(newPrice, productPrice);
+    }
 
 }
