@@ -16,7 +16,7 @@ public void checkProductDescription(){
     // Suzana. Testing Get Description. Negative testing.
     @Test
     public void checkProductDescription2(){
-        Assertions.assertEquals("123456", product.getDescription());
+        Assertions.assertNotEquals("123456", product.getDescription());
 
     }
 ///Suzana. Testing setting a new Description of a Product.
