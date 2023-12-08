@@ -5,12 +5,11 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class ProductTests {
-
-    Product product =new Product("Bracelet",123.222,"Jewelery","Silver dragon bracelet","img.jpg");//
     // Suzana. Testing Get Description. Positive testing.
+    Product product =new Product("SchoolBag",123.222,"Bag","Adidas","img.jpg");
     @Test
 public void checkProductDescription(){
-    Assertions.assertEquals("Silver dragon bracelet", product.getDescription());
+    Assertions.assertEquals("Adidas", product.getDescription());
 
 }
     // Suzana. Testing Get Description. Negative testing.
