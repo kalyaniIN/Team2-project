@@ -38,9 +38,6 @@ public class ProductTests {
         Assertions.assertEquals(123.222, productPrice);
     }
 
-
-}
-
 @Test
     void checkProductId(){
     Product products= new Product();
@@ -51,9 +48,7 @@ public class ProductTests {
     products.setId(-777);
     Assertions.assertEquals(-777,products.getId());
 
-
-}
-
+    }
 
     @Test
     public void setNewPriceAndCheckThatNewPriceReturns(){
