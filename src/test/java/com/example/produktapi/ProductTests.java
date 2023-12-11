@@ -12,25 +12,23 @@ Product product =new Product("SchoolBag",123.222,"Bag","Adidas","img.jpg");
     // Suzana. Testing Get Description. Positive testing.
     
     @Test
-public void checkProductDescription(){
-    assertEquals("Adidas", product.getDescription());
+    public void checkProductDescription(){
+        assertEquals("Adidas", product.getDescription());
 
-}
+    }
     // Suzana. Testing Get Description. Negative testing.
     @Test
     public void checkProductDescription2(){
         Assertions.assertNotEquals("123456", product.getDescription());
 
     }
-//Suzana. Testing setting a new Description of a Product.
+    //Suzana. Testing setting a new Description of a Product.
     @Test
     public void AddNewProductDescription() {
-    product.setDescription("A new bracelet");
-    assertEquals("A new bracelet", product.getDescription());
+        product.setDescription("A new bracelet");
+        assertEquals("A new bracelet", product.getDescription());
     }
 
-
-    //Product product =new Product("SchoolBag",123.222,"Bag","Adidas","img.jpg");
     @Test
     public void checkProductCategory(){
         //Get the category.
@@ -55,11 +53,7 @@ public void checkProductDescription(){
         // check the price is correct.
         assertEquals(123.222, productPrice);
     }
-
-
-
-
-@Test
+    @Test
     void checkProductId(){
     Product products= new Product();
     
@@ -68,9 +62,7 @@ public void checkProductDescription(){
     
     products.setId(-777);
     assertEquals(-777,products.getId());
-
-
-}
+    }
 
 
     @Test
@@ -90,14 +82,12 @@ public void checkProductDescription(){
     }
     @Test
     public void testSetTitle() {
-        System.out.println("Original Title: " + product.getTitle());
         // Set a new title using the setTitle method
         String newTitle = "UnicornBag";
         product.setTitle(newTitle);
 
         String productTitle = product.getTitle();
 
-        System.out.println("Updated Title: " + productTitle);
         // Use the getTitle method to get the updated title and assert the result
         assertEquals("UnicornBag", productTitle);
     }
@@ -109,8 +99,6 @@ public void checkProductDescription(){
     }
     @Test
     public void testSetImage() {
-        // Print the original image
-        System.out.println("Original Image: " + product.getImage());
 
         // Set a new image using the setImage method
         String newImage = "new-image.jpg";
@@ -118,15 +106,8 @@ public void checkProductDescription(){
 
         String productImage = product.getImage();
 
-        // Print the updated image
-        System.out.println("Updated Image: " + productImage);
-
         // Use the getImage method to get the updated image and assert the result
         assertEquals("new-image.jpg", productImage);
     }
-
-
-
-
 
 }
