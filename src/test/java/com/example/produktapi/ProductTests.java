@@ -1,7 +1,9 @@
 package com.example.produktapi;
+
 import com.example.produktapi.model.Product;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
@@ -11,18 +13,20 @@ Product product =new Product("SchoolBag",123.222,"Bag","Adidas","img.jpg");
     
     @Test
     public void checkProductDescription(){
-    Assertions.assertEquals("Adidas", product.getDescription());
+        assertEquals("Adidas", product.getDescription());
+
     }
     // Suzana. Testing Get Description. Negative testing.
     @Test
     public void checkProductDescription2(){
-    Assertions.assertNotEquals("123456", product.getDescription());
+        Assertions.assertNotEquals("123456", product.getDescription());
+
     }
-//Suzana. Testing setting a new Description of a Product.
+    //Suzana. Testing setting a new Description of a Product.
     @Test
     public void AddNewProductDescription() {
-    product.setDescription("A new bracelet");
-    Assertions.assertEquals("A new bracelet", product.getDescription());
+        product.setDescription("A new bracelet");
+        assertEquals("A new bracelet", product.getDescription());
     }
 
     @Test
@@ -30,9 +34,8 @@ Product product =new Product("SchoolBag",123.222,"Bag","Adidas","img.jpg");
         //Get the category.
         String productCategory = product.getCategory();
         // check the category is correct.
-        Assertions.assertEquals("Bag", productCategory);
+        assertEquals("Bag", productCategory);
     }
-
     @Test
     public void setNewCategoryAndCheckThatNewCategoryRetuns(){
         //Declare and set a new category to an existing category.
@@ -41,27 +44,26 @@ Product product =new Product("SchoolBag",123.222,"Bag","Adidas","img.jpg");
         //Get the new category.
         String productCategory = product.getCategory();
         // check the category is correct.
-        Assertions.assertEquals(newCategory, productCategory);
+        assertEquals(newCategory, productCategory);
     }
-
     @Test
     public void checkProductPrice(){
         //Get the price.
         Double productPrice = product.getPrice();
         // check the price is correct.
-        Assertions.assertEquals(123.222, productPrice);
+        assertEquals(123.222, productPrice);
     }
-
     @Test
     void checkProductId(){
-        Product products= new Product();
+    Product products= new Product();
     
-        products.setId(1001);
-        Assertions.assertEquals(1001,products.getId());
+    products.setId(1001);
+    assertEquals(1001,products.getId());
     
-        products.setId(-777);
-        Assertions.assertEquals(-777,products.getId());
+    products.setId(-777);
+    assertEquals(-777,products.getId());
     }
+
 
     @Test
     public void setNewPriceAndCheckThatNewPriceReturns(){
@@ -71,16 +73,13 @@ Product product =new Product("SchoolBag",123.222,"Bag","Adidas","img.jpg");
         //Get the new price.
         Double productPrice = product.getPrice();
         // check the price is correct.
-        Assertions.assertEquals(newPrice, productPrice);
-    }
-
-    @Test
+        assertEquals(newPrice, productPrice);
+    }    @Test
     public void testGetTitle() {
         // Use the getTitle method and assert the result
         String productTitle = product.getTitle();
         assertEquals("SchoolBag", productTitle);
     }
-
     @Test
     public void testSetTitle() {
         // Set a new title using the setTitle method
@@ -92,16 +91,15 @@ Product product =new Product("SchoolBag",123.222,"Bag","Adidas","img.jpg");
         // Use the getTitle method to get the updated title and assert the result
         assertEquals("UnicornBag", productTitle);
     }
-
     @Test
     public void testGetImage() {
         String productImage = product.getImage();
         // Use the getImage method and assert the result
         assertEquals("img.jpg", productImage);
     }
-
     @Test
     public void testSetImage() {
+
         // Set a new image using the setImage method
         String newImage = "new-image.jpg";
         product.setImage(newImage);
