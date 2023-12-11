@@ -4,6 +4,7 @@ import com.example.produktapi.model.Product;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 public class ProductTests {
@@ -12,7 +13,7 @@ Product product =new Product("SchoolBag",123.222,"Bag","Adidas","img.jpg");
     
     @Test
 public void checkProductDescription(){
-    Assertions.assertEquals("Adidas", product.getDescription());
+    assertEquals("Adidas", product.getDescription());
 
 }
     // Suzana. Testing Get Description. Negative testing.
@@ -25,7 +26,7 @@ public void checkProductDescription(){
     @Test
     public void AddNewProductDescription() {
     product.setDescription("A new bracelet");
-    Assertions.assertEquals("A new bracelet", product.getDescription());
+    assertEquals("A new bracelet", product.getDescription());
     }
 
 
@@ -35,7 +36,7 @@ public void checkProductDescription(){
         //Get the category.
         String productCategory = product.getCategory();
         // check the category is correct.
-        Assertions.assertEquals("Bag", productCategory);
+        assertEquals("Bag", productCategory);
     }
     @Test
     public void setNewCategoryAndCheckThatNewCategoryRetuns(){
@@ -45,28 +46,28 @@ public void checkProductDescription(){
         //Get the new category.
         String productCategory = product.getCategory();
         // check the category is correct.
-        Assertions.assertEquals(newCategory, productCategory);
+        assertEquals(newCategory, productCategory);
     }
     @Test
     public void checkProductPrice(){
         //Get the price.
         Double productPrice = product.getPrice();
         // check the price is correct.
-        Assertions.assertEquals(123.222, productPrice);
+        assertEquals(123.222, productPrice);
     }
 
 
-}
+
 
 @Test
     void checkProductId(){
     Product products= new Product();
     
     products.setId(1001);
-    Assertions.assertEquals(1001,products.getId());
+    assertEquals(1001,products.getId());
     
     products.setId(-777);
-    Assertions.assertEquals(-777,products.getId());
+    assertEquals(-777,products.getId());
 
 
 }
@@ -80,7 +81,7 @@ public void checkProductDescription(){
         //Get the new price.
         Double productPrice = product.getPrice();
         // check the price is correct.
-        Assertions.assertEquals(newPrice, productPrice);
+        assertEquals(newPrice, productPrice);
     }    @Test
     public void testGetTitle() {
         // Use the getTitle method and assert the result
