@@ -5,46 +5,49 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 class ProductTest {
     // Create a Product instance
-    Product product = new Product("Test Product", 29.99, "Electronics", "A test product", "test-image.jpg");
+    Product product =new Product("SchoolBag",123.222,"Bag","Adidas","img.jpg");
 
     @Test
     public void testGetTitle() {
         // Use the getTitle method and assert the result
-        assertEquals("Test Product", product.getTitle());
+        String productTitle = product.getTitle();
+        assertEquals("SchoolBag", productTitle);
     }
     @Test
     public void testSetTitle() {
-        // Create a Product instance
-        Product product = new Product("Old Title of bag", 35.55, "accessories", "A sample product", "sample-image.jpg");
         System.out.println("Original Title: " + product.getTitle());
         // Set a new title using the setTitle method
-        product.setTitle("New Title of bag");
+        String newTitle = "UnicornBag";
+        product.setTitle(newTitle);
 
-        System.out.println("Updated Title: " + product.getTitle());
+        String productTitle = product.getTitle();
+
+        System.out.println("Updated Title: " + productTitle);
         // Use the getTitle method to get the updated title and assert the result
-        assertEquals("New Title of bag", product.getTitle());
+        assertEquals("UnicornBag", productTitle);
     }
     @Test
     public void testGetImage() {
+        String productImage = product.getImage();
         // Use the getImage method and assert the result
-        assertEquals("test-image.jpg", product.getImage());
+        assertEquals("img.jpg", productImage);
     }
     @Test
     public void testSetImage() {
-        // Create a Product instance with an initial image
-        Product product = new Product("Test Product of shirt", 99.99, "Clothing", "A test product", "initial-image.jpg");
-
         // Print the original image
         System.out.println("Original Image: " + product.getImage());
 
         // Set a new image using the setImage method
-        product.setImage("new-image.jpg");
+        String newImage = "new-image.jpg";
+        product.setImage(newImage);
+
+        String productImage = product.getImage();
 
         // Print the updated image
-        System.out.println("Updated Image: " + product.getImage());
+        System.out.println("Updated Image: " + productImage);
 
         // Use the getImage method to get the updated image and assert the result
-        assertEquals("new-image.jpg", product.getImage());
+        assertEquals("new-image.jpg", productImage);
     }
   
 }
