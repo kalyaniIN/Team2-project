@@ -4,10 +4,12 @@ import io.cucumber.java.en.When;
 import io.restassured.http.ContentType;
 import io.restassured.http.Method;
 import io.restassured.response.Response;
+import io.restassured.response.ResponseBody;
 import io.restassured.specification.RequestSpecification;
 import org.junit.jupiter.api.Assertions;
 import static io.restassured.RestAssured.given;
 import static io.restassured.RestAssured.*;
+import static org.hamcrest.Matchers.equalTo;
 
 public class ApiTestStepDefinition {
 
@@ -37,6 +39,14 @@ public class ApiTestStepDefinition {
 
     }
 
+    @Then("body is {string}")
+    public void body_is(String strRes) {
+        ResponseBody expected = response.getBody();
+        System.out.println(expected.asString());
+        Assertions.assertEquals(expected.asString(),strRes);
+
+    }
+
     @When("Given producturl")
     public void given_producturl() {
         baseURI="https://produktapi-6ef53ba8f2f2.herokuapp.com/products";
@@ -47,6 +57,15 @@ public class ApiTestStepDefinition {
     @Then("contentType is JSON")
     public void content_type_is_json() {
         response.then().assertThat().contentType(ContentType.JSON);
+
+
+    }
+
+    @Then("verify data in the body")
+    public void verify_data_in_the_body() {
+
+        response.then().assertThat().body("category[0]",equalTo("men's clothing"));
+
     }
 
 
