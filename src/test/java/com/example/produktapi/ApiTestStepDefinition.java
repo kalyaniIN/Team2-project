@@ -3,6 +3,7 @@ package com.example.produktapi;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import io.restassured.http.ContentType;
 import io.restassured.http.Method;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
@@ -10,6 +11,7 @@ import org.junit.jupiter.api.Assertions;
 
 import static io.restassured.RestAssured.given;
 import static io.restassured.RestAssured.*;
+import java.util.List;
 
 public class ApiTestStepDefinition {
 
@@ -38,6 +40,11 @@ public class ApiTestStepDefinition {
         baseURI="https://produktapi-6ef53ba8f2f2.herokuapp.com/products/categories";
         request = given();
         response = request.request(Method.GET, "");
+        List<String> categories = response.jsonPath().getList(".", String.class);
+
+        // Print or log the available categories
+        System.out.println("Available Categories: " + categories);
+        response.then().assertThat().contentType(ContentType.JSON);
     }
     @Then("the response status should be {int}")
     public void the_response_status_should_be(Integer expectedStatus) {
