@@ -8,3 +8,10 @@ Feature: Api testing
     Given the application is running
     When the client requests GET /products/categories
     Then the response status should be 200
+    Then the response content should contain the following categories:
+      | electronics |
+      | jewelery |
+      | men's clothing |
+      | women's clothing |
+
+
