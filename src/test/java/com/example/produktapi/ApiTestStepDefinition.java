@@ -1,29 +1,22 @@
 package com.example.produktapi;
 
-import com.jayway.jsonpath.JsonPath;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.restassured.http.ContentType;
 import io.restassured.http.Method;
-import io.restassured.path.json.config.JsonPathConfig;
 
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.junit.jupiter.api.Assertions;
-import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.http.ResponseEntity;
 
 import static io.restassured.RestAssured.given;
 import static io.restassured.RestAssured.*;
-import static io.restassured.path.json.config.JsonPathConfig.*;
-import static javax.swing.Action.DEFAULT;
 import static junit.framework.TestCase.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
-
 import java.util.List;
-import java.util.Map;
+
 
 public class ApiTestStepDefinition {
 
