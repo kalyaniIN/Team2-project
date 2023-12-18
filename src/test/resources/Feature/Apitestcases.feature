@@ -25,4 +25,6 @@ Feature: Api testing
     When Given producturl
     Then verify data in the body
 
-
+  Scenario:Verify productID
+    When Given producturl
+    Then Status for request should be 200

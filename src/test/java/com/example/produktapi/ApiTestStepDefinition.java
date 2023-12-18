@@ -68,5 +68,16 @@ public class ApiTestStepDefinition {
 
     }
 
+    @Then("Status for request should be {int}")
+    public void status_for_request_should_be(Integer expectedStatuscode) {
+        baseURI="https://produktapi-6ef53ba8f2f2.herokuapp.com/products/1";
+        request = given();
+        response =request.request(Method.GET,"");
+
+      int actualCode = response.getStatusCode();
+        Assertions.assertEquals(expectedStatuscode,actualCode);
+        System.out.println(" The system code is:" + actualCode);
+
+    }
 
 }
