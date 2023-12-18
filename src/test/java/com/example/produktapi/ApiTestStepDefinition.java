@@ -57,15 +57,26 @@ public class ApiTestStepDefinition {
     @Then("contentType is JSON")
     public void content_type_is_json() {
         response.then().assertThat().contentType(ContentType.JSON);
-
-
     }
 
     @Then("verify data in the body")
     public void verify_data_in_the_body() {
 
         response.then().assertThat().body("category[0]",equalTo("men's clothing"));
+    }
+    @When("Given product by category url")
+    public void given_product_by_category_url() {
+        baseURI="https://produktapi-6ef53ba8f2f2.herokuapp.com/products/categories/jewelery";
+        request = given();
+        response =request.request(Method.GET,"");
+    }
 
+    @Then("verify category in the body")
+    public void verify_category_in_the_body() {
+        response.then().assertThat().body("category[0]",equalTo("jewelery"));
+        response.then().assertThat().body("category[1]",equalTo("jewelery"));
+        response.then().assertThat().body("category[2]",equalTo("jewelery"));
+        response.then().assertThat().body("category[3]",equalTo("jewelery"));
     }
 
 

@@ -25,4 +25,15 @@ Feature: Api testing
     When Given producturl
     Then verify data in the body
 
+  Scenario:Test /products/categories/{category}
+    When Given product by category url
+    Then Status for http request is 200
+
+  Scenario: Verify the contentType of /products/categories/{category}
+    When Given product by category url
+    Then contentType is JSON
+
+  Scenario: Verify the body of /products/categories/{category}
+    When Given product by category url
+    Then verify category in the body
 
