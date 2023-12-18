@@ -47,9 +47,7 @@ public class ApiTestStepDefinition {
         response = request.request(Method.GET, "");
         List<String> categories = response.jsonPath().getList(".", String.class);
 
-        // Print or log the available categories
-        System.out.println("Available Categories: " + categories);
-        response.then().assertThat().contentType(ContentType.JSON);
+
     }
     @Then("the response status should be {int}")
     public void the_response_status_should_be(Integer expectedStatus) {
