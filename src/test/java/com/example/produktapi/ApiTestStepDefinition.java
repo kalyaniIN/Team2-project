@@ -75,16 +75,7 @@ public class ApiTestStepDefinition {
 
     }
 
-    @When("the client requests GET \\/products")
-    public void the_client_requests_get_products() {
-        baseURI="https://produktapi-6ef53ba8f2f2.herokuapp.com/products";
-        request = given();
-        response = request.request(Method.GET, "");
-        List<String> products = response.jsonPath().getList(".", String.class);
 
-        System.out.println(products);
-
-    }
 
 
 
