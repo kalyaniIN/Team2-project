@@ -38,6 +38,10 @@ Feature: Api testing
     When Given producturl
     Then verify data in the body
 
+  Scenario:Verify productID
+    When Given product ID url
+    Then Status for request should be 200
+    
   Scenario:Test /products/categories/{category}
     When Given product by category url
     Then Status for http request is 200
@@ -51,3 +55,6 @@ Feature: Api testing
     Then verify category in the body
 
 
+  Scenario: Verify the body of a product
+    When Given product ID url
+    Then Verify data in productID body
