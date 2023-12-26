@@ -7,7 +7,11 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
+
+import java.time.Duration;
+import java.util.List;
 
 public class SystemStepDefinition {
 
@@ -33,7 +37,15 @@ public class SystemStepDefinition {
 
     @Then("user clicks on link for Men's Clothing")
     public void user_clicks_on_link_for_men_s_clothing() throws InterruptedException {
+  // 1. Click On Men's Clothing top menu link
         driver.findElement(By.xpath("/html/body/div[1]/div/ul/li[2]/a")).click();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 
+  // 2. Count number of items on Men's Clothing page
+        List<WebElement> productCategories = driver.findElements(By.className("card-text"));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+
+        int numberOfProducts = productCategories.size();
+        Assertions.assertEquals(4,numberOfProducts, "The number of items is not correct");
     }
 }
