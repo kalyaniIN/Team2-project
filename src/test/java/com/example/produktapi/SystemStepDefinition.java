@@ -5,6 +5,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
@@ -24,5 +25,15 @@ public class SystemStepDefinition {
         String actualTitle = driver.getTitle();
         Assertions.assertEquals(expectedTitle,actualTitle,"The title is not correct");
         driver.quit();
+    }
+    @When("user enters Shop")
+    public void user_enters_shop() {
+        driver.findElement(By.xpath("/html/body/header/div/div/ul/li[2]/a")).click();
+    }
+
+    @Then("user clicks on link for Men's Clothing")
+    public void user_clicks_on_link_for_men_s_clothing() throws InterruptedException {
+        driver.findElement(By.xpath("/html/body/div[1]/div/ul/li[2]/a")).click();
+
     }
 }
