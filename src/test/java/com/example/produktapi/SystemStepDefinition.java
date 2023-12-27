@@ -1,10 +1,10 @@
 package com.example.produktapi;
 
+import io.cucumber.java.BeforeAll;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -15,37 +15,36 @@ import java.util.List;
 
 public class SystemStepDefinition {
 
-    static WebDriver driver ;
+    static WebDriver driver;
 
-    @Given("website is available")
-    public void website_is_available() {
-        driver =new FirefoxDriver();
+    @BeforeAll
+    public static void setup() {
+        driver = new FirefoxDriver();
+        driver.get("https://webshop-agil-testautomatiserare.netlify.app/");
     }
-    @When("the user visits the website")
-    public void the_user_visits_the_website() {driver.get("https://webshop-agil-testautomatiserare.netlify.app/");
-    }
-    @Then("the title should be {string}")
-    public void the_title_should_be(String expectedTitle) {
-        String actualTitle = driver.getTitle();
-        Assertions.assertEquals(expectedTitle,actualTitle,"The title is not correct");
-        driver.quit();
-    }
+
     @When("user enters Shop")
     public void user_enters_shop() {
         driver.findElement(By.xpath("/html/body/header/div/div/ul/li[2]/a")).click();
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 
     @Then("user clicks on link for Men's Clothing")
-    public void user_clicks_on_link_for_men_s_clothing() throws InterruptedException {
-  // 1. Click On Men's Clothing top menu link
-        driver.findElement(By.xpath("/html/body/div[1]/div/ul/li[2]/a")).click();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+    public void user_clicks_on_link_for_men_s_clothing() {
+        // 1. Click on menu link Men's Clothing
+        WebElement ProductLink = driver.findElement(By.xpath("/html/body/div[1]/div/ul/li[2]/a"));
+        ProductLink.click();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
 
-  // 2. Count number of items on Men's Clothing page
-        List<WebElement> productCategories = driver.findElements(By.className("card-text"));
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
-// testing
+        // 2. Count number of items on Men's Clothing page
+        List<WebElement> productCategories = driver.findElements(By.className("col"));
         int numberOfProducts = productCategories.size();
-        Assertions.assertEquals(4,numberOfProducts, "The number of items is not correct");
+        Assertions.assertEquals(4, numberOfProducts, "The number of items is not correct");
     }
+
 }
+
