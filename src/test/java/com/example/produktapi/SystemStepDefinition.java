@@ -40,7 +40,7 @@ public class SystemStepDefinition {
         WebElement shop= driver.findElement(By.linkText("Shop"));
         shop.click();
     }
-    @When("user waits for {int} millisec")
+    @When("wait for {int} millisec")
     public void user_waits_for_sec(Integer int1) {
         try {
             Thread.sleep(int1);
