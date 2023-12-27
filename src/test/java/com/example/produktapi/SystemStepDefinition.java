@@ -44,7 +44,7 @@ public class SystemStepDefinition {
   // 2. Count number of items on Men's Clothing page
         List<WebElement> productCategories = driver.findElements(By.className("card-text"));
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
-
+// testing
         int numberOfProducts = productCategories.size();
         Assertions.assertEquals(4,numberOfProducts, "The number of items is not correct");
     }
