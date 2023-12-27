@@ -45,6 +45,10 @@ public class SystemStepDefinition {
         int numberOfProducts = productCategories.size();
         Assertions.assertEquals(4, numberOfProducts, "The number of items is not correct");
     }
-
+    @Then("product is added to cart")
+    public void product_is_added_to_cart() {
+        WebElement ProductAddToCart = driver.findElement(By.xpath("//*[@id=\"main\"]/div[1]/div/div/button"));
+        ProductAddToCart.click();
+    }
 }
 
