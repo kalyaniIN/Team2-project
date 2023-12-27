@@ -21,7 +21,7 @@ public class SeleniumTestCases {
     @BeforeAll
     static void setup(){
         driver = new FirefoxDriver();
-        //driver.get("https://webshop-agil-testautomatiserare.netlify.app/");
+        driver.get("https://webshop-agil-testautomatiserare.netlify.app/");
 
     }
     @Test
@@ -41,8 +41,6 @@ public class SeleniumTestCases {
 
       @Test
         void testNumberofWomensclothing(){
-
-        driver.get("https://webshop-agil-testautomatiserare.netlify.app/");
 
         //clicking on shop
         WebElement shop= driver.findElement(By.linkText("Shop"));
@@ -70,8 +68,6 @@ public class SeleniumTestCases {
 
     @Test
     void testNumberofJewelery(){
-
-        driver.get("https://webshop-agil-testautomatiserare.netlify.app/");
 
         //find and click on shop
         WebElement shop= driver.findElement(By.linkText("Shop"));
