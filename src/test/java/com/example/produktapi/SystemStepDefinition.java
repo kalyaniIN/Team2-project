@@ -12,6 +12,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 import java.time.Duration;
 import java.util.List;
+import java.util.Objects;
 
 public class SystemStepDefinition {
 
@@ -66,6 +67,18 @@ public class SystemStepDefinition {
         WebElement cloth= driver.findElement(By.linkText("Women's clothing"));
         cloth.click();
     }
+
+    @When("user click on electronics")
+    public void userClickOnElectronics() {
+        //Go to Electronics
+        driver.findElement(By.linkText("Electronics")).click();
+        //wait
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
+    }
+    
+   
+
+  
 
 
 
