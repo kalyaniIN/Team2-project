@@ -1,17 +1,13 @@
 package com.example.produktapi;
 
-import org.checkerframework.checker.regex.qual.Regex;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.mockito.internal.matchers.Null;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
-
 import java.time.Duration;
-import java.util.List;
 import java.util.Objects;
 
 public class SeleniumTestCases {
@@ -68,7 +64,6 @@ public class SeleniumTestCases {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-
         //Go to Electronics page
         driver.findElement(By.linkText("Electronics")).click();
 
@@ -84,15 +79,13 @@ public class SeleniumTestCases {
             //If the cart is not empty then parsing the string value to integer.
             numberOfTheProductInTheCart = Integer.parseInt(gettingNumberOfTheProductInTheCart);
         }
-        //increasing the product number by 1 for later assert
+        //increasing the product number by 1 for later assert and saving in a variable.
         int newNumberOfTheProductInTheCart = numberOfTheProductInTheCart + 1;
-        //System.out.println(numberOfTheProductInTheCart);
 
         //wait
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
         //Add a product to cart
         driver.findElement(By.xpath("//*[@id=\"main\"]/div[1]/div/div/button")).click();
-        //driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
         //Getting number of product to the cart after adding a new product
         var gettingNumberOfTheProductAfterAddingANew = driver.findElement(By.xpath("//*[@id=\"buttonSize\"]")).getText();
         //Parsing the value from string to Int.

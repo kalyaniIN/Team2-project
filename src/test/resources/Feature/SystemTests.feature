@@ -5,10 +5,13 @@ Feature: SystemTesting
     When the user visits the website
     Then the title should be "Webbutiken"
 
-  Scenario: Go to product category electronics.
-    Given User are at Shop
-    When User clicks on Electronics
-    Then There will be 6 products available in the page
+  Scenario: Test the number of products displayed when clicking on Electronics link
+    Given website is available
+    When the user visits the website
+    When user clicks on Shop
+    When wait for 1000 millisec
+    When user click on electronics
+    Then verify the number of product is 6
 
   #Scenario: Before Adding a electronics product in the cart
   #  Given User are at Shop
@@ -16,9 +19,14 @@ Feature: SystemTesting
   #  Then Check products available in the cart
 
 
-  Scenario: Adding a electronics product in the cart
-    Given User are at Shop
+  Scenario: Add a electronics product to the cart
+    Given website is available
+    When the user visits the website
+    When user clicks on Shop
+    When wait for 1000 millisec
+    When user click on electronics
+    When Get the number of product in the checkout
     When User click on Add to cart
-    Then Product will be added to the checkout
+    When Get the number of product in the checkout after adding a product
 
 
