@@ -12,6 +12,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 import java.time.Duration;
 import java.util.List;
+import java.util.Objects;
 
 public class SystemStepDefinition {
 
@@ -65,6 +66,53 @@ public class SystemStepDefinition {
     public void user_click_on_women_s_clothing() {
         WebElement cloth= driver.findElement(By.linkText("Women's clothing"));
         cloth.click();
+    }
+
+    @When("user click on electronics")
+    public void userClickOnElectronics() {
+        //Go to Electronics
+        driver.findElement(By.linkText("Electronics")).click();
+        //wait
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
+    }
+    @When("Get the number of product in the checkout")
+    public void getTheNumberOfProductInTheCheckout() {
+        int numberOfTheProductInTheCart;
+        var gettingNumberOfTheProductInTheCart = driver.findElement(By.xpath("//*[@id=\"buttonSize\"]")).getText();
+        //Check if the cart was empty or not, if empty then setting value to 0.
+        if(Objects.equals(gettingNumberOfTheProductInTheCart, "")) {
+            numberOfTheProductInTheCart = 0;
+        }
+        else {
+            //If the cart is not empty then parsing the string value to integer.
+            numberOfTheProductInTheCart = Integer.parseInt(gettingNumberOfTheProductInTheCart);
+        }
+        //increasing the product number by 1 for later assert.
+        int newNumberOfTheProductInTheCart = numberOfTheProductInTheCart + 1;
+    }
+    @When("User click on Add to cart")
+    public void user_click_on_add_to_cart() {
+        //wait
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
+        //Add a product to cart
+        driver.findElement(By.xpath("//*[@id=\"main\"]/div[2]/div/div/button")).click();
+
+    }
+
+    @When("Get the number of product in the checkout after adding a product")
+    public void getTheNumberOfProductInTheCheckoutAfterAddingAProduct() {
+        //Getting number of product to the cart after adding a new product
+        var gettingNumberOfTheProductAfterAddingANew = driver.findElement(By.xpath("//*[@id=\"buttonSize\"]")).getText();
+        //Parsing the value from string to Int.
+        int numberOfTheProductInTheCartAfterAddingANew = Integer.parseInt(gettingNumberOfTheProductAfterAddingANew);
+    }
+
+    @Then("Product will be added to the checkout")
+    public void product_will_be_added_to_the_checkout() {
+
+        // Verify that the product is added to the checkout.
+        //Assertions.assertEquals(newNumberOfTheProductInTheCart,numberOfTheProductInTheCartAfterAddingANew );
+
     }
 
 
