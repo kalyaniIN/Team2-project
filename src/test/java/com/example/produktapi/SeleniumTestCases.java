@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -225,6 +226,30 @@ public class SeleniumTestCases {
         System.out.println("Title of page is: " + CheckOutPageHeading);
     }
 
+    @Test
+    void VerifyErrorMessageEmptyCheckOutForm()throws InterruptedException {
+        //1. Click on Checkout button
+        driver.findElement(By.xpath("/html/body/header/div/div/div/a")).click();
+
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+        // 2. Click on "Continue to checkout" button
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        WebElement ContinueToCheckoutButton = driver.findElement(By.xpath("/html/body/main/div[2]/div[2]/form/button"));
+        js.executeScript("arguments[0].scrollIntoView();", ContinueToCheckoutButton);
+        Thread.sleep(3000);
+        ContinueToCheckoutButton.click();
+
+        //3. Count number error messages
+        List<WebElement> errorCategories = driver.findElements(By.className("invalid-feedback"));
+        int numberOfErrorMessages = errorCategories.size();
+        Assertions.assertEquals(11, numberOfErrorMessages, "The number of error message is not correct");
+
+    }
     @AfterAll
     static void teardown(){
         driver.quit();
