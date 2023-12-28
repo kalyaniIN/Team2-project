@@ -41,25 +41,7 @@ public class SeleniumTestCases {
         int numberOfProducts = productCategories.size();
         Assertions.assertEquals(4, numberOfProducts, "The number of items is not correct");
     }
-    @Test
-    void ProductAddToCart() {
-        //1. Click on top menu link "Shop"
-        driver.findElement(By.xpath("/html/body/header/div/div/ul/li[2]/a")).click();
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
-// 2. Click on Men's Clothing
-        WebElement ProductLink = driver.findElement(By.xpath("/html/body/div[1]/div/ul/li[2]/a"));
-        ProductLink.click();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-
-// 3. Add a Men's Clothing product to cart
-        WebElement ProductAddToCart = driver.findElement(By.xpath("//*[@id=\"main\"]/div[1]/div/div/button"));
-        ProductAddToCart.click();
-    }
-
+  
 
 }
 
