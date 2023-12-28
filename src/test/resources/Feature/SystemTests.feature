@@ -31,5 +31,14 @@ Feature: SystemTesting
     When user click on electronics
     Then verify the number of product is 6
 
+  Scenario: Finding Men's Clothing
+    When user enters Shop
+    Then user clicks on link for Men's Clothing
+
+  Scenario: Adding a Mens product to Cart
+    When user enters Shop
+    And user clicks on link for Men's Clothing
+    Then a product is added to cart
+
 
  

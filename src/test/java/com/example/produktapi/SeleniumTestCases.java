@@ -153,6 +153,25 @@ public class SeleniumTestCases {
         // Verify that the product is added to the checkout.
         Assertions.assertEquals(newNumberOfTheProductInTheCart,numberOfTheProductInTheCartAfterAddingANew );
     }
+    @Test
+    void FindingMensClothing(){
+        //1. Click on top menu link "Shop"
+        driver.findElement(By.xpath("/html/body/header/div/div/ul/li[2]/a")).click();
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+        // 2. Click on menu link Men's Clothing
+        WebElement ProductLink = driver.findElement(By.xpath("/html/body/div[1]/div/ul/li[2]/a"));
+        ProductLink.click();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+
+        //3. Count number items
+        List<WebElement> productCategories = driver.findElements(By.className("col"));
+        int numberOfProducts = productCategories.size();
+        Assertions.assertEquals(4, numberOfProducts, "The number of items is not correct");
+    }
 
     @AfterAll
     static void teardown(){

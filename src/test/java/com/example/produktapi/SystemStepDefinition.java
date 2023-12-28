@@ -75,8 +75,29 @@ public class SystemStepDefinition {
         //wait
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
     }
-    
-   
+
+    //Finding Men's Clothing
+    @When("user enters Shop")
+    public void user_enters_shop() {
+        driver.findElement(By.xpath("/html/body/header/div/div/ul/li[2]/a")).click();
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+    }
+    @Then("user clicks on link for Men's Clothing")
+    public void user_clicks_on_link_for_men_s_clothing() {
+        // 1. Click on menu link Men's Clothing
+        WebElement ProductLink = driver.findElement(By.xpath("/html/body/div[1]/div/ul/li[2]/a"));
+        ProductLink.click();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+
+        // 2. Count number of items on Men's Clothing page
+        List<WebElement> productCategories = driver.findElements(By.className("col"));
+        int numberOfProducts = productCategories.size();
+        Assertions.assertEquals(4, numberOfProducts, "The number of items is not correct");
+    }
 
   
 
