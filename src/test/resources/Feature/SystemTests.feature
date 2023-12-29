@@ -40,6 +40,10 @@ Feature: SystemTesting
     When user clicks on link for Men's Clothing
     Then product is added to cart
 
+  Scenario: Verify the Checkout form page
+    When user clicks on CheckOut button
+    Then The Checkout form page is visible
+
   Scenario: Error message triggered by empty form fields
     When user clicks on CheckOut button
     When user clicks on Continue To Checkout Button

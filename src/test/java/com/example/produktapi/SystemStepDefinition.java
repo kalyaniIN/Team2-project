@@ -132,7 +132,7 @@ public class SystemStepDefinition {
 
     @When("user clicks on CheckOut button")
     public void user_clicks_on_check_out_button() {
-        //1. Click on Checkout button
+        //Click on Checkout button
         driver.findElement(By.xpath("/html/body/header/div/div/div/a")).click();
         try {
             Thread.sleep(1000);
@@ -140,9 +140,17 @@ public class SystemStepDefinition {
             Thread.currentThread().interrupt();
         }
     }
+    @Then("The Checkout form page is visible")
+    public void the_checkout_form_page_is_visible() {
+        // Verify the heading of the Checkout Page
+        String CheckOutPageHeading = driver.findElement(By.tagName("h2")).getText();
+        Assertions.assertEquals("Checkout form", CheckOutPageHeading, "The heading is not correct");
+        System.out.println("Title of page is: " + CheckOutPageHeading);
+    }
+
     @When("user clicks on Continue To Checkout Button")
     public void user_clicks_on_continue_to_checkout_button() throws InterruptedException {
-        // 2. Click on "Continue to checkout" button
+        // Click on "Continue to checkout" button
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         JavascriptExecutor js = (JavascriptExecutor) driver;
         WebElement ContinueToCheckoutButton = driver.findElement(By.xpath("/html/body/main/div[2]/div[2]/form/button"));
@@ -153,7 +161,7 @@ public class SystemStepDefinition {
 
     @Then("Error message is triggered")
     public void error_message_is_triggered() {
-        //3. Count number error messages
+        //Count number of error messages
         List<WebElement> errorCategories = driver.findElements(By.className("invalid-feedback"));
         int numberOfErrorMessages = errorCategories.size();
         Assertions.assertEquals(11, numberOfErrorMessages, "The number of error message is not correct");
