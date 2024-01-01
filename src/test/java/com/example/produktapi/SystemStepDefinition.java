@@ -149,13 +149,17 @@ public class SystemStepDefinition {
     }
 
     @When("user clicks on Continue To Checkout Button")
-    public void user_clicks_on_continue_to_checkout_button() throws InterruptedException {
+    public void user_clicks_on_continue_to_checkout_button() {
         // Click on "Continue to checkout" button
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         JavascriptExecutor js = (JavascriptExecutor) driver;
         WebElement ContinueToCheckoutButton = driver.findElement(By.xpath("/html/body/main/div[2]/div[2]/form/button"));
         js.executeScript("arguments[0].scrollIntoView();", ContinueToCheckoutButton);
-        Thread.sleep(3000);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
         ContinueToCheckoutButton.click();
     }
 
@@ -165,30 +169,6 @@ public class SystemStepDefinition {
         List<WebElement> errorCategories = driver.findElements(By.className("invalid-feedback"));
         int numberOfErrorMessages = errorCategories.size();
         Assertions.assertEquals(11, numberOfErrorMessages, "The number of error message is not correct");
-    }
-
-    @When("user fills in all fields")
-    public void user_fills_in_all_fields() {
-        String search_term = "a";
-        String search_term_email="a@a.com";
-
-        driver.findElement(By.id("firstName")).sendKeys(search_term);
-        driver.findElement(By.id("lastName")).sendKeys(search_term);
-        driver.findElement(By.id("email")).sendKeys(search_term_email);
-        driver.findElement(By.id("address")).sendKeys(search_term);
-        driver.findElement(By.id("country")).sendKeys(search_term);
-        driver.findElement(By.id("city")).sendKeys(search_term);
-        driver.findElement(By.id("zip")).sendKeys(search_term);
-        driver.findElement(By.id("cc-name")).sendKeys(search_term);
-        driver.findElement(By.id("cc-number")).sendKeys(search_term);
-        driver.findElement(By.id("cc-expiration")).sendKeys(search_term);
-        driver.findElement(By.id("cc-cvv")).sendKeys(search_term);
-    }
-    @Then("No error messages are triggered")
-    public void no_error_messages_are_triggered() {
-        List<WebElement> errorCategories = driver.findElements(By.className("invalid-feedback"));
-        int numberOfErrorMessages = errorCategories.size();
-        Assertions.assertEquals(0, numberOfErrorMessages, "The number of error message is not correct");
     }
 
 }

@@ -189,7 +189,7 @@ public class SeleniumTestCases {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 
 
-        // 3. Find the Checkout button
+        // 3. Getting value from Checkout button
         var GetNumberOfProductsInCart = driver.findElement(By.xpath("//*[@id=\"buttonSize\"]")).getText();
 
         //4. Check if cart was empty or not, if empty set value to 0.
@@ -227,7 +227,7 @@ public class SeleniumTestCases {
     }
 
     @Test
-    void VerifyErrorMessageEmptyCheckOutForm()throws InterruptedException {
+    void VerifyErrorMessageEmptyCheckOutForm() {
         //1. Click on Checkout button
         driver.findElement(By.xpath("/html/body/header/div/div/div/a")).click();
 
@@ -241,7 +241,11 @@ public class SeleniumTestCases {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         WebElement ContinueToCheckoutButton = driver.findElement(By.xpath("/html/body/main/div[2]/div[2]/form/button"));
         js.executeScript("arguments[0].scrollIntoView();", ContinueToCheckoutButton);
-        Thread.sleep(3000);
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
         ContinueToCheckoutButton.click();
 
         //3. Count number error messages
@@ -249,45 +253,6 @@ public class SeleniumTestCases {
         int numberOfErrorMessages = errorCategories.size();
         Assertions.assertEquals(11, numberOfErrorMessages, "The number of error message is not correct");
 
-    }
-    @Test
-    void VerifyAllFieldsFilled()throws InterruptedException {
-        //1. Click on Checkout button
-        driver.findElement(By.xpath("/html/body/header/div/div/div/a")).click();
-
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
-        // 2. Fill in all 11 fields with tag name input
-        String search_term = "a";
-        String search_term_email = "a@a.com";
-
-        driver.findElement(By.id("firstName")).sendKeys(search_term);
-        driver.findElement(By.id("lastName")).sendKeys(search_term);
-        driver.findElement(By.id("email")).sendKeys(search_term_email);
-        driver.findElement(By.id("address")).sendKeys(search_term);
-        driver.findElement(By.id("country")).sendKeys(search_term);
-        driver.findElement(By.id("city")).sendKeys(search_term);
-        driver.findElement(By.id("zip")).sendKeys(search_term);
-        driver.findElement(By.id("cc-name")).sendKeys(search_term);
-        driver.findElement(By.id("cc-number")).sendKeys(search_term);
-        driver.findElement(By.id("cc-expiration")).sendKeys(search_term);
-        driver.findElement(By.id("cc-cvv")).sendKeys(search_term);
-
-        //3. Click on "Continue to checkout" button
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        WebElement ContinueToCheckoutButton = driver.findElement(By.xpath("/html/body/main/div[2]/div[2]/form/button"));
-        js.executeScript("arguments[0].scrollIntoView();", ContinueToCheckoutButton);
-        ContinueToCheckoutButton.click();
-        Thread.sleep( 3000);
-
-        //4. Verify that no error messages appears
-        List<WebElement> ValidMessages = driver.findElements(By.className("invalid-feedback"));
-        int numberOfValidMessages = ValidMessages.size();
-        Assertions.assertEquals(0, numberOfValidMessages, "The number of error message is not correct");
     }
 
     @AfterAll

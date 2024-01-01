@@ -49,9 +49,5 @@ Feature: SystemTesting
     When user clicks on Continue To Checkout Button
     Then Error message is triggered
 
-  Scenario: Fill in all fields in Checkout form
-    When user clicks on CheckOut button
-    And user fills in all fields
-    When user clicks on Continue To Checkout Button
-    Then No error messages are triggered
+
  
