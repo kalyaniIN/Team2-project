@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -152,6 +153,106 @@ public class SeleniumTestCases {
         int numberOfTheProductInTheCartAfterAddingANew = Integer.parseInt(gettingNumberOfTheProductAfterAddingANew);
         // Verify that the product is added to the checkout.
         Assertions.assertEquals(newNumberOfTheProductInTheCart,numberOfTheProductInTheCartAfterAddingANew );
+    }
+    @Test
+    void FindingMensClothing(){
+        //1. Click on top menu link "Shop"
+        driver.findElement(By.xpath("/html/body/header/div/div/ul/li[2]/a")).click();
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+        // 2. Click on menu link Men's Clothing
+        WebElement ProductLink = driver.findElement(By.xpath("/html/body/div[1]/div/ul/li[2]/a"));
+        ProductLink.click();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+
+        //3. Count number items
+        List<WebElement> productCategories = driver.findElements(By.className("col"));
+        int numberOfProducts = productCategories.size();
+        Assertions.assertEquals(4, numberOfProducts, "The number of items is not correct");
+    }
+
+    @Test
+    void MensProductAddToCart() {
+        //1. Click on top menu link "Shop"
+        driver.findElement(By.xpath("/html/body/header/div/div/ul/li[2]/a")).click();
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+        // 2. Click on Men's Clothing
+        WebElement ProductLink = driver.findElement(By.xpath("/html/body/div[1]/div/ul/li[2]/a"));
+        ProductLink.click();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+
+
+        // 3. Getting value from Checkout button
+        var GetNumberOfProductsInCart = driver.findElement(By.xpath("//*[@id=\"buttonSize\"]")).getText();
+
+        //4. Check if cart was empty or not, if empty set value to 0.
+        int NumberInCart;
+        if(Objects.equals(GetNumberOfProductsInCart, "")) {
+            NumberInCart = 0;
+        }
+        else {
+            // 5. If cart is not empty then parse string value to integer.
+            NumberInCart = Integer.parseInt(GetNumberOfProductsInCart);
+        }
+        //6. increasing the product number by 1
+        int newNumberInCart = NumberInCart + 1;
+
+        // 7. Add a Men's Clothing product to cart
+        WebElement ProductAddToCart = driver.findElement(By.xpath("//*[@id=\"main\"]/div[1]/div/div/button"));
+        ProductAddToCart.click();
+
+        // 8. Get number of product in cart after adding a new product
+        var gettingNumberOfTheProductAfterAddingANew = driver.findElement(By.xpath("//*[@id=\"buttonSize\"]")).getText();
+        //9. Parsing the value from string to Int.
+        int numberOfTheProductInTheCartAfterAddingANew = Integer.parseInt(gettingNumberOfTheProductAfterAddingANew);
+        // 10. Verify that the product is added to the checkout.
+        Assertions.assertEquals(newNumberInCart,numberOfTheProductInTheCartAfterAddingANew );
+    }
+    @Test
+    void VerifyCheckOutButton() {
+        //1. Click on Checkout button
+        WebElement Checkout = driver.findElement(By.xpath("/html/body/header/div/div/div/a"));
+        Checkout.click();
+        // 2. Verify the heading of the Checkout Page
+        String CheckOutPageHeading = driver.findElement(By.tagName("h2")).getText();
+        Assertions.assertEquals("Checkout form", CheckOutPageHeading, "The heading is not correct");
+        System.out.println("Title of page is: " + CheckOutPageHeading);
+    }
+
+    @Test
+    void VerifyErrorMessageEmptyCheckOutForm() {
+        //1. Click on Checkout button
+        driver.findElement(By.xpath("/html/body/header/div/div/div/a")).click();
+
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+        // 2. Click on "Continue to checkout" button
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        WebElement ContinueToCheckoutButton = driver.findElement(By.xpath("/html/body/main/div[2]/div[2]/form/button"));
+        js.executeScript("arguments[0].scrollIntoView();", ContinueToCheckoutButton);
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+        ContinueToCheckoutButton.click();
+
+        //3. Count number error messages
+        List<WebElement> errorCategories = driver.findElements(By.className("invalid-feedback"));
+        int numberOfErrorMessages = errorCategories.size();
+        Assertions.assertEquals(11, numberOfErrorMessages, "The number of error message is not correct");
+
     }
 
     @AfterAll
