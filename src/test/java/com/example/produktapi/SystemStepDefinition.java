@@ -75,12 +75,43 @@ public class SystemStepDefinition {
         //wait
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
     }
-    
-   
 
-  
+    @When("user select products and clicks on addToCart")
+    public void user_select_products_and_clicks_on_addToCart() {
+        List< WebElement> selectproduct = driver.findElements(By.className("btn-primary"));
+        selectproduct.get(0).click();
+        selectproduct.get(1).click();
+    }
+    @When("user clicks on Checkout button")
+    public void user_clicks_on_checkout_button() {
+        driver.findElement(By.className("btn")).click();
+
+    }
+
+    @Then("verify products {string} are added to cart")
+    public void verify_products_are_added_to_cart(String expectedProduct)
+
+         {
+            List<WebElement> addedProduct = driver.findElements(By.xpath("//*[@class='col-md-5 col-lg-6 order-md-last']//*[@class='my-0 w-75']"));
+
+            Boolean foundProduct1 = false;
+
+            //Loop through the products in the cart and verify that the expected product is present in the cart and then set the boolean value to true
+            for (WebElement i : addedProduct) {
+                if (expectedProduct.equals(i.getText()))
+                {
+                    foundProduct1 = true;
+
+                }
+            }
+
+            Assertions.assertTrue(foundProduct1,"The product "+expectedProduct+  "is not addded");
+
+        }
+
+    }
 
 
 
 
-}
+
