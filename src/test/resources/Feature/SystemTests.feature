@@ -31,6 +31,24 @@ Feature: SystemTesting
     When user click on electronics
     Then verify the number of product is 6
 
+  Scenario: Finding Men's Clothing
+    When user enters Shop
+    Then user clicks on link for Men's Clothing
+
+  Scenario: Adding a Mens product to Cart
+    When user enters Shop
+    When user clicks on link for Men's Clothing
+    Then product is added to cart
+
+  Scenario: Verify the Checkout form page
+    When user clicks on CheckOut button
+    Then The Checkout form page is visible
+
+  Scenario: Error message triggered by empty form fields
+    When user clicks on CheckOut button
+    When user clicks on Continue To Checkout Button
+    Then Error message is triggered
+
 
  Scenario: Verify jewelery is added to cart
    Given website is available
