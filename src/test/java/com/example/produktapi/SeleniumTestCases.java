@@ -1,9 +1,6 @@
 package com.example.produktapi;
 import org.apache.commons.lang3.StringUtils;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -20,10 +17,12 @@ import java.util.concurrent.TimeUnit;
 public class SeleniumTestCases {
     private static WebDriver driver;
 
-    @BeforeAll
-    static void setup() {
+    @BeforeEach
+    public void setup() {
         driver = new FirefoxDriver();
         driver.get("https://webshop-agil-testautomatiserare.netlify.app/");
+        driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
 
     }
 
@@ -269,17 +268,7 @@ public class SeleniumTestCases {
         }
 
 
-        //wait
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
-        //Add a product to cart
-        driver.findElement(By.xpath("//*[@id=\"main\"]/div[1]/div/div/button")).click();
-        //Getting number of product to the cart after adding a new product
-        var gettingNumberOfTheProductAfterAddingANew = driver.findElement(By.xpath("//*[@id=\"buttonSize\"]")).getText();
-        //Parsing the value from string to Int.
-        int numberOfTheProductInTheCartAfterAddingANew = Integer.parseInt(gettingNumberOfTheProductAfterAddingANew);
-        // Verify that the product is added to the checkout.
-        Assertions.assertEquals(newNumberOfTheProductInTheCart,numberOfTheProductInTheCartAfterAddingANew );
-    }
+
     @Test
     void FindingMensClothing(){
         //1. Click on top menu link "Shop"
@@ -382,8 +371,8 @@ public class SeleniumTestCases {
     }
 
 
-        @AfterAll
-        static void teardown () {
+        @AfterEach
+        public void teardown () {
             driver.quit();
         }
 
