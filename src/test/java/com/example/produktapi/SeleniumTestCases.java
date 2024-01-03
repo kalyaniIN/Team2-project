@@ -268,7 +268,7 @@ public class SeleniumTestCases {
         }
 
 
-
+// Suzana.
     @Test
     void FindingMensClothing(){
         //1. Click on top menu link "Shop"
@@ -289,6 +289,7 @@ public class SeleniumTestCases {
         Assertions.assertEquals(4, numberOfProducts, "The number of items is not correct");
     }
 
+    //Suzana.
     @Test
     void MensProductAddToCart() {
         //1. Click on top menu link "Shop"
@@ -330,6 +331,7 @@ public class SeleniumTestCases {
         // 10. Verify that the product is added to the checkout.
         Assertions.assertEquals(newNumberInCart,numberOfTheProductInTheCartAfterAddingANew );
     }
+    // Suzana.
     @Test
     void VerifyCheckOutButton() {
         //1. Click on Checkout button
@@ -341,6 +343,7 @@ public class SeleniumTestCases {
         System.out.println("Title of page is: " + CheckOutPageHeading);
     }
 
+    //Suzana.
     @Test
     void VerifyErrorMessageEmptyCheckOutForm() {
         //1. Click on Checkout button
@@ -370,7 +373,34 @@ public class SeleniumTestCases {
 
     }
 
+    // Suzana
+    @Test
+    void VerifyButtonAllProducts() {
+        // 1. Click on All Products Button on the home page
+        WebElement ButtonAllProduct = driver.findElement(By.xpath("/html/body/div[1]/div/div[1]/div/button"));
+        ButtonAllProduct.click();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
 
+        //2. Count number of items
+        List<WebElement> productCategories = driver.findElements(By.className("col"));
+        int numberOfProducts = productCategories.size();
+        Assertions.assertEquals(20, numberOfProducts, "The number of items is not correct");
+    }
+
+    // Suzana
+    @Test
+    void VerifyFooterLinkCheckout() {
+
+        // 1. Click on the footer link "Checkout" on the home page
+        WebElement CheckoutLink = driver.findElement(By.xpath("/html/body/div[2]/footer/ul/li[3]/a"));
+        CheckoutLink.click();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+
+        //2. The Checkout form page is displayed
+        WebElement pageHeading = driver.findElement(By.tagName("h2"));
+        String pageHeadingText = pageHeading.getText();
+        Assertions.assertEquals("Checkout form", pageHeadingText, "The heading is not correct");
+    }
         @AfterEach
         public void teardown () {
             driver.quit();

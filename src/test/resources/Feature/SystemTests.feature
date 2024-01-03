@@ -84,6 +84,16 @@ Examples:
           |"Lock and Love Womens Removable Hooded Faux Leather Moto Biker Jacket"|
 
 
+  Scenario: Verify the All Products button
+    When user clicks on All Products button
+    Then all products are displayed
 
+  Scenario: Verify the footer link Checkout
+    When user clicks on the link Checkout
+    Then Checkout form page is visible
 
-
+  Scenario: Fill in all fields in Checkout form
+    When user clicks on CheckOut button
+    And user fills in all fields
+    When user clicks on Continue To Checkout Button
+    Then No error messages are triggered
