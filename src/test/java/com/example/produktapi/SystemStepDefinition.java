@@ -17,31 +17,32 @@ import java.util.Objects;
 
 public class SystemStepDefinition {
 
-    static WebDriver driver ;
-
-
+    static WebDriver driver;
 
 
     @Given("website is available")
     public void website_is_available() {
-        driver =new FirefoxDriver();
+        driver = new FirefoxDriver();
     }
+
     @When("the user visits the website")
     public void the_user_visits_the_website() {
         driver.get("https://webshop-agil-testautomatiserare.netlify.app/");
     }
+
     @Then("the title should be {string}")
     public void the_title_should_be(String expectedTitle) {
         String actualTitle = driver.getTitle();
-        Assertions.assertEquals(expectedTitle,actualTitle,"The title is not correct");
+        Assertions.assertEquals(expectedTitle, actualTitle, "The title is not correct");
         driver.quit();
     }
 
     @When("user clicks on Shop")
     public void user_clicks_on_shop() {
-        WebElement shop= driver.findElement(By.linkText("Shop"));
+        WebElement shop = driver.findElement(By.linkText("Shop"));
         shop.click();
     }
+
     @When("wait for {int} millisec")
     public void user_waits_for_sec(Integer int1) {
         try {
@@ -51,21 +52,23 @@ public class SystemStepDefinition {
         }
 
     }
+
     @When("user click on jewelery")
     public void user_click_on_jewelery() {
-        WebElement jewelery= driver.findElement(By.linkText("Jewelery"));
+        WebElement jewelery = driver.findElement(By.linkText("Jewelery"));
         jewelery.click();
     }
+
     @Then("verify the number of product is {int}")
     public void verify_the_number_of_product_is(Integer int1) {
-        List<WebElement> items= driver.findElements(By.className("col"));
-        Assertions.assertEquals(int1,items.size());
+        List<WebElement> items = driver.findElements(By.className("col"));
+        Assertions.assertEquals(int1, items.size());
     }
 
 
     @When("user click on women's clothing")
     public void user_click_on_women_s_clothing() {
-        WebElement cloth= driver.findElement(By.linkText("Women's clothing"));
+        WebElement cloth = driver.findElement(By.linkText("Women's clothing"));
         cloth.click();
     }
 
@@ -80,10 +83,11 @@ public class SystemStepDefinition {
 
     @When("user select products and clicks on addToCart")
     public void user_select_products_and_clicks_on_addToCart() {
-        List< WebElement> selectproduct = driver.findElements(By.className("btn-primary"));
+        List<WebElement> selectproduct = driver.findElements(By.className("btn-primary"));
         selectproduct.get(0).click();
         selectproduct.get(1).click();
     }
+
     @When("user clicks on Checkout button")
     public void user_clicks_on_checkout_button() {
         driver.findElement(By.className("btn")).click();
@@ -91,25 +95,20 @@ public class SystemStepDefinition {
     }
 
     @Then("verify products {string} are added to cart")
-    public void verify_products_are_added_to_cart(String expectedProduct)
+    public void verify_products_are_added_to_cart(String expectedProduct) {
+        List<WebElement> addedProduct = driver.findElements(By.xpath("//*[@class='col-md-5 col-lg-6 order-md-last']//*[@class='my-0 w-75']"));
 
-         {
-            List<WebElement> addedProduct = driver.findElements(By.xpath("//*[@class='col-md-5 col-lg-6 order-md-last']//*[@class='my-0 w-75']"));
+        Boolean foundProduct1 = false;
 
-            Boolean foundProduct1 = false;
+        //Loop through the products in the cart and verify that the expected product is present in the cart and then set the boolean value to true
+        for (WebElement i : addedProduct) {
+            if (expectedProduct.equals(i.getText())) {
+                foundProduct1 = true;
 
-            //Loop through the products in the cart and verify that the expected product is present in the cart and then set the boolean value to true
-            for (WebElement i : addedProduct) {
-                if (expectedProduct.equals(i.getText()))
-                {
-                    foundProduct1 = true;
-
-                }
             }
-
-            Assertions.assertTrue(foundProduct1,"The product "+expectedProduct+  "is not addded");
-
         }
+
+        Assertions.assertTrue(foundProduct1, "The product " + expectedProduct + "is not addded");
 
     }
 
@@ -124,6 +123,7 @@ public class SystemStepDefinition {
             Thread.currentThread().interrupt();
         }
     }
+
     @Then("user clicks on link for Men's Clothing")
     public void user_clicks_on_link_for_men_s_clothing() {
         // 1. Click on menu link Men's Clothing
@@ -145,10 +145,9 @@ public class SystemStepDefinition {
 
         //4. Check if cart was empty or not, if empty set value to 0.
         int NumberInCart;
-        if(Objects.equals(GetNumberOfProductsInCart, "")) {
+        if (Objects.equals(GetNumberOfProductsInCart, "")) {
             NumberInCart = 0;
-        }
-        else {
+        } else {
             // 5. If cart is not empty then parse string value to integer.
             NumberInCart = Integer.parseInt(GetNumberOfProductsInCart);
         }
@@ -164,7 +163,7 @@ public class SystemStepDefinition {
         //9. Parsing the value from string to Int.
         int numberOfTheProductInTheCartAfterAddingANew = Integer.parseInt(gettingNumberOfTheProductAfterAddingANew);
         // 10. Verify that the product is added to the checkout.
-        Assertions.assertEquals(newNumberInCart,numberOfTheProductInTheCartAfterAddingANew );
+        Assertions.assertEquals(newNumberInCart, numberOfTheProductInTheCartAfterAddingANew);
     }
 
 
@@ -178,6 +177,7 @@ public class SystemStepDefinition {
             Thread.currentThread().interrupt();
         }
     }
+
     @Then("The Checkout form page is visible")
     public void the_checkout_form_page_is_visible() {
         // Verify the heading of the Checkout Page
@@ -209,3 +209,16 @@ public class SystemStepDefinition {
         Assertions.assertEquals(11, numberOfErrorMessages, "The number of error message is not correct");
     }
 
+    @When("user clicks on shop link in the footer")
+    public void user_clicks_on_shop_link_in_the_footer() {
+        WebElement shop = driver.findElement(By.xpath("//*[@class='nav col-md-4 justify-content-end']//*[text()='Shop']"));
+        shop.click();
+
+    }
+
+    @When("window size is maximum")
+    public void window_size_is_maximum() {
+       driver.manage().window().maximize();
+    }
+
+}
