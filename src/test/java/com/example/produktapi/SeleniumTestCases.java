@@ -95,7 +95,7 @@ public class SeleniumTestCases {
             List<WebElement> items= driver.findElements(By.className("col"));
             Assertions.assertEquals(4,items.size());
         }
-
+        //Faisal Farman
         @Test
         void goToElectronicsAndCheckNumberOfProduct(){
             //Go to shop
@@ -117,7 +117,7 @@ public class SeleniumTestCases {
             Assertions.assertEquals(6,numberOfElectronicsProduct);
 
         }
-
+        //Faisal Farman
         @Test
         void addElectronicsProductAndCheckThatItIsAddedToTheCheckOut(){
             //Go to Shop
@@ -362,6 +362,140 @@ public class SeleniumTestCases {
         List<WebElement> errorCategories = driver.findElements(By.className("invalid-feedback"));
         int numberOfErrorMessages = errorCategories.size();
         Assertions.assertEquals(11, numberOfErrorMessages, "The number of error message is not correct");
+
+    }
+    //Faisal Farman
+    @Test
+    void addProductFromEachCategoryAndCheckThatItIsAddedToTheCheckOut(){
+        //Go to Shop
+        driver.findElement(By.linkText("Shop")).click();
+        //wait
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        //Go to Electronics page
+        driver.findElement(By.linkText("Electronics")).click();
+
+        //Save the number of the product in the Cart for later assert.
+        var gettingNumberOfTheProductInTheCart = driver.findElement(By.xpath("//*[@id=\"buttonSize\"]")).getText();
+
+        int numberOfTheProductInTheCart;
+        //Check if the cart was empty or not, if empty then setting value to 0.
+        if(Objects.equals(gettingNumberOfTheProductInTheCart, "")) {
+            numberOfTheProductInTheCart = 0;
+        }
+        else {
+            //If the cart is not empty then parsing the string value to integer.
+            numberOfTheProductInTheCart = Integer.parseInt(gettingNumberOfTheProductInTheCart);
+        }
+        //increasing the product number by 1 for later assert and saving in a variable.
+        int newNumberOfTheProductInTheCart = numberOfTheProductInTheCart + 1;
+
+        //wait
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
+        //Add a product to cart
+        driver.findElement(By.xpath("//*[@id=\"main\"]/div[1]/div/div/button")).click();
+        newNumberOfTheProductInTheCart = newNumberOfTheProductInTheCart + 1;
+
+        //Go to Men's clothing page
+        driver.findElement(By.linkText("Men's clothing")).click();
+        //wait
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
+        //Add a product to cart
+        driver.findElement(By.xpath("//*[@id=\"main\"]/div[1]/div/div/button")).click();
+        newNumberOfTheProductInTheCart = newNumberOfTheProductInTheCart + 1;
+
+        //Go to Women's clothing page
+        driver.findElement(By.linkText("Women's clothing")).click();
+        //wait
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
+        //Add a product to cart
+        driver.findElement(By.xpath("//*[@id=\"main\"]/div[1]/div/div/button")).click();
+        newNumberOfTheProductInTheCart = newNumberOfTheProductInTheCart + 1;
+
+        //Go to Jewelery page
+        driver.findElement(By.linkText("Jewelery")).click();
+        //wait
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
+        //Add a product to cart
+        driver.findElement(By.xpath("//*[@id=\"main\"]/div[1]/div/div/button")).click();
+
+        //Getting number of product to the cart after adding a new product
+        var gettingNumberOfTheProductAfterAddingANew = driver.findElement(By.xpath("//*[@id=\"buttonSize\"]")).getText();
+        //Parsing the value from string to Int.
+        int numberOfTheProductInTheCartAfterAddingANew = Integer.parseInt(gettingNumberOfTheProductAfterAddingANew);
+        // Verify that the product is added to the checkout.
+        Assertions.assertEquals(newNumberOfTheProductInTheCart,numberOfTheProductInTheCartAfterAddingANew );
+    }
+
+    //Faisal Farman
+    @Test
+    void removeProductFromTheCart() {
+        //Go to Shop
+        driver.findElement(By.linkText("Shop")).click();
+        //wait
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        //Go to Electronics page
+        driver.findElement(By.linkText("Electronics")).click();
+
+        //wait
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
+
+        //Add a product to cart
+        List<WebElement> productName = driver.findElements(By.xpath("//*[@class='col']//*[@class='card h-100 p-3']//*[@class='card-title fs-4']"));
+        String addedProductName = productName.get(0).getText();
+        driver.findElement(By.xpath("//*[@id=\"main\"]/div[1]/div/div/button")).click();
+
+        //Go to Men's clothing page
+        driver.findElement(By.linkText("Men's clothing")).click();
+        //wait
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
+        //Add a product to cart
+        driver.findElement(By.xpath("//*[@id=\"main\"]/div[1]/div/div/button")).click();
+
+        //Go to Women's clothing page
+        driver.findElement(By.linkText("Women's clothing")).click();
+        //wait
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
+        //Add a product to cart
+        driver.findElement(By.xpath("//*[@id=\"main\"]/div[1]/div/div/button")).click();
+
+        //Go to Jewelery page
+        driver.findElement(By.linkText("Jewelery")).click();
+        //wait
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
+        //Add a product to cart
+        driver.findElement(By.xpath("//*[@id=\"main\"]/div[1]/div/div/button")).click();
+
+        //Go to checkout.
+        driver.findElement(By.xpath("//*[@class='btn btn-warning']")).click();
+
+        //Saving number of product for later assert.
+        var gettingNumberOfTheProductAddedToTheCart = driver.findElement(By.xpath("//*[@id=\"cartSize\"]")).getText();
+        //Parsing to Int.
+        int numberOfTheProductInTheCart = Integer.parseInt(gettingNumberOfTheProductAddedToTheCart);
+
+        //Removing product from the cart
+        List<WebElement> removeButton = driver.findElements(By.xpath("//*[@id=\"cartList\"]//*[starts-with(@class,\"list-group-item d-flex\")]//*[contains(text(),\"Remove\")]"));
+        removeButton.get(0).click();
+
+        //Saving number of product after remove for later assert.
+        var gettingNumberOfTheProductAfterRemove = driver.findElement(By.xpath("//*[@id=\"cartSize\"]")).getText();
+        //Parsing to Int.
+        int numberOfTheProductAfterRemove = Integer.parseInt(gettingNumberOfTheProductAfterRemove);
+        //Verifying that the product is removed from the cart.
+        //Total number of the product decrease by 1
+        Assertions.assertEquals(numberOfTheProductInTheCart-1, numberOfTheProductAfterRemove);
+        //Removed product is not available in Your cart
+        List<WebElement> productInTheCart = driver.findElements(By.xpath("//*[@id='cartList']//*[@class='my-0 w-75']"));
+        Assertions.assertNotEquals(addedProductName, productInTheCart.get(0).getText());
 
     }
 

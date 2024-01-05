@@ -92,6 +92,54 @@ Scenario: Verify clicking on the shop link from footer displays products page
   When window size is maximum
   When user clicks on shop link in the footer
   Then the title should be "Webbutiken"
+  
+  Scenario Outline: Remove a product from the Cart
+    Given website is available
+    When the user visits the website
+    When user clicks on Shop
+    When wait for 1000 millisec
+    When user click on jewelery
+    When wait for 1000 millisec
+    When user select products and clicks on addToCart
+    When user click on electronics
+    When wait for 1000 millisec
+    When user select products and clicks on addToCart
+    When user clicks on link for Men's Clothing
+    When wait for 1000 millisec
+    When user select products and clicks on addToCart
+    When user click on women's clothing
+    When wait for 1000 millisec
+    When user select products and clicks on addToCart
+    When user clicks on Checkout button
+    Then user click on remove buttton and number of product decreased
+    Then Removed product <PRODUCTS> is not available in the your cart.
+    Examples:
+            |PRODUCTS|
+            |"WD 2TB Elements Portable External Hard Drive - USB 3.0"        |
+
+
+    Scenario: Product from different category added to the cart
+      Given website is available
+      When the user visits the website
+      When user clicks on Shop
+      When wait for 1000 millisec
+      When user click on jewelery
+      When wait for 1000 millisec
+      When user select products and clicks on addToCart
+      When user click on electronics
+      When wait for 1000 millisec
+      When user select products and clicks on addToCart
+      When user clicks on link for Men's Clothing
+      When wait for 1000 millisec
+      When user select products and clicks on addToCart
+      When user click on women's clothing
+      When wait for 1000 millisec
+      When user select products and clicks on addToCart
+      Then verify the number of the product to the checkout is 8
+
+
+
+
 
 
 
