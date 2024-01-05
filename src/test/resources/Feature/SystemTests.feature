@@ -5,6 +5,7 @@ Feature: SystemTesting
     When the user visits the website
     Then the title should be "Webbutiken"
 
+   #Testcase written by:Uma
   Scenario: Test the number of products displayed when clicking on Jewelery link
     Given website is available
     When the user visits the website
@@ -14,6 +15,7 @@ Feature: SystemTesting
     When wait for 1000 millisec
     Then verify the number of product is 4
 
+   #Testcase written by:Uma
   Scenario: Test the number of products displayed when clicking on Womens clothing link
     Given website is available
     When the user visits the website
@@ -49,7 +51,7 @@ Feature: SystemTesting
     When user clicks on Continue To Checkout Button
     Then Error message is triggered
 
-
+ #Testcase written by:Uma
  Scenario: Verify jewelery is added to cart
    Given website is available
    When the user visits the website
@@ -66,7 +68,7 @@ Feature: SystemTesting
      |"John Hardy Womens Legends Naga Gold & Silver Dragon Station Chain Bracelet"|
      |"SolGold Petite Micropave"|
 
-
+ #Testcase written by:Uma
   Scenario Outline: Verify women'sclothing is added to cart
     Given website is available
     When the user visits the website
@@ -83,6 +85,14 @@ Examples:
           |"BIYLACLESEN Womens 3-in-1 Snowboard Jacket Winter Coats"|
           |"Lock and Love Womens Removable Hooded Faux Leather Moto Biker Jacket"|
 
+  #Testcase written by:Uma
+Scenario: Verify clicking on the shop link from footer displays products page
+  Given website is available
+  When the user visits the website
+  When window size is maximum
+  When user clicks on shop link in the footer
+  Then the title should be "Webbutiken"
+  
   Scenario Outline: Remove a product from the Cart
     Given website is available
     When the user visits the website

@@ -251,4 +251,18 @@ public class SystemStepDefinition {
     }
 
 
+
+    @When("user clicks on shop link in the footer")
+    public void user_clicks_on_shop_link_in_the_footer() {
+        WebElement shop = driver.findElement(By.xpath("//*[@class='nav col-md-4 justify-content-end']//*[text()='Shop']"));
+        shop.click();
+
+    }
+
+    @When("window size is maximum")
+    public void window_size_is_maximum() {
+       driver.manage().window().maximize();
+    }
+
+
 }

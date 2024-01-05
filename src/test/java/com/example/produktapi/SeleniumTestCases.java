@@ -41,7 +41,7 @@ public class SeleniumTestCases {
     }
 
 
-
+            //Testcase written by :Uma
           @Test
             void testNumberofWomensclothing(){
 
@@ -69,6 +69,7 @@ public class SeleniumTestCases {
 
         }
 
+        //Testcase written by :Uma
         @Test
         void testNumberofJewelery(){
 
@@ -157,6 +158,7 @@ public class SeleniumTestCases {
             Assertions.assertEquals(newNumberOfTheProductInTheCart,numberOfTheProductInTheCartAfterAddingANew );
         }
 
+        //Testcase written by :Uma
     @Test
     void addWomenClothingToCart() {
         WebElement shop = driver.findElement(By.linkText("Shop"));
@@ -177,7 +179,6 @@ public class SeleniumTestCases {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
 
         //addtocart
-
        List< WebElement> selectCloth = driver.findElements(By.className("btn-primary"));
        selectCloth.get(0).click();
        selectCloth.get(1).click();
@@ -187,31 +188,25 @@ public class SeleniumTestCases {
 
         //Get products name displayed in the cart
         List <WebElement> addedProduct = driver.findElements(By.xpath("//*[@class='col-md-5 col-lg-6 order-md-last']//*[@class='my-0 w-75']"));
-
         Boolean foundclothProduct1 = false;
         Boolean foundclothProduct2 = false;
-
 
         for (WebElement i : addedProduct) {
             if ("BIYLACLESEN Womens 3-in-1 Snowboard Jacket Winter Coats".equals(i.getText()))
             {
                 foundclothProduct1 = true;
-
             }
-
             if ("Lock and Love Womens Removable Hooded Faux Leather Moto Biker Jacket".equals(i.getText()))
             {
                 foundclothProduct2 = true;
-
             }
-
         }
 
         Assertions.assertTrue(foundclothProduct1,"The product /'BIYLACLESEN Womens 3-in-1 Snowboard Jacket Winter Coats/' is not added");
         Assertions.assertTrue(foundclothProduct2,"The Product /'Lock and Love Womens Removable Hooded Faux Leather Moto Biker Jacket/' is not added");
-
     }
 
+    //Testcase written by :Uma
     @Test
     void addJewelerytoCart() {
         WebElement shop = driver.findElement(By.linkText("Shop"));
@@ -501,6 +496,18 @@ public class SeleniumTestCases {
         //Removed product is not available in Your cart
         List<WebElement> productInTheCart = driver.findElements(By.xpath("//*[@id='cartList']//*[@class='my-0 w-75']"));
         Assertions.assertNotEquals(addedProductName, productInTheCart.get(0).getText());
+
+    }
+
+    //Testcase written by :Uma
+    @Test
+    void checkShopLink_From_Footer(){
+       //identify shop link from the footer
+       WebElement shop = driver.findElement(By.xpath("//*[@class='nav col-md-4 justify-content-end']//*[text()='Shop']"));
+       shop.click();
+
+       //assert the title of the page
+       Assertions.assertEquals("Webbutiken", driver.getTitle());
 
     }
 
