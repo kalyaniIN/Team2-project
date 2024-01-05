@@ -85,14 +85,17 @@ Examples:
 
 
   Scenario: Verify the All Products button
+    When the user visits the website
     When user clicks on All Products button
     Then all products are displayed
 
   Scenario: Verify the footer link Checkout
+    When the user visits the website
     When user clicks on the link Checkout
     Then Checkout form page is visible
 
   Scenario: Fill in all fields in Checkout form
+    When the user visits the website
     When user clicks on CheckOut button
     And user fills in all fields
     When user clicks on Continue To Checkout Button

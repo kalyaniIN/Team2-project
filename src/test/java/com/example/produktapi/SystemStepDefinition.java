@@ -194,7 +194,7 @@ public class SystemStepDefinition {
         WebElement ContinueToCheckoutButton = driver.findElement(By.xpath("/html/body/main/div[2]/div[2]/form/button"));
         js.executeScript("arguments[0].scrollIntoView();", ContinueToCheckoutButton);
         try {
-            Thread.sleep(1000);
+            Thread.sleep(3000);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
@@ -211,7 +211,7 @@ public class SystemStepDefinition {
 // Suzana.Test case button All products on start page
     @When("user clicks on All Products button")
     public void user_clicks_on_all_products_button() {
-    /* 1. Click on All Products Button on the home page */
+    // 1. Click on All Products Button on the home page
         WebElement ButtonAllProduct = driver.findElement(By.xpath("/html/body/div[1]/div/div[1]/div/button"));
         ButtonAllProduct.click();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
