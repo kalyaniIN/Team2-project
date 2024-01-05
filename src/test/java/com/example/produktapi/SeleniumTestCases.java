@@ -263,7 +263,7 @@ public class SeleniumTestCases {
         }
 
 
-
+// Suzana.
     @Test
     void FindingMensClothing(){
         //1. Click on top menu link "Shop"
@@ -284,6 +284,7 @@ public class SeleniumTestCases {
         Assertions.assertEquals(4, numberOfProducts, "The number of items is not correct");
     }
 
+    //Suzana.
     @Test
     void MensProductAddToCart() {
         //1. Click on top menu link "Shop"
@@ -325,6 +326,7 @@ public class SeleniumTestCases {
         // 10. Verify that the product is added to the checkout.
         Assertions.assertEquals(newNumberInCart,numberOfTheProductInTheCartAfterAddingANew );
     }
+    // Suzana.
     @Test
     void VerifyCheckOutButton() {
         //1. Click on Checkout button
@@ -336,6 +338,7 @@ public class SeleniumTestCases {
         System.out.println("Title of page is: " + CheckOutPageHeading);
     }
 
+    //Suzana.
     @Test
     void VerifyErrorMessageEmptyCheckOutForm() {
         //1. Click on Checkout button
@@ -511,7 +514,80 @@ public class SeleniumTestCases {
 
     }
 
+ // Suzana Test case "Fill in all fields in Checkout form" with no error messages visible
+   @Test
+   void VerifyAllFieldsFilled() {
+     //1. Click on Checkout button
+     driver.findElement(By.xpath("/html/body/header/div/div/div/a")).click();
 
+     try {
+         Thread.sleep(1000);
+     } catch (InterruptedException e) {
+         Thread.currentThread().interrupt();
+     }
+     // 2. Fill in all 11 fields with tag name input
+     String search_term = "a";
+     String search_term_email = "a@a.com";
+
+     driver.findElement(By.id("firstName")).sendKeys(search_term);
+     driver.findElement(By.id("lastName")).sendKeys(search_term);
+     driver.findElement(By.id("email")).sendKeys(search_term_email);
+     driver.findElement(By.id("address")).sendKeys(search_term);
+     driver.findElement(By.id("country")).sendKeys(search_term);
+     driver.findElement(By.id("city")).sendKeys(search_term);
+     driver.findElement(By.id("zip")).sendKeys(search_term);
+     driver.findElement(By.id("cc-name")).sendKeys(search_term);
+     driver.findElement(By.id("cc-number")).sendKeys(search_term);
+     driver.findElement(By.id("cc-expiration")).sendKeys(search_term);
+     driver.findElement(By.id("cc-cvv")).sendKeys(search_term);
+
+     //3. Click on "Continue to checkout" button
+     driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+     JavascriptExecutor js = (JavascriptExecutor) driver;
+     WebElement ContinueToCheckoutButton = driver.findElement(By.xpath("/html/body/main/div[2]/div[2]/form/button"));
+     js.executeScript("arguments[0].scrollIntoView();", ContinueToCheckoutButton);
+
+     try {
+         Thread.sleep(2000);
+     } catch (InterruptedException e) {
+         Thread.currentThread().interrupt();
+     }
+     ContinueToCheckoutButton.click();
+
+     //4. Verify that no error messages appears
+     Boolean errorMessages = driver.findElement(By.className("invalid-feedback")).isDisplayed();
+     Assertions.assertFalse(errorMessages);
+
+   }
+
+ // Suzana. Test case "Verify Button All Products" on start page
+    @Test
+    void VerifyButtonAllProducts() {
+        // 1. Click on All Products Button on the home page
+        WebElement ButtonAllProduct = driver.findElement(By.xpath("/html/body/div[1]/div/div[1]/div/button"));
+        ButtonAllProduct.click();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+
+        //2. Count number of items
+        List<WebElement> productCategories = driver.findElements(By.className("col"));
+        int numberOfProducts = productCategories.size();
+        Assertions.assertEquals(20, numberOfProducts, "The number of items is not correct");
+    }
+
+// Suzana
+    @Test
+    void VerifyFooterLinkCheckout() {
+
+        // 1. Click on the footer link "Checkout" on the home page
+        WebElement CheckoutLink = driver.findElement(By.xpath("/html/body/div[2]/footer/ul/li[3]/a"));
+        CheckoutLink.click();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+
+        //2. The Checkout form page is displayed
+        WebElement pageHeading = driver.findElement(By.tagName("h2"));
+        String pageHeadingText = pageHeading.getText();
+        Assertions.assertEquals("Checkout form", pageHeadingText, "The heading is not correct");
+    }
         @AfterEach
         public void teardown () {
             driver.quit();

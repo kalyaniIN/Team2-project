@@ -114,7 +114,7 @@ public class SystemStepDefinition {
 
     }
 
-
+//Suzana
     //Finding Men's Clothing
     @When("user enters Shop")
     public void user_enters_shop() {
@@ -125,7 +125,7 @@ public class SystemStepDefinition {
             Thread.currentThread().interrupt();
         }
     }
-
+//Suzana
     @Then("user clicks on link for Men's Clothing")
     public void user_clicks_on_link_for_men_s_clothing() {
         // 1. Click on menu link Men's Clothing
@@ -138,7 +138,7 @@ public class SystemStepDefinition {
         int numberOfProducts = productCategories.size();
         Assertions.assertEquals(4, numberOfProducts, "The number of items is not correct");
     }
-
+//Suzana
     @Then("product is added to cart")
     public void product_is_added_to_cart() {
 
@@ -168,7 +168,7 @@ public class SystemStepDefinition {
         Assertions.assertEquals(newNumberInCart, numberOfTheProductInTheCartAfterAddingANew);
     }
 
-
+//Suzana
     @When("user clicks on CheckOut button")
     public void user_clicks_on_check_out_button() {
         //Click on Checkout button
@@ -179,7 +179,7 @@ public class SystemStepDefinition {
             Thread.currentThread().interrupt();
         }
     }
-
+//Suzana
     @Then("The Checkout form page is visible")
     public void the_checkout_form_page_is_visible() {
         // Verify the heading of the Checkout Page
@@ -187,7 +187,7 @@ public class SystemStepDefinition {
         Assertions.assertEquals("Checkout form", CheckOutPageHeading, "The heading is not correct");
         System.out.println("Title of page is: " + CheckOutPageHeading);
     }
-
+//Suzana
     @When("user clicks on Continue To Checkout Button")
     public void user_clicks_on_continue_to_checkout_button() {
         // Click on "Continue to checkout" button
@@ -196,13 +196,13 @@ public class SystemStepDefinition {
         WebElement ContinueToCheckoutButton = driver.findElement(By.xpath("/html/body/main/div[2]/div[2]/form/button"));
         js.executeScript("arguments[0].scrollIntoView();", ContinueToCheckoutButton);
         try {
-            Thread.sleep(1000);
+            Thread.sleep(3000);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
         ContinueToCheckoutButton.click();
     }
-
+// Suzana
     @Then("Error message is triggered")
     public void error_message_is_triggered() {
         //Count number of error messages
@@ -210,6 +210,75 @@ public class SystemStepDefinition {
         int numberOfErrorMessages = errorCategories.size();
         Assertions.assertEquals(11, numberOfErrorMessages, "The number of error message is not correct");
     }
+
+// Suzana.Test case button All products on start page
+    @When("user clicks on All Products button on start page")
+    public void user_clicks_on_all_products_button_on_start_page() {
+    // 1. Click on All Products Button on the home page
+        WebElement ButtonAllProduct = driver.findElement(By.xpath("/html/body/div[1]/div/div[1]/div/button"));
+        ButtonAllProduct.click();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+    }
+    //Suzana
+    @Then("all products are displayed")
+    public void all_products_are_displayed() {
+        //2. Count number items
+        List<WebElement> productCategories = driver.findElements(By.className("col"));
+        int numberOfProducts = productCategories.size();
+        Assertions.assertEquals(20, numberOfProducts, "The number of items is not correct");
+    }
+
+//Suzana.Test case footer link Checkout on start page
+    @When("user clicks on the footer link Checkout")
+    public void user_clicks_on_the_footer_link_checkout() {
+        // 1. Click on the footer link "Checkout" on the home page
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        WebElement CheckoutLink = driver.findElement(By.xpath("/html/body/div[2]/footer/ul/li[3]/a"));
+        js.executeScript("arguments[0].scrollIntoView();", CheckoutLink);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+        CheckoutLink.click();
+    }
+
+ // Suzana
+    @Then("Checkout form page is visible")
+    public void Checkout_form_page_is_visible(){
+        //2. The Checkout form page is displayed
+        WebElement pageHeading = driver.findElement(By.tagName("h2"));
+        String pageHeadingText = pageHeading.getText();
+        Assertions.assertEquals("Checkout form", pageHeadingText, "The heading is not correct");
+        System.out.println("The heading is: " + pageHeadingText);
+    }
+// Suzana. Test case Fill in all fields in Checkout form
+     @When("user fills in all fields")
+     public void user_fills_in_all_fields() {
+      String search_term = "a";
+      String search_term_email="a@a.com";
+
+     driver.findElement(By.id("firstName")).sendKeys(search_term);
+     driver.findElement(By.id("lastName")).sendKeys(search_term);
+     driver.findElement(By.id("email")).sendKeys(search_term_email);
+     driver.findElement(By.id("address")).sendKeys(search_term);
+     driver.findElement(By.id("country")).sendKeys(search_term);
+     driver.findElement(By.id("city")).sendKeys(search_term);
+     driver.findElement(By.id("zip")).sendKeys(search_term);
+     driver.findElement(By.id("cc-name")).sendKeys(search_term);
+     driver.findElement(By.id("cc-number")).sendKeys(search_term);
+     driver.findElement(By.id("cc-expiration")).sendKeys(search_term);
+     driver.findElement(By.id("cc-cvv")).sendKeys(search_term);
+    }
+// Suzana
+    @Then("No error messages are triggered")
+    public void no_error_messages_are_triggered() {
+        Boolean errorMessages = driver.findElement(By.className("invalid-feedback")).isDisplayed();
+        Assertions.assertFalse(errorMessages);
+        System.out.print("No error messages are visible");
+    }
+
     //Faisal Farman
     @Then("verify the number of the product to the checkout is {int}")
     public void verifyTheNumberOfTheProductToTheCheckoutIs(int expectedNumberToTheCheckout) {
@@ -263,6 +332,5 @@ public class SystemStepDefinition {
     public void window_size_is_maximum() {
        driver.manage().window().maximize();
     }
-
 
 }

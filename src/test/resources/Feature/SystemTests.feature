@@ -140,6 +140,19 @@ Scenario: Verify clicking on the shop link from footer displays products page
 
 
 
+  Scenario: Verify the All Products button on start page
+    When the user visits the website
+    When user clicks on All Products button on start page
+    Then all products are displayed
 
+  Scenario: Verify the footer link Checkout
+    When the user visits the website
+    When user clicks on the footer link Checkout
+    Then Checkout form page is visible
 
-
+  Scenario: Fill in all fields in Checkout form
+    When the user visits the website
+    When user clicks on CheckOut button
+    And user fills in all fields
+    When user clicks on Continue To Checkout Button
+    Then No error messages are triggered
