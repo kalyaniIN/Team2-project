@@ -225,7 +225,7 @@ public class SystemStepDefinition {
         Assertions.assertEquals(20, numberOfProducts, "The number of items is not correct");
     }
 
-    // Suzana.Test case footer link Checkout on start page
+//Suzana.Test case footer link Checkout on start page
     @When("user clicks on the link Checkout")
     public void user_clicks_on_the_link_checkout() {
         // 1. Click on the footer link "Checkout" on the home page
@@ -240,6 +240,8 @@ public class SystemStepDefinition {
         }
         CheckoutLink.click();
     }
+
+ // Suzana
     @Then("Checkout form page is visible")
     public void Checkout_form_page_is_visible(){
         //2. The Checkout form page is displayed
@@ -249,23 +251,24 @@ public class SystemStepDefinition {
         System.out.println("The heading is: " + pageHeadingText);
     }
 // Suzana. Test case Fill in all fields in Checkout form
-@When("user fills in all fields")
-public void user_fills_in_all_fields() {
-    String search_term = "a";
-    String search_term_email="a@a.com";
+     @When("user fills in all fields")
+     public void user_fills_in_all_fields() {
+      String search_term = "a";
+      String search_term_email="a@a.com";
 
-    driver.findElement(By.id("firstName")).sendKeys(search_term);
-    driver.findElement(By.id("lastName")).sendKeys(search_term);
-    driver.findElement(By.id("email")).sendKeys(search_term_email);
-    driver.findElement(By.id("address")).sendKeys(search_term);
-    driver.findElement(By.id("country")).sendKeys(search_term);
-    driver.findElement(By.id("city")).sendKeys(search_term);
-    driver.findElement(By.id("zip")).sendKeys(search_term);
-    driver.findElement(By.id("cc-name")).sendKeys(search_term);
-    driver.findElement(By.id("cc-number")).sendKeys(search_term);
-    driver.findElement(By.id("cc-expiration")).sendKeys(search_term);
-    driver.findElement(By.id("cc-cvv")).sendKeys(search_term);
-}
+     driver.findElement(By.id("firstName")).sendKeys(search_term);
+     driver.findElement(By.id("lastName")).sendKeys(search_term);
+     driver.findElement(By.id("email")).sendKeys(search_term_email);
+     driver.findElement(By.id("address")).sendKeys(search_term);
+     driver.findElement(By.id("country")).sendKeys(search_term);
+     driver.findElement(By.id("city")).sendKeys(search_term);
+     driver.findElement(By.id("zip")).sendKeys(search_term);
+     driver.findElement(By.id("cc-name")).sendKeys(search_term);
+     driver.findElement(By.id("cc-number")).sendKeys(search_term);
+     driver.findElement(By.id("cc-expiration")).sendKeys(search_term);
+     driver.findElement(By.id("cc-cvv")).sendKeys(search_term);
+    }
+// Suzana
     @Then("No error messages are triggered")
     public void no_error_messages_are_triggered() {
         Boolean errorMessages = driver.findElement(By.className("invalid-feedback")).isDisplayed();

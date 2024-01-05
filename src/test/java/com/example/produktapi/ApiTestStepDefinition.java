@@ -125,18 +125,22 @@ public class ApiTestStepDefinition {
         response.then().assertThat().body("category[2]",equalTo("jewelery"));
         response.then().assertThat().body("category[3]",equalTo("jewelery"));
     }
+
+  // Suzana
     @When("Given product ID url")
     public void given_product_id_url() {
         baseURI="https://produktapi-6ef53ba8f2f2.herokuapp.com/products/1";
         request = given();
         response =request.request(Method.GET,"");
     }
+ // Suzana
     @Then("Status for request should be {int}")
     public void status_for_request_should_be(Integer expectedStatuscode) {
       int actualCode = response.getStatusCode();
         Assertions.assertEquals(expectedStatuscode,actualCode);
         System.out.println(" The system code is:" + actualCode);
     }
+ // Suzana
     @Then("Verify data in productID body")
     public void verify_data_in_product_id_body() {
         response.then().assertThat().body("description",equalTo("Fin väska me plats för dator"));

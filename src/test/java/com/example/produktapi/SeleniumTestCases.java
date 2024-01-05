@@ -373,7 +373,7 @@ public class SeleniumTestCases {
 
     }
 
-    // Suzana
+ // Suzana
     @Test
     void VerifyButtonAllProducts() {
         // 1. Click on All Products Button on the home page
@@ -387,7 +387,7 @@ public class SeleniumTestCases {
         Assertions.assertEquals(20, numberOfProducts, "The number of items is not correct");
     }
 
-    // Suzana
+// Suzana
     @Test
     void VerifyFooterLinkCheckout() {
 
