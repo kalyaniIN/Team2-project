@@ -209,8 +209,8 @@ public class SystemStepDefinition {
         Assertions.assertEquals(11, numberOfErrorMessages, "The number of error message is not correct");
     }
 // Suzana.Test case button All products on start page
-    @When("user clicks on All Products button")
-    public void user_clicks_on_all_products_button() {
+    @When("user clicks on All Products button on start page")
+    public void user_clicks_on_all_products_button_on_start_page() {
     // 1. Click on All Products Button on the home page
         WebElement ButtonAllProduct = driver.findElement(By.xpath("/html/body/div[1]/div/div[1]/div/button"));
         ButtonAllProduct.click();
@@ -226,8 +226,8 @@ public class SystemStepDefinition {
     }
 
 //Suzana.Test case footer link Checkout on start page
-    @When("user clicks on the link Checkout")
-    public void user_clicks_on_the_link_checkout() {
+    @When("user clicks on the footer link Checkout")
+    public void user_clicks_on_the_footer_link_checkout() {
         // 1. Click on the footer link "Checkout" on the home page
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         JavascriptExecutor js = (JavascriptExecutor) driver;

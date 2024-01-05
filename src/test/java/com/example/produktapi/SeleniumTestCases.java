@@ -373,7 +373,53 @@ public class SeleniumTestCases {
 
     }
 
- // Suzana
+ // Suzana Test case "Fill in all fields in Checkout form" with no error messages visible
+   @Test
+   void VerifyAllFieldsFilled() {
+     //1. Click on Checkout button
+     driver.findElement(By.xpath("/html/body/header/div/div/div/a")).click();
+
+     try {
+         Thread.sleep(1000);
+     } catch (InterruptedException e) {
+         Thread.currentThread().interrupt();
+     }
+     // 2. Fill in all 11 fields with tag name input
+     String search_term = "a";
+     String search_term_email = "a@a.com";
+
+     driver.findElement(By.id("firstName")).sendKeys(search_term);
+     driver.findElement(By.id("lastName")).sendKeys(search_term);
+     driver.findElement(By.id("email")).sendKeys(search_term_email);
+     driver.findElement(By.id("address")).sendKeys(search_term);
+     driver.findElement(By.id("country")).sendKeys(search_term);
+     driver.findElement(By.id("city")).sendKeys(search_term);
+     driver.findElement(By.id("zip")).sendKeys(search_term);
+     driver.findElement(By.id("cc-name")).sendKeys(search_term);
+     driver.findElement(By.id("cc-number")).sendKeys(search_term);
+     driver.findElement(By.id("cc-expiration")).sendKeys(search_term);
+     driver.findElement(By.id("cc-cvv")).sendKeys(search_term);
+
+     //3. Click on "Continue to checkout" button
+     driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+     JavascriptExecutor js = (JavascriptExecutor) driver;
+     WebElement ContinueToCheckoutButton = driver.findElement(By.xpath("/html/body/main/div[2]/div[2]/form/button"));
+     js.executeScript("arguments[0].scrollIntoView();", ContinueToCheckoutButton);
+
+     try {
+         Thread.sleep(2000);
+     } catch (InterruptedException e) {
+         Thread.currentThread().interrupt();
+     }
+     ContinueToCheckoutButton.click();
+
+     //4. Verify that no error messages appears
+     Boolean errorMessages = driver.findElement(By.className("invalid-feedback")).isDisplayed();
+     Assertions.assertFalse(errorMessages);
+
+   }
+
+ // Suzana. Test case "Verify Button All Products" on start page
     @Test
     void VerifyButtonAllProducts() {
         // 1. Click on All Products Button on the home page

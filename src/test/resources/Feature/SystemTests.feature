@@ -84,14 +84,14 @@ Examples:
           |"Lock and Love Womens Removable Hooded Faux Leather Moto Biker Jacket"|
 
 
-  Scenario: Verify the All Products button
+  Scenario: Verify the All Products button on start page
     When the user visits the website
-    When user clicks on All Products button
+    When user clicks on All Products button on start page
     Then all products are displayed
 
   Scenario: Verify the footer link Checkout
     When the user visits the website
-    When user clicks on the link Checkout
+    When user clicks on the footer link Checkout
     Then Checkout form page is visible
 
   Scenario: Fill in all fields in Checkout form
