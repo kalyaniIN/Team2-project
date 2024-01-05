@@ -1,8 +1,10 @@
 package com.example.produktapi;
 
+import io.cucumber.java.AfterAll;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.openqa.selenium.By;
@@ -208,6 +210,7 @@ public class SystemStepDefinition {
         int numberOfErrorMessages = errorCategories.size();
         Assertions.assertEquals(11, numberOfErrorMessages, "The number of error message is not correct");
     }
+
 // Suzana.Test case button All products on start page
     @When("user clicks on All Products button on start page")
     public void user_clicks_on_all_products_button_on_start_page() {
@@ -274,6 +277,60 @@ public class SystemStepDefinition {
         Boolean errorMessages = driver.findElement(By.className("invalid-feedback")).isDisplayed();
         Assertions.assertFalse(errorMessages);
         System.out.print("No error messages are visible");
+    }
+
+    //Faisal Farman
+    @Then("verify the number of the product to the checkout is {int}")
+    public void verifyTheNumberOfTheProductToTheCheckoutIs(int expectedNumberToTheCheckout) {
+        var gettingNumberOfTheProductAfterAddingANew = driver.findElement(By.xpath("//*[@id=\"buttonSize\"]")).getText();
+        //Parsing the value from string to Int.
+        int numberOfTheProductInTheCartAfterAddingANew = Integer.parseInt(gettingNumberOfTheProductAfterAddingANew);
+        // Verify that the product is added to the checkout.
+        Assertions.assertEquals(expectedNumberToTheCheckout,numberOfTheProductInTheCartAfterAddingANew );
+
+    }
+    //Faisal Farman
+    @Then("user click on remove buttton and number of product decreased")
+    public void userClickOnRemoveButttonAndSelectedProductAreRemovedFromTheCart() {
+        //Saving number of product for later assert.
+        var gettingNumberOfTheProductAddedToTheCart = driver.findElement(By.xpath("//*[@id=\"cartSize\"]")).getText();
+        //Parsing to Int.
+        int numberOfTheProductInTheCart = Integer.parseInt(gettingNumberOfTheProductAddedToTheCart);
+
+        //Removing product from the cart
+        List<WebElement> removeButton = driver.findElements(By.xpath("//*[@id=\"cartList\"]//*[starts-with(@class,\"list-group-item d-flex\")]//*[contains(text(),\"Remove\")]"));
+        removeButton.get(0).click();
+
+        //Saving number of product after remove for later assert.
+        var gettingNumberOfTheProductAfterRemove = driver.findElement(By.xpath("//*[@id=\"cartSize\"]")).getText();
+        //Parsing to Int.
+        int numberOfTheProductAfterRemove = Integer.parseInt(gettingNumberOfTheProductAfterRemove);
+        Assertions.assertEquals(numberOfTheProductInTheCart-1, numberOfTheProductAfterRemove);
+    }
+
+    //Faisal Farman
+    @Then("Removed product {string} is not available in the your cart.")
+    public void removed_product_is_not_available_in_the_your_cart(String expectedProduct) {
+        List<WebElement> productInTheCart = driver.findElements(By.xpath("//*[@id='cartList']//*[@class='my-0 w-75']"));
+        Assertions.assertNotEquals(expectedProduct, productInTheCart.get(0).getText());
+    }
+    @AfterEach
+    public void closeBrowser(){
+        driver.quit();
+    }
+
+
+
+    @When("user clicks on shop link in the footer")
+    public void user_clicks_on_shop_link_in_the_footer() {
+        WebElement shop = driver.findElement(By.xpath("//*[@class='nav col-md-4 justify-content-end']//*[text()='Shop']"));
+        shop.click();
+
+    }
+
+    @When("window size is maximum")
+    public void window_size_is_maximum() {
+       driver.manage().window().maximize();
     }
 
 }

@@ -77,6 +77,7 @@ public class ApiTestStepDefinition {
 
         response.then().assertThat().body("category[0]",equalTo("men's clothing"));
     }
+    //Faisal Farman
     @When("Given product by category url")
     public void given_product_by_category_url() {
         baseURI="https://produktapi-6ef53ba8f2f2.herokuapp.com/products/categories/jewelery";
@@ -113,11 +114,7 @@ public class ApiTestStepDefinition {
 
     }
 
-
-
-
-
-
+    //Faisal Farman
     @Then("verify category in the body")
     public void verify_category_in_the_body() {
         response.then().assertThat().body("category[0]",equalTo("jewelery"));

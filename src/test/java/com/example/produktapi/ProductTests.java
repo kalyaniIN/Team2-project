@@ -28,7 +28,7 @@ Product product =new Product("SchoolBag",123.222,"Bag","Adidas","img.jpg");
         product.setDescription("A new bracelet");
         assertEquals("A new bracelet", product.getDescription());
     }
-
+    //Faisal Farman
     @Test
     public void checkProductCategory(){
         //Get the category.
@@ -36,6 +36,7 @@ Product product =new Product("SchoolBag",123.222,"Bag","Adidas","img.jpg");
         // check the category is correct.
         assertEquals("Bag", productCategory);
     }
+    //Faisal Farman
     @Test
     public void setNewCategoryAndCheckThatNewCategoryRetuns(){
         //Declare and set a new category to an existing category.
@@ -46,6 +47,7 @@ Product product =new Product("SchoolBag",123.222,"Bag","Adidas","img.jpg");
         // check the category is correct.
         assertEquals(newCategory, productCategory);
     }
+    //Faisal Farman
     @Test
     public void checkProductPrice(){
         //Get the price.
@@ -64,7 +66,7 @@ Product product =new Product("SchoolBag",123.222,"Bag","Adidas","img.jpg");
     assertEquals(-777,products.getId());
     }
 
-
+    //Faisal Farman
     @Test
     public void setNewPriceAndCheckThatNewPriceReturns(){
         //Declare and set a new price to an existing price.
@@ -74,7 +76,8 @@ Product product =new Product("SchoolBag",123.222,"Bag","Adidas","img.jpg");
         Double productPrice = product.getPrice();
         // check the price is correct.
         assertEquals(newPrice, productPrice);
-    }    @Test
+    }
+    @Test
     public void testGetTitle() {
         // Use the getTitle method and assert the result
         String productTitle = product.getTitle();
