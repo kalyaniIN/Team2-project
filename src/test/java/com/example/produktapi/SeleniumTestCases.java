@@ -2,14 +2,9 @@ package com.example.produktapi;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.support.ui.Wait;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import java.time.Duration;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.concurrent.TimeUnit;
 
 
 public class SeleniumTestCases {
@@ -23,6 +18,8 @@ public class SeleniumTestCases {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
 
     }
+
+    //tests written by - Kalyani
     @Test
     void testAllProductsDisplayed() {
 
@@ -264,7 +261,7 @@ public class SeleniumTestCases {
 
     }
 
-
+    //tests written by - Kalyani
     @Test
     void testProductSearch() {
 
@@ -281,71 +278,76 @@ public class SeleniumTestCases {
         WebElement searchInput = driver.findElement(By.id("search"));
         searchInput.sendKeys(searchString + Keys.ENTER);
 
-        // Wait for the search results
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        WebElement searchResult = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("main")));
+       int searchResultItems = driver.findElements(By.className("col")).size();
+       System.out.println(searchResultItems);
 
-        // Verify that the search result contains the expected product
-        String actualResult = searchResult.getText();
-        Assertions.assertTrue(actualResult.contains(searchString), "Product not found in search results");
-        System.out.println("Actual Result: " + actualResult);
-
-
+        // Assert that the actual size matches the expected size
+        Assertions.assertEquals(7,searchResultItems,
+                "Expected number of search results does not match the actual number");
     }
 
+    //tests written by - Kalyani
     @Test
     void testAddProductToCartAndVerifyCart() {
 
-        //Go to Shop
+        // Go to Shop
         driver.findElement(By.linkText("Shop")).click();
-        //wait
+        // Wait
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
 
-
         // Add a product to the cart
         List<WebElement> selectProducts = driver.findElements(By.className("btn-primary"));
         selectProducts.get(0).click();
         selectProducts.get(7).click();
+        selectProducts.get(10).click();
 
 
-        //click on checkout button
+        // Click on checkout button
         driver.findElement(By.className("btn")).click();
+        // Print the category and price of the products in the cart
+        List<WebElement> addedProducts = driver.findElements(By.xpath("//*[@id='cartList']"));
+        double totalPrice = 0.0;
+        for (WebElement product : addedProducts) {
+            String productName = product.findElement(By.xpath(".//div/h6")).getText();
+            WebElement categoryElement = product.findElement(By.xpath(".//div/small"));
+            WebElement priceElement = product.findElement(By.xpath(".//span"));
 
-        // Verify the category and price of the products in the cart
-        verifyProductCategoryAndPrice("Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops", "mens clothing", 109.95);
-        verifyProductCategoryAndPrice("Pierced Owl Rose Gold Plated Stainless Steel Double", "jewelery", 10.99);
+            String category = categoryElement.getText();
+            String price = priceElement.getText();
+            System.out.println("Product: " + productName + ", Category: " + category + ", Price: " + price);
 
-    }
-
-
-        private void verifyProductCategoryAndPrice(String productName, String expectedCategory, double expectedPrice) {
-            //Get products displayed in the cart
-            List<WebElement> addedProducts = driver.findElements(By.xpath("//*[@id=\"cartList\"]/li[1]/div/h6"));
-
-            for (WebElement product : addedProducts) {
-                if (productName.equals(product.getText())) {
-                    // Find the category and price elements for the matched product
-                    WebElement categoryElement = product.findElement(By.xpath("//*[@id=\"cartList\"]/li[1]/div/small"));
-                    WebElement priceElement = product.findElement(By.xpath("//*[@id=\"cartList\"]/li[1]/span"));
-
-                    // Verify category
-                    Assertions.assertEquals(expectedCategory, categoryElement.getText(), "Incorrect category for product: " + productName);
-
-                    // Verify price
-                    double actualPrice = Double.parseDouble(priceElement.getText().substring(1));
-                    Assertions.assertEquals(expectedPrice, actualPrice, 0.01, "Incorrect price for product: " + productName);
-
-                    // Exit the loop once verification is done for the current product
-                    return;
-                }
+            // Assertions
+            switch (productName) {
+                case "Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops":
+                    Assertions.assertEquals("mens clothing", category);
+                    Assertions.assertEquals("$109.95", price);
+                    totalPrice += Double.parseDouble(price.substring(1));
+                    break;
+                case "Pierced Owl Rose Gold Plated Stainless Steel Double":
+                    Assertions.assertEquals("jewelery", category);
+                    Assertions.assertEquals("$10.99", price);
+                    totalPrice += Double.parseDouble(price.substring(1));
+                    break;
+                case "Silicon Power 256GB SSD 3D NAND A55 SLC Cache Performance Boost SATA III 2.5":
+                    Assertions.assertEquals("electronics", category);
+                    Assertions.assertEquals("$109", price);
+                    totalPrice += Double.parseDouble(price.substring(1));
+                    break;
             }
+        }
+        // Verify total amount
+        WebElement totalElement = driver.findElement(By.xpath("//*[@id=\"cartList\"]/li[4]/strong"));
+        String totalAmount = totalElement.getText();
+        double expectedTotal = 229.94;
+        Assertions.assertEquals("$" + expectedTotal, totalAmount);
 
     }
 
+    //tests written by - Kalyani
     @Test
     public void testHomepageLogo() {
 
@@ -355,6 +357,7 @@ public class SeleniumTestCases {
         Assertions.assertTrue(homePageLogo);
     }
 
+    //tests written by - Kalyani
     @Test
     void testFooterHomeLink() {
         WebElement homeLink = driver.findElement(By.xpath("/html/body/div[2]/footer/ul/li[1]/a"));
@@ -366,6 +369,18 @@ public class SeleniumTestCases {
         Assertions.assertEquals(expectedHomePageUrl, currentUrl, "Clicking on 'Home' link did not lead to the Home page");
     }
 
+    //tests written by - Kalyani
+    @Test
+    void testPayPalCheckoutInfo() {
+        // Click on checkout button
+        driver.findElement(By.className("btn")).click();
+        WebElement payPalButton = driver.findElement(By.id("paypal"));
+        payPalButton.click();
+
+        // Verify the message before redirection
+        WebElement redirectMessage = driver.findElement(By.id("paypalInfo"));
+        Assertions.assertEquals("You will be redirected to PayPal in the next step.", redirectMessage.getText());
+    }
     @AfterEach
     public void teardown(){
         driver.quit();

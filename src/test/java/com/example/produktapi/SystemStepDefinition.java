@@ -13,6 +13,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 public class SystemStepDefinition {
 
@@ -51,11 +52,13 @@ public class SystemStepDefinition {
 
     }
 
+    //Kalyani
     @When("user click on All")
     public void user_click_on_All() {
         WebElement allProducts= driver.findElement(By.linkText("All"));
         allProducts.click();
     }
+    //Kalyani
     @Then("verify the number of products is {int}")
     public void verify_the_number_of_total_product_is(Integer int1) {
         List<WebElement> items= driver.findElements(By.className("col"));
@@ -141,55 +144,71 @@ public class SystemStepDefinition {
         Assertions.assertEquals(newNumberInCart,numberOfTheProductInTheCartAfterAddingANew );
     }
 
+    //Kalyani
     @When("the user is on shop page")
     public void goToAllProducts() {
         driver.get("https://webshop-agil-testautomatiserare.netlify.app/products");
     }
 
-    @When("the user adds the  products to the cart")
-    public void the_user_adds_the_products_to_the_cart() {
+    //Kalyani
+    @When("the user adds products to the cart and clicks checkout button")
+    public void the_user_adds_products_to_the_cart_and_clicks_checkout_button() {
         List<WebElement> selectProducts = driver.findElements(By.className("btn-primary"));
         selectProducts.get(0).click();
         selectProducts.get(7).click();
-    }
+        selectProducts.get(10).click();
 
-    @When("the user clicks on the checkout button")
-    public void the_user_clicks_on_the_checkout_button() {
-        WebElement checkoutButton = driver.findElement(By.className("btn"));
-        checkoutButton.click();
+        // Click on the checkout button
+        driver.findElement(By.className("btn")).click();
     }
-    @Then("the category and price of the products in the cart are verified")
-    public void the_category_and_price_of_the_products_in_the_cart_are_verified() {
-        WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("cartList")));
+    //Kalyani
+    @Then("the user verifies the products in the cart")
+    public void the_user_verifies_the_products_in_the_cart() {
 
-        verifyProductCategoryAndPrice("Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops", "mens clothing", 109.95);
-        verifyProductCategoryAndPrice("Pierced Owl Rose Gold Plated Stainless Steel Double", "jewelery", 10.99);
-    }
-
-    private void verifyProductCategoryAndPrice(String productName, String expectedCategory, double expectedPrice) {
-        //Get products displayed in the cart
-        List<WebElement> addedProducts = driver.findElements(By.xpath("//*[@id=\"cartList\"]/li[1]/div/h6"));
+        List<WebElement> addedProducts = driver.findElements(By.xpath("//*[@id='cartList']"));
+        double totalPrice = 0.0;
 
         for (WebElement product : addedProducts) {
-            if (productName.equals(product.getText())) {
-                // Find the category and price elements for the matched product
-                WebElement categoryElement = product.findElement(By.xpath("//*[@id=\"cartList\"]/li[1]/div/small"));
-                WebElement priceElement = product.findElement(By.xpath("//*[@id=\"cartList\"]/li[1]/span"));
+            String productName = product.findElement(By.xpath(".//div/h6")).getText();
+            WebElement categoryElement = product.findElement(By.xpath(".//div/small"));
+            WebElement priceElement = product.findElement(By.xpath(".//span"));
 
-                // Verify category
-                Assertions.assertEquals(expectedCategory, categoryElement.getText(), "Incorrect category for product: " + productName);
+            String category = categoryElement.getText();
+            String price = priceElement.getText();
 
-                // Verify price
-                double actualPrice = Double.parseDouble(priceElement.getText().substring(1));
-                Assertions.assertEquals(expectedPrice, actualPrice, 0.01, "Incorrect price for product: " + productName);
-
-                // Exit the loop once verification is done for the current product
-                return;
+            // Assertions for each product
+            switch (productName) {
+                case "Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops":
+                    Assertions.assertEquals("mens clothing", category);
+                    Assertions.assertEquals("$109.95", price);
+                    totalPrice += Double.parseDouble(price.substring(1));
+                    break;
+                case "Pierced Owl Rose Gold Plated Stainless Steel Double":
+                    Assertions.assertEquals("jewelery", category);
+                    Assertions.assertEquals("$10.99", price);
+                    totalPrice += Double.parseDouble(price.substring(1));
+                    break;
+                case "Silicon Power 256GB SSD 3D NAND A55 SLC Cache Performance Boost SATA III 2.5":
+                    Assertions.assertEquals("electronics", category);
+                    Assertions.assertEquals("$109", price);
+                    totalPrice += Double.parseDouble(price.substring(1));
+                    break;
             }
         }
-    }
 
+    }
+    //Kalyani
+    @Then("the user verifies the total amount in the cart")
+    public void the_user_verifies_the_total_amount_in_the_cart() {
+        // Use WebDriverWait to wait for the total amount element to be present
+        WebDriverWait wait = new WebDriverWait(driver,  Duration.ofSeconds(20));
+        WebElement totalElement = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id='cartList']/li[5]/strong")));
+
+        // Verify total amount
+        String totalAmount = totalElement.getText();
+        double expectedTotal = 339.89;
+        Assertions.assertEquals("$" + expectedTotal, totalAmount);
+    }
 
     @When("user clicks on CheckOut button")
     public void user_clicks_on_check_out_button() {
@@ -232,32 +251,39 @@ public class SystemStepDefinition {
         Assertions.assertEquals(11, numberOfErrorMessages, "The number of error message is not correct");
     }
 
+    //Kalyani
     @When("the user is on the Shop page")
     public void the_user_is_on_the_shop_page() {
         WebElement shop= driver.findElement(By.linkText("Shop"));
         shop.click();
     }
+    //Kalyani
     @When("the user searches for the product {string}")
     public void the_user_searches_for_the_product(String  searchString) {
+        //wait
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         WebElement searchInput = driver.findElement(By.id("search"));
         searchInput.sendKeys(searchString + Keys.ENTER);
     }
-    @Then("the search results should contain the product {string}")
-    public void the_search_results_should_contain_the_product(String expectedProduct) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        WebElement searchResult = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("main")));
-
-        String actualResult = searchResult.getText();
-        Assertions.assertTrue(actualResult.contains(expectedProduct), "Product not found in search results");
-
+    //Kalyani
+    @Then("the user should see {int} search results")
+    public void the_user_should_see_search_results(int expectedSearchResults) {
+        int actualSearchResults = driver.findElements(By.className("col")).size();
+        Assertions.assertEquals(expectedSearchResults, actualSearchResults,
+                "Expected number of search results does not match the actual number");
     }
 
+    //Kalyani
     @When("the user is on the Home page")
     public void the_user_is_on_the_home_page() {
         driver.get("https://webshop-agil-testautomatiserare.netlify.app/");
     }
 
-
+    //Kalyani
     @Then("the homepage logo is displayed")
     public void the_homepage_logo_is_displayed() {
         boolean homePageLogo = driver.findElement(By.xpath(" /html/body/header/div/div/a")).isDisplayed();
@@ -266,17 +292,41 @@ public class SystemStepDefinition {
         Assertions.assertTrue(homePageLogo);
     }
 
+    //Kalyani
     @When("the user clicks on the 'Home' link in the footer")
     public void the_user_clicks_on_the_link_in_the_footer() {
         WebElement homeLink = driver.findElement(By.xpath("/html/body/div[2]/footer/ul/li[1]/a"));
         homeLink.click();
     }
+    //Kalyani
     @Then("the current URL should be the Home page URL")
     public void the_current_url_should_be_the_home_page_url() {
         String currentUrl = driver.getCurrentUrl();
         String expectedHomePageUrl = "https://webshop-agil-testautomatiserare.netlify.app/";
         Assertions.assertEquals(expectedHomePageUrl, currentUrl, "Clicking on 'Home' link did not lead to the Home page");
     }
+
+    //Kalyani
+    @When("the user is on the checkout page")
+    public void the_user_is_on_the_checkout_page() {
+        // Click on checkout button
+        driver.findElement(By.className("btn")).click();
+    }
+    //Kalyani
+    @When("the user clicks on the PayPal button")
+    public void the_user_clicks_on_the_pay_pal_button() {
+        WebElement payPalButton = driver.findElement(By.id("paypal"));
+        payPalButton.click();
+    }
+    //Kalyani
+    @Then("the user should see the message {string}")
+    public void the_user_should_see_the_message(String expectedMessage) {
+        WebElement redirectMessage = driver.findElement(By.id("paypalInfo"));
+        Assertions.assertEquals(expectedMessage, redirectMessage.getText(),
+                "Unexpected message displayed for PayPal checkout");
+
+    }
+
 
 
 }
