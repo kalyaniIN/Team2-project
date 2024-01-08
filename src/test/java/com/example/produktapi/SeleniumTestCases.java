@@ -1,4 +1,6 @@
 package com.example.produktapi;
+import org.junit.jupiter.api.*;
+import org.openqa.selenium.*;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
@@ -6,19 +8,18 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.support.ui.Wait;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import java.time.Duration;
 import java.util.List;
 import java.util.Objects;
-import java.util.concurrent.TimeUnit;
+
 
 public class SeleniumTestCases {
     private static WebDriver driver;
 
     @BeforeEach
+  
     public void setup() {
+
         driver = new FirefoxDriver();
         driver.get("https://webshop-agil-testautomatiserare.netlify.app/");
         driver.manage().window().maximize();
@@ -26,18 +27,32 @@ public class SeleniumTestCases {
 
     }
 
+
+    //tests written by - Kalyani
+
     @Test
     void testAllProductsDisplayed() {
 
-        driver.get("https://webshop-agil-testautomatiserare.netlify.app/products");
-        WebElement allLink = driver.findElement(By.xpath("/html/body/div[1]/div/ul/li[1]/a"));
+        //clicking on shop
+        WebElement shop= driver.findElement(By.linkText("Shop"));
+        shop.click();
+
+        //wait
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+
+        WebElement allLink = driver.findElement(By.linkText("All"));
         allLink.click();
 
-        // Find all product elements on the page
-//        List<WebElement> productElements = driver.findElements(By.className("nav-link px-2 link-body-emphasis"));
-//
-//        // Check that at least one product is displayed
-//        Assertions.assertTrue(productElements.isEmpty(), "No products found on the page");
+        //wait
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
+
+        //verify number of products displayed in the page
+        List<WebElement> items= driver.findElements(By.className("col"));
+        Assertions.assertEquals(20,items.size());
     }
 
 
@@ -512,7 +527,125 @@ public class SeleniumTestCases {
        //assert the title of the page
        Assertions.assertEquals("Webbutiken", driver.getTitle());
 
+
+    //tests written by - Kalyani
+    @Test
+    void testProductSearch() {
+
+        //Go to Shop
+        driver.findElement(By.linkText("Shop")).click();
+        //wait
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        // Perform a case-sensitive search
+        String searchString = "Women";
+        WebElement searchInput = driver.findElement(By.id("search"));
+        searchInput.sendKeys(searchString + Keys.ENTER);
+
+       int searchResultItems = driver.findElements(By.className("col")).size();
+       System.out.println(searchResultItems);
+
+        // Assert that the actual size matches the expected size
+        Assertions.assertEquals(7,searchResultItems,
+                "Expected number of search results does not match the actual number");
     }
+
+    //tests written by - Kalyani
+    @Test
+    void testAddProductToCartAndVerifyCart() {
+
+        // Go to Shop
+        driver.findElement(By.linkText("Shop")).click();
+        // Wait
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        // Add a product to the cart
+        List<WebElement> selectProducts = driver.findElements(By.className("btn-primary"));
+        selectProducts.get(0).click();
+        selectProducts.get(7).click();
+        selectProducts.get(10).click();
+
+
+        // Click on checkout button
+        driver.findElement(By.className("btn")).click();
+        // Print the category and price of the products in the cart
+        List<WebElement> addedProducts = driver.findElements(By.xpath("//*[@id='cartList']"));
+
+        for (WebElement product : addedProducts) {
+            String productName = product.findElement(By.xpath(".//div/h6")).getText();
+            WebElement categoryElement = product.findElement(By.xpath(".//div/small"));
+            WebElement priceElement = product.findElement(By.xpath(".//span"));
+
+            String category = categoryElement.getText();
+            String price = priceElement.getText();
+            System.out.println("Product: " + productName + ", Category: " + category + ", Price: " + price);
+
+            // Assertions
+            switch (productName) {
+                case "Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops":
+                    Assertions.assertEquals("mens clothing", category);
+                    Assertions.assertEquals("$109.95", price);
+                    break;
+                case "Pierced Owl Rose Gold Plated Stainless Steel Double":
+                    Assertions.assertEquals("jewelery", category);
+                    Assertions.assertEquals("$10.99", price);
+                    break;
+                case "Silicon Power 256GB SSD 3D NAND A55 SLC Cache Performance Boost SATA III 2.5":
+                    Assertions.assertEquals("electronics", category);
+                    Assertions.assertEquals("$109", price);
+                    break;
+            }
+        }
+        // Verify total amount
+        WebElement totalElement = driver.findElement(By.xpath("//*[@id=\"cartList\"]/li[4]/strong"));
+        String totalAmount = totalElement.getText();
+        double expectedTotal = 229.94;
+        Assertions.assertEquals("$" + expectedTotal, totalAmount);
+
+    }
+
+    //tests written by - Kalyani
+    @Test
+    public void testHomepageLogo() {
+
+        boolean homePageLogo = driver.findElement(By.xpath(" /html/body/header/div/div/a")).isDisplayed();
+
+        // Verify that the banner is displayed
+        Assertions.assertTrue(homePageLogo);
+    }
+
+    //tests written by - Kalyani
+    @Test
+    void testFooterHomeLink() {
+        WebElement homeLink = driver.findElement(By.xpath("/html/body/div[2]/footer/ul/li[1]/a"));
+        homeLink.click();
+
+        // Verify that the current URL is the Home page URL
+        String currentUrl = driver.getCurrentUrl();
+        String expectedHomePageUrl = "https://webshop-agil-testautomatiserare.netlify.app/";
+        Assertions.assertEquals(expectedHomePageUrl, currentUrl, "Clicking on 'Home' link did not lead to the Home page");
+    }
+
+    //tests written by - Kalyani
+    @Test
+    void testPayPalCheckoutInfo() {
+        // Click on checkout button
+        driver.findElement(By.className("btn")).click();
+        WebElement payPalButton = driver.findElement(By.id("paypal"));
+        payPalButton.click();
+
+        // Verify the message before redirection
+        WebElement redirectMessage = driver.findElement(By.id("paypalInfo"));
+        Assertions.assertEquals("You will be redirected to PayPal in the next step.", redirectMessage.getText());
+    }
+    
 
  // Suzana Test case "Fill in all fields in Checkout form" with no error messages visible
    @Test

@@ -5,6 +5,18 @@ Feature: SystemTesting
     When the user visits the website
     Then the title should be "Webbutiken"
 
+
+  #Testcase written by: Kalyani
+  Scenario: Test the number of products displayed when clicking on All link
+    Given website is available
+    When the user visits the website
+    When user clicks on Shop
+    When wait for 1000 millisec
+    When user click on All
+    When wait for 1000 millisec
+    Then verify the number of products is 20
+
+
    #Testcase written by:Uma
   Scenario: Test the number of products displayed when clicking on Jewelery link
     Given website is available
@@ -42,6 +54,15 @@ Feature: SystemTesting
     When user clicks on link for Men's Clothing
     Then product is added to cart
 
+  #Testcase written by: Kalyani
+  Scenario: Add products to the cart and verify the cart
+    Given website is available
+    When the user visits the website
+    When the user is on shop page
+    When the user adds products to the cart and clicks checkout button
+    Then the user verifies the products in the cart
+    And the user verifies the total amount in the cart
+
   Scenario: Verify the Checkout form page
     When user clicks on CheckOut button
     Then The Checkout form page is visible
@@ -50,6 +71,29 @@ Feature: SystemTesting
     When user clicks on CheckOut button
     When user clicks on Continue To Checkout Button
     Then Error message is triggered
+
+
+    #Testcase written by: Kalyani
+  Scenario: User searches for a product
+    When the user is on the Shop page
+    When the user searches for the product "Women"
+    Then the user should see 7 search results
+
+    #Testcase written by: Kalyani
+  Scenario: Verify Homepage Logo
+    When the user is on the Home page
+    Then the homepage logo is displayed
+
+    #Testcase written by: Kalyani
+    Scenario: Verify 'Home' link in the footer
+      When the user clicks on the 'Home' link in the footer
+      Then the current URL should be the Home page URL
+
+    #Testcase written by: Kalyani
+  Scenario: Verify PayPal Checkout Information
+    When the user is on the checkout page
+    When the user clicks on the PayPal button
+    Then the user should see the message "You will be redirected to PayPal in the next step."
 
  #Testcase written by:Uma
  Scenario: Verify jewelery is added to cart
@@ -62,7 +106,6 @@ Feature: SystemTesting
    When user select products and clicks on addToCart
    When user clicks on Checkout button
    Then verify products <PRODUCTS> are added to cart
-
    Examples:
      |PRODUCTS|
      |"John Hardy Womens Legends Naga Gold & Silver Dragon Station Chain Bracelet"|
@@ -79,7 +122,6 @@ Feature: SystemTesting
     When user select products and clicks on addToCart
     When user clicks on Checkout button
     Then verify products <PRODUCTS> are added to cart
-
 Examples:
           |PRODUCTS|
           |"BIYLACLESEN Womens 3-in-1 Snowboard Jacket Winter Coats"|
@@ -136,8 +178,6 @@ Scenario: Verify clicking on the shop link from footer displays products page
       When wait for 1000 millisec
       When user select products and clicks on addToCart
       Then verify the number of the product to the checkout is 8
-
-
 
 
   Scenario: Verify the All Products button on start page
