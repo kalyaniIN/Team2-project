@@ -1,6 +1,12 @@
 package com.example.produktapi;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.*;
+import org.apache.commons.lang3.StringUtils;
+import org.junit.jupiter.api.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import java.time.Duration;
 import java.util.List;
@@ -11,7 +17,9 @@ public class SeleniumTestCases {
     private static WebDriver driver;
 
     @BeforeEach
-    public void setup(){
+  
+    public void setup() {
+
         driver = new FirefoxDriver();
         driver.get("https://webshop-agil-testautomatiserare.netlify.app/");
         driver.manage().window().maximize();
@@ -19,7 +27,9 @@ public class SeleniumTestCases {
 
     }
 
+
     //tests written by - Kalyani
+
     @Test
     void testAllProductsDisplayed() {
 
@@ -46,38 +56,175 @@ public class SeleniumTestCases {
     }
 
 
-      @Test
-        void testNumberofWomensclothing(){
+            //Testcase written by :Uma
+          @Test
+            void testNumberofWomensclothing(){
 
-        //clicking on shop
-        WebElement shop= driver.findElement(By.linkText("Shop"));
+            //clicking on shop
+            WebElement shop= driver.findElement(By.linkText("Shop"));
+            shop.click();
+
+            //wait
+              try {
+                  Thread.sleep(1000);
+              } catch (InterruptedException e) {
+                  Thread.currentThread().interrupt();
+              }
+
+            //find and click on women'sclothing
+            WebElement cloth= driver.findElement(By.linkText("Women's clothing"));
+            cloth.click();
+
+           //wait
+           driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
+
+           //verify number of products displayed in the page
+           List<WebElement> items= driver.findElements(By.className("col"));
+           Assertions.assertEquals(6,items.size());
+
+        }
+
+        //Testcase written by :Uma
+        @Test
+        void testNumberofJewelery(){
+
+            //find and click on shop
+            WebElement shop= driver.findElement(By.linkText("Shop"));
+            shop.click();
+
+            //wait
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+
+            //find and click on jewelery
+            WebElement jewelery= driver.findElement(By.linkText("Jewelery"));
+            jewelery.click();
+
+            //wait
+            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
+
+            //verify the number of products displayed in jewelery page
+            List<WebElement> items= driver.findElements(By.className("col"));
+            Assertions.assertEquals(4,items.size());
+        }
+        //Faisal Farman
+        @Test
+        void goToElectronicsAndCheckNumberOfProduct(){
+            //Go to shop
+            driver.findElement(By.linkText("Shop")).click();
+            //wait
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            //Go to Electronics
+            driver.findElement(By.linkText("Electronics")).click();
+
+            //wait
+            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
+
+            //verify the number of products displayed in jewelery page
+            int numberOfElectronicsProduct = driver.findElements(By.className("col")).size();
+            Assertions.assertEquals(6,numberOfElectronicsProduct);
+
+        }
+        //Faisal Farman
+        @Test
+        void addElectronicsProductAndCheckThatItIsAddedToTheCheckOut(){
+            //Go to Shop
+            driver.findElement(By.linkText("Shop")).click();
+            //wait
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            //Go to Electronics page
+            driver.findElement(By.linkText("Electronics")).click();
+
+            //Save the number of the product in the Cart for later assert.
+            var gettingNumberOfTheProductInTheCart = driver.findElement(By.xpath("//*[@id=\"buttonSize\"]")).getText();
+
+            int numberOfTheProductInTheCart;
+            //Check if the cart was empty or not, if empty then setting value to 0.
+            if(Objects.equals(gettingNumberOfTheProductInTheCart, "")) {
+                numberOfTheProductInTheCart = 0;
+            }
+            else {
+                //If the cart is not empty then parsing the string value to integer.
+                numberOfTheProductInTheCart = Integer.parseInt(gettingNumberOfTheProductInTheCart);
+            }
+            //increasing the product number by 1 for later assert and saving in a variable.
+            int newNumberOfTheProductInTheCart = numberOfTheProductInTheCart + 1;
+
+            //wait
+            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
+            //Add a product to cart
+            driver.findElement(By.xpath("//*[@id=\"main\"]/div[1]/div/div/button")).click();
+            //Getting number of product to the cart after adding a new product
+            var gettingNumberOfTheProductAfterAddingANew = driver.findElement(By.xpath("//*[@id=\"buttonSize\"]")).getText();
+            //Parsing the value from string to Int.
+            int numberOfTheProductInTheCartAfterAddingANew = Integer.parseInt(gettingNumberOfTheProductAfterAddingANew);
+            // Verify that the product is added to the checkout.
+            Assertions.assertEquals(newNumberOfTheProductInTheCart,numberOfTheProductInTheCartAfterAddingANew );
+        }
+
+        //Testcase written by :Uma
+    @Test
+    void addWomenClothingToCart() {
+        WebElement shop = driver.findElement(By.linkText("Shop"));
         shop.click();
 
         //wait
-          try {
-              Thread.sleep(1000);
-          } catch (InterruptedException e) {
-              Thread.currentThread().interrupt();
-          }
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
 
-        //find and click on women'sclothing
+        //find and click on Women clothing
         WebElement cloth= driver.findElement(By.linkText("Women's clothing"));
         cloth.click();
 
-       //wait
-       driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
+        //wait
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
 
-       //verify number of products displayed in the page
-       List<WebElement> items= driver.findElements(By.className("col"));
-       Assertions.assertEquals(6,items.size());
+        //addtocart
+       List< WebElement> selectCloth = driver.findElements(By.className("btn-primary"));
+       selectCloth.get(0).click();
+       selectCloth.get(1).click();
 
+        //click on checkout button
+        driver.findElement(By.className("btn")).click();
+
+        //Get products name displayed in the cart
+        List <WebElement> addedProduct = driver.findElements(By.xpath("//*[@class='col-md-5 col-lg-6 order-md-last']//*[@class='my-0 w-75']"));
+        Boolean foundclothProduct1 = false;
+        Boolean foundclothProduct2 = false;
+
+        for (WebElement i : addedProduct) {
+            if ("BIYLACLESEN Womens 3-in-1 Snowboard Jacket Winter Coats".equals(i.getText()))
+            {
+                foundclothProduct1 = true;
+            }
+            if ("Lock and Love Womens Removable Hooded Faux Leather Moto Biker Jacket".equals(i.getText()))
+            {
+                foundclothProduct2 = true;
+            }
+        }
+
+        Assertions.assertTrue(foundclothProduct1,"The product /'BIYLACLESEN Womens 3-in-1 Snowboard Jacket Winter Coats/' is not added");
+        Assertions.assertTrue(foundclothProduct2,"The Product /'Lock and Love Womens Removable Hooded Faux Leather Moto Biker Jacket/' is not added");
     }
 
+    //Testcase written by :Uma
     @Test
-    void testNumberofJewelery(){
-
-        //find and click on shop
-        WebElement shop= driver.findElement(By.linkText("Shop"));
+    void addJewelerytoCart() {
+        WebElement shop = driver.findElement(By.linkText("Shop"));
         shop.click();
 
         //wait
@@ -88,78 +235,50 @@ public class SeleniumTestCases {
         }
 
         //find and click on jewelery
-        WebElement jewelery= driver.findElement(By.linkText("Jewelery"));
+        WebElement jewelery = driver.findElement(By.linkText("Jewelery"));
         jewelery.click();
 
         //wait
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
 
-        //verify the number of products displayed in jewelery page
-        List<WebElement> items= driver.findElements(By.className("col"));
-        Assertions.assertEquals(4,items.size());
-    }
+        //addtocart
 
-    @Test
-    void goToElectronicsAndCheckNumberOfProduct(){
-        //Go to shop
-        driver.findElement(By.linkText("Shop")).click();
-        //wait
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+        List<WebElement> selectJewelery = driver.findElements(By.className("btn-primary"));
+        selectJewelery.get(0).click();
+        selectJewelery.get(1).click();
+
+        //click on checkout button
+        driver.findElement(By.className("btn")).click();
+
+        //Get products name displayed in the cart
+        List<WebElement> addedProduct = driver.findElements(By.xpath("//*[@class='col-md-5 col-lg-6 order-md-last']//*[@class='my-0 w-75']"));
+
+        Boolean foundProduct1 = false;
+        Boolean foundProduct2 = false;
+
+
+        for (WebElement i : addedProduct) {
+            if ("John Hardy Womens Legends Naga Gold & Silver Dragon Station Chain Bracelet".equals(i.getText()))
+            {
+               foundProduct1 = true;
+
+            }
+
+            if ("SolGold Petite Micropave".equals(i.getText()))
+            {
+                foundProduct2 = true;
+
+            }
+
         }
-        //Go to Electronics
-        driver.findElement(By.linkText("Electronics")).click();
 
-        //wait
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
+        Assertions.assertTrue(foundProduct1,"The product /'John Hardy Womens Legends Naga Gold & Silver Dragon Station Chain Bracelet/' is not addded");
+        Assertions.assertTrue(foundProduct2,"The product /'SolGold Petite Micropave /' is not added");
 
-        //verify the number of products displayed in jewelery page
-        int numberOfElectronicsProduct = driver.findElements(By.className("col")).size();
-        Assertions.assertEquals(6,numberOfElectronicsProduct);
-
-    }
-
-    @Test
-    void addElectronicsProductAndCheckThatItIsAddedToTheCheckOut(){
-        //Go to Shop
-        driver.findElement(By.linkText("Shop")).click();
-        //wait
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
         }
-        //Go to Electronics page
-        driver.findElement(By.linkText("Electronics")).click();
 
-        //Save the number of the product in the Cart for later assert.
-        var gettingNumberOfTheProductInTheCart = driver.findElement(By.xpath("//*[@id=\"buttonSize\"]")).getText();
 
-        int numberOfTheProductInTheCart;
-        //Check if the cart was empty or not, if empty then setting value to 0.
-        if(Objects.equals(gettingNumberOfTheProductInTheCart, "")) {
-            numberOfTheProductInTheCart = 0;
-        }
-        else {
-            //If the cart is not empty then parsing the string value to integer.
-            numberOfTheProductInTheCart = Integer.parseInt(gettingNumberOfTheProductInTheCart);
-        }
-        //increasing the product number by 1 for later assert and saving in a variable.
-        int newNumberOfTheProductInTheCart = numberOfTheProductInTheCart + 1;
-
-        //wait
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
-        //Add a product to cart
-        driver.findElement(By.xpath("//*[@id=\"main\"]/div[1]/div/div/button")).click();
-        //Getting number of product to the cart after adding a new product
-        var gettingNumberOfTheProductAfterAddingANew = driver.findElement(By.xpath("//*[@id=\"buttonSize\"]")).getText();
-        //Parsing the value from string to Int.
-        int numberOfTheProductInTheCartAfterAddingANew = Integer.parseInt(gettingNumberOfTheProductAfterAddingANew);
-        // Verify that the product is added to the checkout.
-        Assertions.assertEquals(newNumberOfTheProductInTheCart,numberOfTheProductInTheCartAfterAddingANew );
-    }
+// Suzana.
     @Test
     void FindingMensClothing(){
         //1. Click on top menu link "Shop"
@@ -180,6 +299,7 @@ public class SeleniumTestCases {
         Assertions.assertEquals(4, numberOfProducts, "The number of items is not correct");
     }
 
+    //Suzana.
     @Test
     void MensProductAddToCart() {
         //1. Click on top menu link "Shop"
@@ -221,6 +341,7 @@ public class SeleniumTestCases {
         // 10. Verify that the product is added to the checkout.
         Assertions.assertEquals(newNumberInCart,numberOfTheProductInTheCartAfterAddingANew );
     }
+    // Suzana.
     @Test
     void VerifyCheckOutButton() {
         //1. Click on Checkout button
@@ -232,6 +353,7 @@ public class SeleniumTestCases {
         System.out.println("Title of page is: " + CheckOutPageHeading);
     }
 
+    //Suzana.
     @Test
     void VerifyErrorMessageEmptyCheckOutForm() {
         //1. Click on Checkout button
@@ -260,6 +382,151 @@ public class SeleniumTestCases {
         Assertions.assertEquals(11, numberOfErrorMessages, "The number of error message is not correct");
 
     }
+    //Faisal Farman
+    @Test
+    void addProductFromEachCategoryAndCheckThatItIsAddedToTheCheckOut(){
+        //Go to Shop
+        driver.findElement(By.linkText("Shop")).click();
+        //wait
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        //Go to Electronics page
+        driver.findElement(By.linkText("Electronics")).click();
+
+        //Save the number of the product in the Cart for later assert.
+        var gettingNumberOfTheProductInTheCart = driver.findElement(By.xpath("//*[@id=\"buttonSize\"]")).getText();
+
+        int numberOfTheProductInTheCart;
+        //Check if the cart was empty or not, if empty then setting value to 0.
+        if(Objects.equals(gettingNumberOfTheProductInTheCart, "")) {
+            numberOfTheProductInTheCart = 0;
+        }
+        else {
+            //If the cart is not empty then parsing the string value to integer.
+            numberOfTheProductInTheCart = Integer.parseInt(gettingNumberOfTheProductInTheCart);
+        }
+        //increasing the product number by 1 for later assert and saving in a variable.
+        int newNumberOfTheProductInTheCart = numberOfTheProductInTheCart + 1;
+
+        //wait
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
+        //Add a product to cart
+        driver.findElement(By.xpath("//*[@id=\"main\"]/div[1]/div/div/button")).click();
+        newNumberOfTheProductInTheCart = newNumberOfTheProductInTheCart + 1;
+
+        //Go to Men's clothing page
+        driver.findElement(By.linkText("Men's clothing")).click();
+        //wait
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
+        //Add a product to cart
+        driver.findElement(By.xpath("//*[@id=\"main\"]/div[1]/div/div/button")).click();
+        newNumberOfTheProductInTheCart = newNumberOfTheProductInTheCart + 1;
+
+        //Go to Women's clothing page
+        driver.findElement(By.linkText("Women's clothing")).click();
+        //wait
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
+        //Add a product to cart
+        driver.findElement(By.xpath("//*[@id=\"main\"]/div[1]/div/div/button")).click();
+        newNumberOfTheProductInTheCart = newNumberOfTheProductInTheCart + 1;
+
+        //Go to Jewelery page
+        driver.findElement(By.linkText("Jewelery")).click();
+        //wait
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
+        //Add a product to cart
+        driver.findElement(By.xpath("//*[@id=\"main\"]/div[1]/div/div/button")).click();
+
+        //Getting number of product to the cart after adding a new product
+        var gettingNumberOfTheProductAfterAddingANew = driver.findElement(By.xpath("//*[@id=\"buttonSize\"]")).getText();
+        //Parsing the value from string to Int.
+        int numberOfTheProductInTheCartAfterAddingANew = Integer.parseInt(gettingNumberOfTheProductAfterAddingANew);
+        // Verify that the product is added to the checkout.
+        Assertions.assertEquals(newNumberOfTheProductInTheCart,numberOfTheProductInTheCartAfterAddingANew );
+    }
+
+    //Faisal Farman
+    @Test
+    void removeProductFromTheCart() {
+        //Go to Shop
+        driver.findElement(By.linkText("Shop")).click();
+        //wait
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        //Go to Electronics page
+        driver.findElement(By.linkText("Electronics")).click();
+
+        //wait
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
+
+        //Add a product to cart
+        List<WebElement> productName = driver.findElements(By.xpath("//*[@class='col']//*[@class='card h-100 p-3']//*[@class='card-title fs-4']"));
+        String addedProductName = productName.get(0).getText();
+        driver.findElement(By.xpath("//*[@id=\"main\"]/div[1]/div/div/button")).click();
+
+        //Go to Men's clothing page
+        driver.findElement(By.linkText("Men's clothing")).click();
+        //wait
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
+        //Add a product to cart
+        driver.findElement(By.xpath("//*[@id=\"main\"]/div[1]/div/div/button")).click();
+
+        //Go to Women's clothing page
+        driver.findElement(By.linkText("Women's clothing")).click();
+        //wait
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
+        //Add a product to cart
+        driver.findElement(By.xpath("//*[@id=\"main\"]/div[1]/div/div/button")).click();
+
+        //Go to Jewelery page
+        driver.findElement(By.linkText("Jewelery")).click();
+        //wait
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
+        //Add a product to cart
+        driver.findElement(By.xpath("//*[@id=\"main\"]/div[1]/div/div/button")).click();
+
+        //Go to checkout.
+        driver.findElement(By.xpath("//*[@class='btn btn-warning']")).click();
+
+        //Saving number of product for later assert.
+        var gettingNumberOfTheProductAddedToTheCart = driver.findElement(By.xpath("//*[@id=\"cartSize\"]")).getText();
+        //Parsing to Int.
+        int numberOfTheProductInTheCart = Integer.parseInt(gettingNumberOfTheProductAddedToTheCart);
+
+        //Removing product from the cart
+        List<WebElement> removeButton = driver.findElements(By.xpath("//*[@id=\"cartList\"]//*[starts-with(@class,\"list-group-item d-flex\")]//*[contains(text(),\"Remove\")]"));
+        removeButton.get(0).click();
+
+        //Saving number of product after remove for later assert.
+        var gettingNumberOfTheProductAfterRemove = driver.findElement(By.xpath("//*[@id=\"cartSize\"]")).getText();
+        //Parsing to Int.
+        int numberOfTheProductAfterRemove = Integer.parseInt(gettingNumberOfTheProductAfterRemove);
+        //Verifying that the product is removed from the cart.
+        //Total number of the product decrease by 1
+        Assertions.assertEquals(numberOfTheProductInTheCart-1, numberOfTheProductAfterRemove);
+        //Removed product is not available in Your cart
+        List<WebElement> productInTheCart = driver.findElements(By.xpath("//*[@id='cartList']//*[@class='my-0 w-75']"));
+        Assertions.assertNotEquals(addedProductName, productInTheCart.get(0).getText());
+
+    }
+
+    //Testcase written by :Uma
+    @Test
+    void checkShopLink_From_Footer(){
+       //identify shop link from the footer
+       WebElement shop = driver.findElement(By.xpath("//*[@class='nav col-md-4 justify-content-end']//*[text()='Shop']"));
+       shop.click();
+
+       //assert the title of the page
+       Assertions.assertEquals("Webbutiken", driver.getTitle());
+
 
     //tests written by - Kalyani
     @Test
@@ -378,9 +645,85 @@ public class SeleniumTestCases {
         WebElement redirectMessage = driver.findElement(By.id("paypalInfo"));
         Assertions.assertEquals("You will be redirected to PayPal in the next step.", redirectMessage.getText());
     }
-    @AfterEach
-    public void teardown(){
-        driver.quit();
+    
+
+ // Suzana Test case "Fill in all fields in Checkout form" with no error messages visible
+   @Test
+   void VerifyAllFieldsFilled() {
+     //1. Click on Checkout button
+     driver.findElement(By.xpath("/html/body/header/div/div/div/a")).click();
+
+     try {
+         Thread.sleep(1000);
+     } catch (InterruptedException e) {
+         Thread.currentThread().interrupt();
+     }
+     // 2. Fill in all 11 fields with tag name input
+     String search_term = "a";
+     String search_term_email = "a@a.com";
+
+     driver.findElement(By.id("firstName")).sendKeys(search_term);
+     driver.findElement(By.id("lastName")).sendKeys(search_term);
+     driver.findElement(By.id("email")).sendKeys(search_term_email);
+     driver.findElement(By.id("address")).sendKeys(search_term);
+     driver.findElement(By.id("country")).sendKeys(search_term);
+     driver.findElement(By.id("city")).sendKeys(search_term);
+     driver.findElement(By.id("zip")).sendKeys(search_term);
+     driver.findElement(By.id("cc-name")).sendKeys(search_term);
+     driver.findElement(By.id("cc-number")).sendKeys(search_term);
+     driver.findElement(By.id("cc-expiration")).sendKeys(search_term);
+     driver.findElement(By.id("cc-cvv")).sendKeys(search_term);
+
+     //3. Click on "Continue to checkout" button
+     driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+     JavascriptExecutor js = (JavascriptExecutor) driver;
+     WebElement ContinueToCheckoutButton = driver.findElement(By.xpath("/html/body/main/div[2]/div[2]/form/button"));
+     js.executeScript("arguments[0].scrollIntoView();", ContinueToCheckoutButton);
+
+     try {
+         Thread.sleep(2000);
+     } catch (InterruptedException e) {
+         Thread.currentThread().interrupt();
+     }
+     ContinueToCheckoutButton.click();
+
+     //4. Verify that no error messages appears
+     Boolean errorMessages = driver.findElement(By.className("invalid-feedback")).isDisplayed();
+     Assertions.assertFalse(errorMessages);
+
+   }
+
+ // Suzana. Test case "Verify Button All Products" on start page
+    @Test
+    void VerifyButtonAllProducts() {
+        // 1. Click on All Products Button on the home page
+        WebElement ButtonAllProduct = driver.findElement(By.xpath("/html/body/div[1]/div/div[1]/div/button"));
+        ButtonAllProduct.click();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+
+        //2. Count number of items
+        List<WebElement> productCategories = driver.findElements(By.className("col"));
+        int numberOfProducts = productCategories.size();
+        Assertions.assertEquals(20, numberOfProducts, "The number of items is not correct");
     }
 
-}
+// Suzana
+    @Test
+    void VerifyFooterLinkCheckout() {
+
+        // 1. Click on the footer link "Checkout" on the home page
+        WebElement CheckoutLink = driver.findElement(By.xpath("/html/body/div[2]/footer/ul/li[3]/a"));
+        CheckoutLink.click();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+
+        //2. The Checkout form page is displayed
+        WebElement pageHeading = driver.findElement(By.tagName("h2"));
+        String pageHeadingText = pageHeading.getText();
+        Assertions.assertEquals("Checkout form", pageHeadingText, "The heading is not correct");
+    }
+        @AfterEach
+        public void teardown () {
+            driver.quit();
+        }
+
+    }

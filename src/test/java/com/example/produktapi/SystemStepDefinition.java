@@ -1,8 +1,10 @@
 package com.example.produktapi;
 
+import io.cucumber.java.AfterAll;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.openqa.selenium.*;
@@ -18,31 +20,32 @@ import java.util.concurrent.TimeUnit;
 
 public class SystemStepDefinition {
 
-    static WebDriver driver ;
-
-
+    static WebDriver driver;
 
 
     @Given("website is available")
     public void website_is_available() {
-        driver =new FirefoxDriver();
+        driver = new FirefoxDriver();
     }
+
     @When("the user visits the website")
     public void the_user_visits_the_website() {
         driver.get("https://webshop-agil-testautomatiserare.netlify.app/");
     }
+
     @Then("the title should be {string}")
     public void the_title_should_be(String expectedTitle) {
         String actualTitle = driver.getTitle();
-        Assertions.assertEquals(expectedTitle,actualTitle,"The title is not correct");
+        Assertions.assertEquals(expectedTitle, actualTitle, "The title is not correct");
         driver.quit();
     }
 
     @When("user clicks on Shop")
     public void user_clicks_on_shop() {
-        WebElement shop= driver.findElement(By.linkText("Shop"));
+        WebElement shop = driver.findElement(By.linkText("Shop"));
         shop.click();
     }
+
     @When("wait for {int} millisec")
     public void user_waits_for_sec(Integer int1) {
         try {
@@ -52,6 +55,7 @@ public class SystemStepDefinition {
         }
 
     }
+
 
     //Kalyani
     @When("user click on All")
@@ -66,21 +70,23 @@ public class SystemStepDefinition {
         Assertions.assertEquals(int1,items.size());
     }
 
+
     @When("user click on jewelery")
     public void user_click_on_jewelery() {
-        WebElement jewelery= driver.findElement(By.linkText("Jewelery"));
+        WebElement jewelery = driver.findElement(By.linkText("Jewelery"));
         jewelery.click();
     }
+
     @Then("verify the number of product is {int}")
     public void verify_the_number_of_product_is(Integer int1) {
-        List<WebElement> items= driver.findElements(By.className("col"));
-        Assertions.assertEquals(int1,items.size());
+        List<WebElement> items = driver.findElements(By.className("col"));
+        Assertions.assertEquals(int1, items.size());
     }
 
 
     @When("user click on women's clothing")
     public void user_click_on_women_s_clothing() {
-        WebElement cloth= driver.findElement(By.linkText("Women's clothing"));
+        WebElement cloth = driver.findElement(By.linkText("Women's clothing"));
         cloth.click();
     }
 
@@ -92,6 +98,39 @@ public class SystemStepDefinition {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
     }
 
+
+    @When("user select products and clicks on addToCart")
+    public void user_select_products_and_clicks_on_addToCart() {
+        List<WebElement> selectproduct = driver.findElements(By.className("btn-primary"));
+        selectproduct.get(0).click();
+        selectproduct.get(1).click();
+    }
+
+    @When("user clicks on Checkout button")
+    public void user_clicks_on_checkout_button() {
+        driver.findElement(By.className("btn")).click();
+
+    }
+
+    @Then("verify products {string} are added to cart")
+    public void verify_products_are_added_to_cart(String expectedProduct) {
+        List<WebElement> addedProduct = driver.findElements(By.xpath("//*[@class='col-md-5 col-lg-6 order-md-last']//*[@class='my-0 w-75']"));
+
+        Boolean foundProduct1 = false;
+
+        //Loop through the products in the cart and verify that the expected product is present in the cart and then set the boolean value to true
+        for (WebElement i : addedProduct) {
+            if (expectedProduct.equals(i.getText())) {
+                foundProduct1 = true;
+
+            }
+        }
+
+        Assertions.assertTrue(foundProduct1, "The product " + expectedProduct + "is not addded");
+
+    }
+
+//Suzana
     //Finding Men's Clothing
     @When("user enters Shop")
     public void user_enters_shop() {
@@ -102,6 +141,7 @@ public class SystemStepDefinition {
             Thread.currentThread().interrupt();
         }
     }
+//Suzana
     @Then("user clicks on link for Men's Clothing")
     public void user_clicks_on_link_for_men_s_clothing() {
         // 1. Click on menu link Men's Clothing
@@ -114,7 +154,7 @@ public class SystemStepDefinition {
         int numberOfProducts = productCategories.size();
         Assertions.assertEquals(4, numberOfProducts, "The number of items is not correct");
     }
-
+//Suzana
     @Then("product is added to cart")
     public void product_is_added_to_cart() {
 
@@ -123,10 +163,9 @@ public class SystemStepDefinition {
 
         //4. Check if cart was empty or not, if empty set value to 0.
         int NumberInCart;
-        if(Objects.equals(GetNumberOfProductsInCart, "")) {
+        if (Objects.equals(GetNumberOfProductsInCart, "")) {
             NumberInCart = 0;
-        }
-        else {
+        } else {
             // 5. If cart is not empty then parse string value to integer.
             NumberInCart = Integer.parseInt(GetNumberOfProductsInCart);
         }
@@ -142,8 +181,9 @@ public class SystemStepDefinition {
         //9. Parsing the value from string to Int.
         int numberOfTheProductInTheCartAfterAddingANew = Integer.parseInt(gettingNumberOfTheProductAfterAddingANew);
         // 10. Verify that the product is added to the checkout.
-        Assertions.assertEquals(newNumberInCart,numberOfTheProductInTheCartAfterAddingANew );
+        Assertions.assertEquals(newNumberInCart, numberOfTheProductInTheCartAfterAddingANew);
     }
+
 
     //Kalyani
 
@@ -214,6 +254,9 @@ public class SystemStepDefinition {
         Assertions.assertEquals("$" + expectedTotal, totalAmount);
     }
 
+
+//Suzana
+
     @When("user clicks on CheckOut button")
     public void user_clicks_on_check_out_button() {
         //Click on Checkout button
@@ -224,6 +267,7 @@ public class SystemStepDefinition {
             Thread.currentThread().interrupt();
         }
     }
+//Suzana
     @Then("The Checkout form page is visible")
     public void the_checkout_form_page_is_visible() {
         // Verify the heading of the Checkout Page
@@ -231,7 +275,7 @@ public class SystemStepDefinition {
         Assertions.assertEquals("Checkout form", CheckOutPageHeading, "The heading is not correct");
         System.out.println("Title of page is: " + CheckOutPageHeading);
     }
-
+//Suzana
     @When("user clicks on Continue To Checkout Button")
     public void user_clicks_on_continue_to_checkout_button() {
         // Click on "Continue to checkout" button
@@ -240,13 +284,13 @@ public class SystemStepDefinition {
         WebElement ContinueToCheckoutButton = driver.findElement(By.xpath("/html/body/main/div[2]/div[2]/form/button"));
         js.executeScript("arguments[0].scrollIntoView();", ContinueToCheckoutButton);
         try {
-            Thread.sleep(1000);
+            Thread.sleep(3000);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
         ContinueToCheckoutButton.click();
     }
-
+// Suzana
     @Then("Error message is triggered")
     public void error_message_is_triggered() {
         //Count number of error messages
@@ -254,6 +298,7 @@ public class SystemStepDefinition {
         int numberOfErrorMessages = errorCategories.size();
         Assertions.assertEquals(11, numberOfErrorMessages, "The number of error message is not correct");
     }
+
 
     //Kalyani
     @When("the user is on the Shop page")
@@ -335,3 +380,128 @@ public class SystemStepDefinition {
 
 
 }
+
+// Suzana.Test case button All products on start page
+    @When("user clicks on All Products button on start page")
+    public void user_clicks_on_all_products_button_on_start_page() {
+    // 1. Click on All Products Button on the home page
+        WebElement ButtonAllProduct = driver.findElement(By.xpath("/html/body/div[1]/div/div[1]/div/button"));
+        ButtonAllProduct.click();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+    }
+    //Suzana
+    @Then("all products are displayed")
+    public void all_products_are_displayed() {
+        //2. Count number items
+        List<WebElement> productCategories = driver.findElements(By.className("col"));
+        int numberOfProducts = productCategories.size();
+        Assertions.assertEquals(20, numberOfProducts, "The number of items is not correct");
+    }
+
+//Suzana.Test case footer link Checkout on start page
+    @When("user clicks on the footer link Checkout")
+    public void user_clicks_on_the_footer_link_checkout() {
+        // 1. Click on the footer link "Checkout" on the home page
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        WebElement CheckoutLink = driver.findElement(By.xpath("/html/body/div[2]/footer/ul/li[3]/a"));
+        js.executeScript("arguments[0].scrollIntoView();", CheckoutLink);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+        CheckoutLink.click();
+    }
+
+ // Suzana
+    @Then("Checkout form page is visible")
+    public void Checkout_form_page_is_visible(){
+        //2. The Checkout form page is displayed
+        WebElement pageHeading = driver.findElement(By.tagName("h2"));
+        String pageHeadingText = pageHeading.getText();
+        Assertions.assertEquals("Checkout form", pageHeadingText, "The heading is not correct");
+        System.out.println("The heading is: " + pageHeadingText);
+    }
+// Suzana. Test case Fill in all fields in Checkout form
+     @When("user fills in all fields")
+     public void user_fills_in_all_fields() {
+      String search_term = "a";
+      String search_term_email="a@a.com";
+
+     driver.findElement(By.id("firstName")).sendKeys(search_term);
+     driver.findElement(By.id("lastName")).sendKeys(search_term);
+     driver.findElement(By.id("email")).sendKeys(search_term_email);
+     driver.findElement(By.id("address")).sendKeys(search_term);
+     driver.findElement(By.id("country")).sendKeys(search_term);
+     driver.findElement(By.id("city")).sendKeys(search_term);
+     driver.findElement(By.id("zip")).sendKeys(search_term);
+     driver.findElement(By.id("cc-name")).sendKeys(search_term);
+     driver.findElement(By.id("cc-number")).sendKeys(search_term);
+     driver.findElement(By.id("cc-expiration")).sendKeys(search_term);
+     driver.findElement(By.id("cc-cvv")).sendKeys(search_term);
+    }
+// Suzana
+    @Then("No error messages are triggered")
+    public void no_error_messages_are_triggered() {
+        Boolean errorMessages = driver.findElement(By.className("invalid-feedback")).isDisplayed();
+        Assertions.assertFalse(errorMessages);
+        System.out.print("No error messages are visible");
+    }
+
+    //Faisal Farman
+    @Then("verify the number of the product to the checkout is {int}")
+    public void verifyTheNumberOfTheProductToTheCheckoutIs(int expectedNumberToTheCheckout) {
+        var gettingNumberOfTheProductAfterAddingANew = driver.findElement(By.xpath("//*[@id=\"buttonSize\"]")).getText();
+        //Parsing the value from string to Int.
+        int numberOfTheProductInTheCartAfterAddingANew = Integer.parseInt(gettingNumberOfTheProductAfterAddingANew);
+        // Verify that the product is added to the checkout.
+        Assertions.assertEquals(expectedNumberToTheCheckout,numberOfTheProductInTheCartAfterAddingANew );
+
+    }
+    //Faisal Farman
+    @Then("user click on remove buttton and number of product decreased")
+    public void userClickOnRemoveButttonAndSelectedProductAreRemovedFromTheCart() {
+        //Saving number of product for later assert.
+        var gettingNumberOfTheProductAddedToTheCart = driver.findElement(By.xpath("//*[@id=\"cartSize\"]")).getText();
+        //Parsing to Int.
+        int numberOfTheProductInTheCart = Integer.parseInt(gettingNumberOfTheProductAddedToTheCart);
+
+        //Removing product from the cart
+        List<WebElement> removeButton = driver.findElements(By.xpath("//*[@id=\"cartList\"]//*[starts-with(@class,\"list-group-item d-flex\")]//*[contains(text(),\"Remove\")]"));
+        removeButton.get(0).click();
+
+        //Saving number of product after remove for later assert.
+        var gettingNumberOfTheProductAfterRemove = driver.findElement(By.xpath("//*[@id=\"cartSize\"]")).getText();
+        //Parsing to Int.
+        int numberOfTheProductAfterRemove = Integer.parseInt(gettingNumberOfTheProductAfterRemove);
+        Assertions.assertEquals(numberOfTheProductInTheCart-1, numberOfTheProductAfterRemove);
+    }
+
+    //Faisal Farman
+    @Then("Removed product {string} is not available in the your cart.")
+    public void removed_product_is_not_available_in_the_your_cart(String expectedProduct) {
+        List<WebElement> productInTheCart = driver.findElements(By.xpath("//*[@id='cartList']//*[@class='my-0 w-75']"));
+        Assertions.assertNotEquals(expectedProduct, productInTheCart.get(0).getText());
+    }
+    @AfterEach
+    public void closeBrowser(){
+        driver.quit();
+    }
+
+
+
+    @When("user clicks on shop link in the footer")
+    public void user_clicks_on_shop_link_in_the_footer() {
+        WebElement shop = driver.findElement(By.xpath("//*[@class='nav col-md-4 justify-content-end']//*[text()='Shop']"));
+        shop.click();
+
+    }
+
+    @When("window size is maximum")
+    public void window_size_is_maximum() {
+       driver.manage().window().maximize();
+    }
+
+}
+
