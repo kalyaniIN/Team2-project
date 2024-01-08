@@ -310,7 +310,7 @@ public class SeleniumTestCases {
         driver.findElement(By.className("btn")).click();
         // Print the category and price of the products in the cart
         List<WebElement> addedProducts = driver.findElements(By.xpath("//*[@id='cartList']"));
-        double totalPrice = 0.0;
+
         for (WebElement product : addedProducts) {
             String productName = product.findElement(By.xpath(".//div/h6")).getText();
             WebElement categoryElement = product.findElement(By.xpath(".//div/small"));
@@ -325,17 +325,14 @@ public class SeleniumTestCases {
                 case "Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops":
                     Assertions.assertEquals("mens clothing", category);
                     Assertions.assertEquals("$109.95", price);
-                    totalPrice += Double.parseDouble(price.substring(1));
                     break;
                 case "Pierced Owl Rose Gold Plated Stainless Steel Double":
                     Assertions.assertEquals("jewelery", category);
                     Assertions.assertEquals("$10.99", price);
-                    totalPrice += Double.parseDouble(price.substring(1));
                     break;
                 case "Silicon Power 256GB SSD 3D NAND A55 SLC Cache Performance Boost SATA III 2.5":
                     Assertions.assertEquals("electronics", category);
                     Assertions.assertEquals("$109", price);
-                    totalPrice += Double.parseDouble(price.substring(1));
                     break;
             }
         }

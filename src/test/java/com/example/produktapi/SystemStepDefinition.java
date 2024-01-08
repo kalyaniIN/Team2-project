@@ -10,6 +10,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.sql.SQLOutput;
 import java.time.Duration;
 import java.util.List;
 import java.util.Objects;
@@ -145,6 +146,7 @@ public class SystemStepDefinition {
     }
 
     //Kalyani
+
     @When("the user is on shop page")
     public void goToAllProducts() {
         driver.get("https://webshop-agil-testautomatiserare.netlify.app/products");
@@ -166,7 +168,9 @@ public class SystemStepDefinition {
     public void the_user_verifies_the_products_in_the_cart() {
 
         List<WebElement> addedProducts = driver.findElements(By.xpath("//*[@id='cartList']"));
-        double totalPrice = 0.0;
+
+        System.out.println("Kalyani added products" + addedProducts.size());
+
 
         for (WebElement product : addedProducts) {
             String productName = product.findElement(By.xpath(".//div/h6")).getText();
@@ -181,17 +185,14 @@ public class SystemStepDefinition {
                 case "Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops":
                     Assertions.assertEquals("mens clothing", category);
                     Assertions.assertEquals("$109.95", price);
-                    totalPrice += Double.parseDouble(price.substring(1));
                     break;
                 case "Pierced Owl Rose Gold Plated Stainless Steel Double":
                     Assertions.assertEquals("jewelery", category);
                     Assertions.assertEquals("$10.99", price);
-                    totalPrice += Double.parseDouble(price.substring(1));
                     break;
                 case "Silicon Power 256GB SSD 3D NAND A55 SLC Cache Performance Boost SATA III 2.5":
                     Assertions.assertEquals("electronics", category);
                     Assertions.assertEquals("$109", price);
-                    totalPrice += Double.parseDouble(price.substring(1));
                     break;
             }
         }
@@ -202,11 +203,11 @@ public class SystemStepDefinition {
     public void the_user_verifies_the_total_amount_in_the_cart() {
         // Use WebDriverWait to wait for the total amount element to be present
         WebDriverWait wait = new WebDriverWait(driver,  Duration.ofSeconds(20));
-        WebElement totalElement = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id='cartList']/li[5]/strong")));
+        WebElement totalElement = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id='cartList']/li[4]/strong")));
 
         // Verify total amount
         String totalAmount = totalElement.getText();
-        double expectedTotal = 339.89;
+        double expectedTotal = 229.94;
         Assertions.assertEquals("$" + expectedTotal, totalAmount);
     }
 
@@ -260,14 +261,15 @@ public class SystemStepDefinition {
     //Kalyani
     @When("the user searches for the product {string}")
     public void the_user_searches_for_the_product(String  searchString) {
+
+        WebElement searchInput = driver.findElement(By.id("search"));
+        searchInput.sendKeys(searchString + Keys.ENTER);
         //wait
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        WebElement searchInput = driver.findElement(By.id("search"));
-        searchInput.sendKeys(searchString + Keys.ENTER);
     }
     //Kalyani
     @Then("the user should see {int} search results")

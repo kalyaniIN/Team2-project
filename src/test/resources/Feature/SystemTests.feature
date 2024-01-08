@@ -52,7 +52,9 @@ Feature: SystemTesting
 
   #Testcase written by: Kalyani
   Scenario: Add products to the cart and verify the cart
-    When the user is on the Shop page
+    Given website is available
+    When the user visits the website
+    When the user is on shop page
     When the user adds products to the cart and clicks checkout button
     Then the user verifies the products in the cart
     And the user verifies the total amount in the cart
