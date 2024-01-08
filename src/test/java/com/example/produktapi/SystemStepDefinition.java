@@ -378,9 +378,6 @@ public class SystemStepDefinition {
     }
 
 
-
-}
-
 // Suzana.Test case button All products on start page
     @When("user clicks on All Products button on start page")
     public void user_clicks_on_all_products_button_on_start_page() {
