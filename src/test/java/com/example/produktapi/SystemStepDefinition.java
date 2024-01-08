@@ -155,7 +155,10 @@ public class SystemStepDefinition {
     //Kalyani
     @When("the user adds products to the cart and clicks checkout button")
     public void the_user_adds_products_to_the_cart_and_clicks_checkout_button() {
-        List<WebElement> selectProducts = driver.findElements(By.className("btn-primary"));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+        // Wait for the elements with the class "btn-primary" to be present
+        List<WebElement> selectProducts = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.className("btn-primary")));
         selectProducts.get(0).click();
         selectProducts.get(7).click();
         selectProducts.get(10).click();
@@ -261,15 +264,15 @@ public class SystemStepDefinition {
     //Kalyani
     @When("the user searches for the product {string}")
     public void the_user_searches_for_the_product(String  searchString) {
-
-        WebElement searchInput = driver.findElement(By.id("search"));
-        searchInput.sendKeys(searchString + Keys.ENTER);
-        //wait
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+        WebElement searchInput = driver.findElement(By.id("search"));
+        searchInput.sendKeys(searchString + Keys.ENTER);
+        //wait
+
     }
     //Kalyani
     @Then("the user should see {int} search results")
