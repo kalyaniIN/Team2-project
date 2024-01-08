@@ -519,13 +519,14 @@ public class SeleniumTestCases {
 
     //Testcase written by :Uma
     @Test
-    void checkShopLink_From_Footer(){
-       //identify shop link from the footer
-       WebElement shop = driver.findElement(By.xpath("//*[@class='nav col-md-4 justify-content-end']//*[text()='Shop']"));
-       shop.click();
+    void checkShopLink_From_Footer() {
+        //identify shop link from the footer
+        WebElement shop = driver.findElement(By.xpath("//*[@class='nav col-md-4 justify-content-end']//*[text()='Shop']"));
+        shop.click();
 
-       //assert the title of the page
-       Assertions.assertEquals("Webbutiken", driver.getTitle());
+        //assert the title of the page
+        Assertions.assertEquals("Webbutiken", driver.getTitle());
+    }
 
 
     //tests written by - Kalyani
