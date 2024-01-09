@@ -562,7 +562,7 @@ public class SeleniumTestCases {
         // Go to Shop
         driver.findElement(By.linkText("Shop")).click();
         // Wait
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
 
         // Add a product to the cart
         JavascriptExecutor js = (JavascriptExecutor) driver;
