@@ -79,6 +79,8 @@ Feature: SystemTesting
 
     #Testcase written by: Kalyani
   Scenario: User searches for a product
+    When the user is on the Home page
+    When window size is maximum
     When the user is on the Shop page
     When the user searches for the product "Women"
     Then the user should see 7 search results
@@ -90,6 +92,8 @@ Feature: SystemTesting
 
     #Testcase written by: Kalyani
     Scenario: Verify 'Home' link in the footer
+      When the user is on the Home page
+      When window size is maximum
       When the user clicks on the 'Home' link in the footer
       Then the current URL should be the Home page URL
 
