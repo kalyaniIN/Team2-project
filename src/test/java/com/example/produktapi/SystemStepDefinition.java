@@ -195,13 +195,15 @@ public class SystemStepDefinition {
     //Kalyani
     @When("the user adds products to the cart and clicks checkout button")
     public void the_user_adds_products_to_the_cart_and_clicks_checkout_button() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-
         // Wait for the elements with the class "btn-primary" to be present
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        JavascriptExecutor js = (JavascriptExecutor) driver;
         List<WebElement> selectProducts = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.className("btn-primary")));
-        selectProducts.get(0).click();
-        selectProducts.get(7).click();
-        selectProducts.get(10).click();
+
+        // Instructing JavaExecutorScript to click on specific element from the list index
+        js.executeScript("arguments[0].click();",selectProducts.get(0));
+        js.executeScript("arguments[0].click();",selectProducts.get(7));
+        js.executeScript("arguments[0].click();",selectProducts.get(10));
 
         // Click on the checkout button
         driver.findElement(By.className("btn")).click();
