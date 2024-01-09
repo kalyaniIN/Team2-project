@@ -562,18 +562,16 @@ public class SeleniumTestCases {
         // Go to Shop
         driver.findElement(By.linkText("Shop")).click();
         // Wait
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 
         // Add a product to the cart
+        JavascriptExecutor js = (JavascriptExecutor) driver;
         List<WebElement> selectProducts = driver.findElements(By.className("btn-primary"));
-        selectProducts.get(0).click();
-        selectProducts.get(7).click();
-        selectProducts.get(10).click();
 
+        // Instructing JavaExecutorScript to click on specific element from the list index
+        js.executeScript("arguments[0].click();",selectProducts.get(0));
+        js.executeScript("arguments[0].click();",selectProducts.get(7));
+        js.executeScript("arguments[0].click();",selectProducts.get(10));
 
         // Click on checkout button
         driver.findElement(By.className("btn")).click();
