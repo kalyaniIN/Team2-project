@@ -37,6 +37,7 @@ Feature: SystemTesting
     When wait for 1000 millisec
     Then verify the number of product is 6
 
+    #Testcase written by:Faisal
   Scenario: Test the number of products displayed when clicking on Electronics link
     Given website is available
     When the user visits the website
@@ -45,10 +46,12 @@ Feature: SystemTesting
     When user click on electronics
     Then verify the number of product is 6
 
+  #Testcase written by:Suzana
   Scenario: Finding Men's Clothing
     When user enters Shop
     Then user clicks on link for Men's Clothing
 
+  #Testcase written by:Suzana
   Scenario: Adding a Mens product to Cart
     When user enters Shop
     When user clicks on link for Men's Clothing
@@ -63,15 +66,16 @@ Feature: SystemTesting
     Then the user verifies the products in the cart
     And the user verifies the total amount in the cart
 
+  #Testcase written by:Suzana
   Scenario: Verify the Checkout form page
     When user clicks on CheckOut button
     Then The Checkout form page is visible
 
+  #Testcase written by:Suzana
   Scenario: Error message triggered by empty form fields
     When user clicks on CheckOut button
     When user clicks on Continue To Checkout Button
     Then Error message is triggered
-
 
     #Testcase written by: Kalyani
   Scenario: User searches for a product
@@ -134,7 +138,8 @@ Scenario: Verify clicking on the shop link from footer displays products page
   When window size is maximum
   When user clicks on shop link in the footer
   Then the title should be "Webbutiken"
-  
+
+  #Testcase written by:Faisal
   Scenario Outline: Remove a product from the Cart
     Given website is available
     When the user visits the website
@@ -159,7 +164,7 @@ Scenario: Verify clicking on the shop link from footer displays products page
             |PRODUCTS|
             |"WD 2TB Elements Portable External Hard Drive - USB 3.0"        |
 
-
+#Testcase written by:Faisal
     Scenario: Product from different category added to the cart
       Given website is available
       When the user visits the website
@@ -179,17 +184,19 @@ Scenario: Verify clicking on the shop link from footer displays products page
       When user select products and clicks on addToCart
       Then verify the number of the product to the checkout is 8
 
-
+  #Testcase written by:Suzana
   Scenario: Verify the All Products button on start page
     When the user visits the website
     When user clicks on All Products button on start page
     Then all products are displayed
 
+  #Testcase written by:Suzana
   Scenario: Verify the footer link Checkout
     When the user visits the website
     When user clicks on the footer link Checkout
     Then Checkout form page is visible
 
+  #Testcase written by:Suzana
   Scenario: Fill in all fields in Checkout form
     When the user visits the website
     When user clicks on CheckOut button
