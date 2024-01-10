@@ -322,12 +322,12 @@ public class SystemStepDefinition {
     @When("the user searches for the product {string}")
     public void the_user_searches_for_the_product(String  searchString) {
         try {
-            Thread.sleep(2000);
+            Thread.sleep(5000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
         WebElement searchInput = driver.findElement(By.id("search"));
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         searchInput.sendKeys(searchString + Keys.ENTER);
         //wait
 
