@@ -11,6 +11,7 @@ public class ProductTests {
 Product product =new Product("SchoolBag",123.222,"Bag","Adidas","img.jpg");
     // Suzana. Testing Get Description. Positive testing.
     
+    //Suzana
     @Test
     public void checkProductDescription(){
         assertEquals("Adidas", product.getDescription());
@@ -55,6 +56,8 @@ Product product =new Product("SchoolBag",123.222,"Bag","Adidas","img.jpg");
         // check the price is correct.
         assertEquals(123.222, productPrice);
     }
+
+    //Uma
     @Test
     void checkProductId(){
     Product products= new Product();
@@ -77,12 +80,16 @@ Product product =new Product("SchoolBag",123.222,"Bag","Adidas","img.jpg");
         // check the price is correct.
         assertEquals(newPrice, productPrice);
     }
+
+    //Kalyani
     @Test
     public void testGetTitle() {
         // Use the getTitle method and assert the result
         String productTitle = product.getTitle();
         assertEquals("SchoolBag", productTitle);
     }
+
+    //Kalyani
     @Test
     public void testSetTitle() {
         // Set a new title using the setTitle method
@@ -94,12 +101,16 @@ Product product =new Product("SchoolBag",123.222,"Bag","Adidas","img.jpg");
         // Use the getTitle method to get the updated title and assert the result
         assertEquals("UnicornBag", productTitle);
     }
+
+    //Kalyani
     @Test
     public void testGetImage() {
         String productImage = product.getImage();
         // Use the getImage method and assert the result
         assertEquals("img.jpg", productImage);
     }
+
+    //Kalyani
     @Test
     public void testSetImage() {
 
