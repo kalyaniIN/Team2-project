@@ -1,5 +1,6 @@
-
 Feature: SystemTesting
+
+#Testcase written by: Kalyani
   Scenario: Test title of the website
     Given website is available
     When the user visits the website
@@ -37,6 +38,8 @@ Feature: SystemTesting
     When wait for 1000 millisec
     Then verify the number of product is 6
 
+#Testcase written by: Faisal
+
   Scenario: Test the number of products displayed when clicking on Electronics link
     Given website is available
     When the user visits the website
@@ -45,10 +48,11 @@ Feature: SystemTesting
     When user click on electronics
     Then verify the number of product is 6
 
+#Testcase written by: Suzana
   Scenario: Finding Men's Clothing
     When user enters Shop
     Then user clicks on link for Men's Clothing
-
+#Testcase written by: Suzana
   Scenario: Adding a Mens product to Cart
     When user enters Shop
     When user clicks on link for Men's Clothing
@@ -58,16 +62,25 @@ Feature: SystemTesting
   Scenario: Add products to the cart and verify the cart
     Given website is available
     When the user visits the website
+    When window size is maximum
     When the user is on shop page
+    When wait for 1000 millisec
     When the user adds products to the cart and clicks checkout button
     Then the user verifies the products in the cart
     And the user verifies the total amount in the cart
 
+  #Testcase written by: Suzana
   Scenario: Verify the Checkout form page
+    Given website is available
+    When the user visits the website
     When user clicks on CheckOut button
     Then The Checkout form page is visible
 
+    #Testcase written by: Suzana
   Scenario: Error message triggered by empty form fields
+    Given website is available
+    When the user visits the website
+    When window size is maximum
     When user clicks on CheckOut button
     When user clicks on Continue To Checkout Button
     Then Error message is triggered
@@ -86,6 +99,9 @@ Feature: SystemTesting
 
     #Testcase written by: Kalyani
     Scenario: Verify 'Home' link in the footer
+      Given website is available
+      When the user visits the website
+      When window size is maximum
       When the user clicks on the 'Home' link in the footer
       Then the current URL should be the Home page URL
 
@@ -96,7 +112,7 @@ Feature: SystemTesting
     Then the user should see the message "You will be redirected to PayPal in the next step."
 
  #Testcase written by:Uma
- Scenario: Verify jewelery is added to cart
+ Scenario Outline: Verify jewelery is added to cart
    Given website is available
    When the user visits the website
    When user clicks on Shop
@@ -134,7 +150,8 @@ Scenario: Verify clicking on the shop link from footer displays products page
   When window size is maximum
   When user clicks on shop link in the footer
   Then the title should be "Webbutiken"
-  
+
+    #Testcase written by: Faisal
   Scenario Outline: Remove a product from the Cart
     Given website is available
     When the user visits the website
@@ -159,8 +176,8 @@ Scenario: Verify clicking on the shop link from footer displays products page
             |PRODUCTS|
             |"WD 2TB Elements Portable External Hard Drive - USB 3.0"        |
 
-
-    Scenario: Product from different category added to the cart
+            #Testcase written by: Faisal
+  Scenario: Product from different category added to the cart
       Given website is available
       When the user visits the website
       When user clicks on Shop
@@ -179,17 +196,21 @@ Scenario: Verify clicking on the shop link from footer displays products page
       When user select products and clicks on addToCart
       Then verify the number of the product to the checkout is 8
 
-
+      #Testcase written by: Suzana
   Scenario: Verify the All Products button on start page
     When the user visits the website
     When user clicks on All Products button on start page
     Then all products are displayed
 
+#Testcase written by: Suzana
   Scenario: Verify the footer link Checkout
+    Given website is available
     When the user visits the website
+    When window size is maximum
     When user clicks on the footer link Checkout
     Then Checkout form page is visible
 
+#Testcase written by: Suzana
   Scenario: Fill in all fields in Checkout form
     When the user visits the website
     When user clicks on CheckOut button

@@ -22,17 +22,19 @@ public class SystemStepDefinition {
 
     static WebDriver driver;
 
-
+//Uma
     @Given("website is available")
     public void website_is_available() {
         driver = new FirefoxDriver();
     }
 
+    //Uma
     @When("the user visits the website")
     public void the_user_visits_the_website() {
         driver.get("https://webshop-agil-testautomatiserare.netlify.app/");
     }
 
+    //Uma
     @Then("the title should be {string}")
     public void the_title_should_be(String expectedTitle) {
         String actualTitle = driver.getTitle();
@@ -40,12 +42,14 @@ public class SystemStepDefinition {
         driver.quit();
     }
 
+    //Uma
     @When("user clicks on Shop")
     public void user_clicks_on_shop() {
         WebElement shop = driver.findElement(By.linkText("Shop"));
         shop.click();
     }
 
+    //Uma
     @When("wait for {int} millisec")
     public void user_waits_for_sec(Integer int1) {
         try {
@@ -71,12 +75,14 @@ public class SystemStepDefinition {
     }
 
 
+    //Uma
     @When("user click on jewelery")
     public void user_click_on_jewelery() {
         WebElement jewelery = driver.findElement(By.linkText("Jewelery"));
         jewelery.click();
     }
 
+    //Uma
     @Then("verify the number of product is {int}")
     public void verify_the_number_of_product_is(Integer int1) {
         List<WebElement> items = driver.findElements(By.className("col"));
@@ -84,12 +90,14 @@ public class SystemStepDefinition {
     }
 
 
+    //Uma
     @When("user click on women's clothing")
     public void user_click_on_women_s_clothing() {
         WebElement cloth = driver.findElement(By.linkText("Women's clothing"));
         cloth.click();
     }
 
+    //Faisal
     @When("user click on electronics")
     public void userClickOnElectronics() {
         //Go to Electronics
@@ -99,6 +107,7 @@ public class SystemStepDefinition {
     }
 
 
+    //Uma
     @When("user select products and clicks on addToCart")
     public void user_select_products_and_clicks_on_addToCart() {
         List<WebElement> selectproduct = driver.findElements(By.className("btn-primary"));
@@ -106,12 +115,14 @@ public class SystemStepDefinition {
         selectproduct.get(1).click();
     }
 
+    //Uma
     @When("user clicks on Checkout button")
     public void user_clicks_on_checkout_button() {
         driver.findElement(By.className("btn")).click();
 
     }
 
+    //Uma
     @Then("verify products {string} are added to cart")
     public void verify_products_are_added_to_cart(String expectedProduct) {
         List<WebElement> addedProduct = driver.findElements(By.xpath("//*[@class='col-md-5 col-lg-6 order-md-last']//*[@class='my-0 w-75']"));
@@ -196,12 +207,13 @@ public class SystemStepDefinition {
     @When("the user adds products to the cart and clicks checkout button")
     public void the_user_adds_products_to_the_cart_and_clicks_checkout_button() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-
+        JavascriptExecutor js = (JavascriptExecutor) driver;
         // Wait for the elements with the class "btn-primary" to be present
         List<WebElement> selectProducts = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.className("btn-primary")));
-        selectProducts.get(0).click();
-        selectProducts.get(7).click();
-        selectProducts.get(10).click();
+
+        js.executeScript("arguments[0].click();",selectProducts.get(0));
+        js.executeScript("arguments[0].click();",selectProducts.get(7));
+        js.executeScript("arguments[0].click();",selectProducts.get(10));
 
         // Click on the checkout button
         driver.findElement(By.className("btn")).click();
@@ -315,6 +327,7 @@ public class SystemStepDefinition {
             throw new RuntimeException(e);
         }
         WebElement searchInput = driver.findElement(By.id("search"));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
         searchInput.sendKeys(searchString + Keys.ENTER);
         //wait
 
@@ -376,9 +389,6 @@ public class SystemStepDefinition {
                 "Unexpected message displayed for PayPal checkout");
 
     }
-
-
-
 
 
 // Suzana.Test case button All products on start page
@@ -484,13 +494,8 @@ public class SystemStepDefinition {
         List<WebElement> productInTheCart = driver.findElements(By.xpath("//*[@id='cartList']//*[@class='my-0 w-75']"));
         Assertions.assertNotEquals(expectedProduct, productInTheCart.get(0).getText());
     }
-    @AfterEach
-    public void closeBrowser(){
-        driver.quit();
-    }
 
-
-
+    //Uma
     @When("user clicks on shop link in the footer")
     public void user_clicks_on_shop_link_in_the_footer() {
         WebElement shop = driver.findElement(By.xpath("//*[@class='nav col-md-4 justify-content-end']//*[text()='Shop']"));
@@ -498,9 +503,16 @@ public class SystemStepDefinition {
 
     }
 
+    //Uma
     @When("window size is maximum")
     public void window_size_is_maximum() {
-       driver.manage().window().maximize();
+
+        driver.manage().window().maximize();
+    }
+
+    @AfterEach
+    public void closeBrowser(){
+        driver.quit();
     }
 
 }
