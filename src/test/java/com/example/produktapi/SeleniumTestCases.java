@@ -544,7 +544,11 @@ public class SeleniumTestCases {
         // Perform a case-sensitive search
         String searchString = "Women";
         WebElement searchInput = driver.findElement(By.id("search"));
+       driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
         searchInput.sendKeys(searchString + Keys.ENTER);
+
+
+
 
        int searchResultItems = driver.findElements(By.className("col")).size();
        System.out.println(searchResultItems);
@@ -560,7 +564,8 @@ public class SeleniumTestCases {
 
         // Go to Shop
         driver.findElement(By.linkText("Shop")).click();
-        // Wait
+
+       // Wait
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {
@@ -568,12 +573,41 @@ public class SeleniumTestCases {
         }
 
         // Add a product to the cart
+        //driver.manage().window().maximize();
         List<WebElement> selectProducts = driver.findElements(By.className("btn-primary"));
-        selectProducts.get(0).click();
-        selectProducts.get(7).click();
-        selectProducts.get(10).click();
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].click();",selectProducts.get(0));
+        js.executeScript("arguments[0].click();",selectProducts.get(7));
+        js.executeScript("arguments[0].click();",selectProducts.get(10));
+       // selectProducts.get(0).click();
+        //selectProducts.get(7).click();
+        //selectProducts.get(10).click();
+
+        //scroll into view
+/*
+       JavascriptExecutor js = (JavascriptExecutor) driver;
+       //js.executeScript("arguments[0].scrollIntoView(true);",  selectProducts.get(7));
+       js.executeScript("window.scrollBy(0,1500)","");
+
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
 
 
+
+        //move to top of the page after adding products to the cart to click on the checkout button
+        js.executeScript("window.scrollTo(0,0)");
+
+        //wait
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+*/
         // Click on checkout button
         driver.findElement(By.className("btn")).click();
         // Print the category and price of the products in the cart

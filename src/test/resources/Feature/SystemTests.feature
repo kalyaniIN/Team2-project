@@ -5,8 +5,8 @@ Feature: SystemTesting
     When the user visits the website
     Then the title should be "Webbutiken"
 
-
   #Testcase written by: Kalyani
+
   Scenario: Test the number of products displayed when clicking on All link
     Given website is available
     When the user visits the website
@@ -55,22 +55,25 @@ Feature: SystemTesting
     Then product is added to cart
 
   #Testcase written by: Kalyani
-  Scenario: Add products to the cart and verify the cart
+ # Scenario: Add products to the cart and verify the cart
+  #  Given website is available
+   # When the user visits the website
+    #When the user is on shop page
+    #When the user adds products to the cart and clicks checkout button
+    #Then the user verifies the products in the cart
+    #And the user verifies the total amount in the cart
+
+    #uma:addingnew steps to make to work first and two
+  Scenario: Verify the Checkout form page
     Given website is available
     When the user visits the website
-    When the user is on shop page
-    When the user adds products to the cart and clicks checkout button
-    Then the user verifies the products in the cart
-    And the user verifies the total amount in the cart
-
-  Scenario: Verify the Checkout form page
     When user clicks on CheckOut button
-    Then The Checkout form page is visible
+   Then The Checkout form page is visible
 
-  Scenario: Error message triggered by empty form fields
-    When user clicks on CheckOut button
-    When user clicks on Continue To Checkout Button
-    Then Error message is triggered
+ # Scenario: Error message triggered by empty form fields
+  #  When user clicks on CheckOut button
+   # When user clicks on Continue To Checkout Button
+    #Then Error message is triggered
 
 
     #Testcase written by: Kalyani
@@ -85,9 +88,9 @@ Feature: SystemTesting
     Then the homepage logo is displayed
 
     #Testcase written by: Kalyani
-    Scenario: Verify 'Home' link in the footer
-      When the user clicks on the 'Home' link in the footer
-      Then the current URL should be the Home page URL
+    #Scenario: Verify 'Home' link in the footer
+     # When the user clicks on the 'Home' link in the footer
+      #Then the current URL should be the Home page URL
 
     #Testcase written by: Kalyani
   Scenario: Verify PayPal Checkout Information
@@ -185,10 +188,10 @@ Scenario: Verify clicking on the shop link from footer displays products page
     When user clicks on All Products button on start page
     Then all products are displayed
 
-  Scenario: Verify the footer link Checkout
-    When the user visits the website
-    When user clicks on the footer link Checkout
-    Then Checkout form page is visible
+  #Scenario: Verify the footer link Checkout
+   # When the user visits the website
+    #When user clicks on the footer link Checkout
+    #Then Checkout form page is visible
 
   Scenario: Fill in all fields in Checkout form
     When the user visits the website
@@ -196,3 +199,47 @@ Scenario: Verify clicking on the shop link from footer displays products page
     And user fills in all fields
     When user clicks on Continue To Checkout Button
     Then No error messages are triggered
+
+#trying uma
+  Scenario: Verify clicking on the Home link from footer displays products page
+    Given website is available
+    When the user visits the website
+    When window size is maximum
+    When the user clicks on the 'Home' link in the footer
+    Then the current URL should be the Home page URL
+    #When user clicks on Home link in the footer
+    #Then the title should be "Webbutiken"
+
+
+#     #trying uma Testcase written by: Kalyani
+ # Scenario: Verify 'Home' link in the footer
+  #  When the user clicks on the 'Home' link in the footer
+   # Then the current URL should be the Home page URL
+#trying uma
+  Scenario: Verify the footer link Checkout
+   # When the user visits the website
+    Given website is available
+    When the user visits the website
+    When window size is maximum
+    When user clicks on the footer link Checkout
+    Then Checkout form page is visible
+
+#trying uma
+  Scenario: Error message triggered by empty form fields
+    Given website is available
+    When the user visits the website
+    When window size is maximum
+    When user clicks on CheckOut button
+    When user clicks on Continue To Checkout Button
+    Then Error message is triggered
+
+    #trying uma
+  Scenario: Add products to the cart and verify the cart
+    Given website is available
+    When the user visits the website
+    When window size is maximum
+    When user clicks on Shop
+    When wait for 1000 millisec
+    When the user adds products to the cart and clicks checkout button
+    Then the user verifies the products in the cart
+    And the user verifies the total amount in the cart

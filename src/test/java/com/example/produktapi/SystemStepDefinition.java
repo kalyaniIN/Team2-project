@@ -1,5 +1,6 @@
 package com.example.produktapi;
 
+import io.cucumber.java.After;
 import io.cucumber.java.AfterAll;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -195,13 +196,47 @@ public class SystemStepDefinition {
     //Kalyani
     @When("the user adds products to the cart and clicks checkout button")
     public void the_user_adds_products_to_the_cart_and_clicks_checkout_button() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+       // WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
         // Wait for the elements with the class "btn-primary" to be present
-        List<WebElement> selectProducts = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.className("btn-primary")));
-        selectProducts.get(0).click();
+        //List<WebElement> selectProducts = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.className("btn-primary")));
+        List<WebElement> selectProducts =driver.findElements(By.className("btn-primary"));
+         selectProducts.get(0).click();
+
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].scrollIntoView(true);",  selectProducts.get(7));
+        js.executeScript("window.scrollBy(0,1500)","");
+
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
         selectProducts.get(7).click();
         selectProducts.get(10).click();
+
+        //js.executeScript("arguments[0].scrollIntoView(true);",  selectProducts.get(7));
+        //js.executeScript("window.scrollBy(0,1500)","");
+
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+
+
+        //move to top of the page after adding products to the cart to click on the checkout button
+        js.executeScript("window.scrollTo(0,0)");
+      //  js.executeScript("window.scrollTo(0,document.body.scrollHeight)");
+
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
 
         // Click on the checkout button
         driver.findElement(By.className("btn")).click();
@@ -211,6 +246,8 @@ public class SystemStepDefinition {
     public void the_user_verifies_the_products_in_the_cart() {
 
         List<WebElement> addedProducts = driver.findElements(By.xpath("//*[@id='cartList']"));
+        //List<WebElement> addedProducts = driver.findElements(By.xpath("//*[@class='col-md-5 col-lg-6 order-md-last']//*[@class='my-0 w-75']"));
+
 
         System.out.println("Kalyani added products" + addedProducts.size());
 
@@ -317,6 +354,7 @@ public class SystemStepDefinition {
         WebElement searchInput = driver.findElement(By.id("search"));
         searchInput.sendKeys(searchString + Keys.ENTER);
         //wait
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
 
     }
     //Kalyani
@@ -345,7 +383,8 @@ public class SystemStepDefinition {
     //Kalyani
     @When("the user clicks on the 'Home' link in the footer")
     public void the_user_clicks_on_the_link_in_the_footer() {
-        WebElement homeLink = driver.findElement(By.xpath("/html/body/div[2]/footer/ul/li[1]/a"));
+        WebElement homeLink = driver.findElement(By.xpath("//*[@class='nav col-md-4 justify-content-end']//*[text()='Home']"));
+        //WebElement homeLink = driver.findElement(By.xpath("/html/body/div[2]/footer/ul/li[1]/a"));
         homeLink.click();
     }
     //Kalyani
@@ -404,7 +443,8 @@ public class SystemStepDefinition {
         // 1. Click on the footer link "Checkout" on the home page
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         JavascriptExecutor js = (JavascriptExecutor) driver;
-        WebElement CheckoutLink = driver.findElement(By.xpath("/html/body/div[2]/footer/ul/li[3]/a"));
+
+        WebElement CheckoutLink = driver.findElement(By.xpath("//*[@class='nav col-md-4 justify-content-end']//*[text()='Checkout']"));
         js.executeScript("arguments[0].scrollIntoView();", CheckoutLink);
         try {
             Thread.sleep(1000);
@@ -484,11 +524,12 @@ public class SystemStepDefinition {
         List<WebElement> productInTheCart = driver.findElements(By.xpath("//*[@id='cartList']//*[@class='my-0 w-75']"));
         Assertions.assertNotEquals(expectedProduct, productInTheCart.get(0).getText());
     }
+    /*
     @AfterEach
     public void closeBrowser(){
         driver.quit();
     }
-
+*/
 
 
     @When("user clicks on shop link in the footer")
@@ -502,6 +543,51 @@ public class SystemStepDefinition {
     public void window_size_is_maximum() {
        driver.manage().window().maximize();
     }
+
+//umatrying
+    @When("user select products and clicks on addToCart_uma")
+    public void user_select_products_and_clicks_on_addToCart_uma() {
+        List<WebElement> selectproduct = driver.findElements(By.className("btn-primary"));
+        selectproduct.get(0).click();
+
+        //scroll into view
+
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].scrollIntoView(true);",  selectproduct.get(7));
+        js.executeScript("window.scrollBy(0,1500)","");
+
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        selectproduct.get(7).click();
+        selectproduct.get(10).click();
+
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        //move to top of the page after adding products to the cart to click on the checkout button
+        js.executeScript("window.scrollTo(0,0)");
+
+        //wait
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+
+    }
+
+
+
+
+
 
 }
 
