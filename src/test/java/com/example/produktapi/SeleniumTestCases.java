@@ -228,7 +228,7 @@ public class SeleniumTestCases {
 
         //wait
         try {
-            Thread.sleep(5000);
+            Thread.sleep(2000);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
