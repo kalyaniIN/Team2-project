@@ -30,6 +30,7 @@ public class ApiTestStepDefinition {
 
     private static Response response;
 
+    //Uma
     @When("Given endpointurl")
     public void getEndPoint() {
 
@@ -37,6 +38,8 @@ public class ApiTestStepDefinition {
         request = given();
         response =request.request(Method.GET,"");
     }
+
+    //Uma
     @Then("Status for http request is {int}")
     public void checkEndPoint(Integer expectedcode) {
 
@@ -44,6 +47,7 @@ public class ApiTestStepDefinition {
         Assertions.assertEquals(expectedcode,actualcode);
     }
 
+    //Uma
     @Then("ContentType is text")
     public void body_is() {
 
@@ -52,6 +56,7 @@ public class ApiTestStepDefinition {
 
     }
 
+    //Uma
     @Then("body is {string}")
     public void body_is(String strRes) {
         ResponseBody expected = response.getBody();
@@ -60,6 +65,7 @@ public class ApiTestStepDefinition {
 
     }
 
+    //Uma
     @When("Given producturl")
     public void given_producturl() {
         baseURI="https://produktapi-6ef53ba8f2f2.herokuapp.com/products";
@@ -67,11 +73,13 @@ public class ApiTestStepDefinition {
         response =request.request(Method.GET,"");
     }
 
+    //Uma
     @Then("contentType is JSON")
     public void content_type_is_json() {
         response.then().assertThat().contentType(ContentType.JSON);
     }
 
+    //Uma
     @Then("verify data in the body")
     public void verify_data_in_the_body() {
 
@@ -84,10 +92,14 @@ public class ApiTestStepDefinition {
         request = given();
         response =request.request(Method.GET,"");
     }
+
+    //Kalyani
     @Given("the application is running")
     public void the_application_is_running() {
 
     }
+
+    //Kalyani
     @When("the client requests GET \\/products\\/categories")
     public void the_client_requests_get_products_categories() {
         baseURI="https://produktapi-6ef53ba8f2f2.herokuapp.com/products/categories";
@@ -97,11 +109,15 @@ public class ApiTestStepDefinition {
 
 
     }
+
+    //Kalyani
     @Then("the response status should be {int}")
     public void the_response_status_should_be(Integer expectedStatus) {
         int actualStatus = response.getStatusCode();
         Assertions.assertEquals(expectedStatus,actualStatus);
     }
+
+    //Kalyani
     @Then("the response content should contain the following categories:")
     public void the_response_content_should_contain_the_following_categories(List<String> expectedCategories) {
         response.then().body("size()", equalTo(expectedCategories.size()));
