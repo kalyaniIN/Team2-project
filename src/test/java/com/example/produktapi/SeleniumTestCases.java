@@ -2,7 +2,6 @@ package com.example.produktapi;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.*;
 import org.apache.commons.lang3.StringUtils;
-import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -545,6 +544,7 @@ public class SeleniumTestCases {
         // Perform a case-sensitive search
         String searchString = "Women";
         WebElement searchInput = driver.findElement(By.id("search"));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
         searchInput.sendKeys(searchString + Keys.ENTER);
 
        int searchResultItems = driver.findElements(By.className("col")).size();
@@ -562,13 +562,15 @@ public class SeleniumTestCases {
         // Go to Shop
         driver.findElement(By.linkText("Shop")).click();
         // Wait
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
 
         // Add a product to the cart
-        JavascriptExecutor js = (JavascriptExecutor) driver;
         List<WebElement> selectProducts = driver.findElements(By.className("btn-primary"));
-
-        // Instructing JavaExecutorScript to click on specific element from the list index
+        JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].click();",selectProducts.get(0));
         js.executeScript("arguments[0].click();",selectProducts.get(7));
         js.executeScript("arguments[0].click();",selectProducts.get(10));
