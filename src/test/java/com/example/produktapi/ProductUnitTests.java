@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
-public class ProductTests {
+public class ProductUnitTests {
 Product product =new Product("SchoolBag",123.222,"Bag","Adidas","img.jpg");
     // Suzana. Testing Get Description. Positive testing.
     
