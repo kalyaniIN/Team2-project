@@ -39,7 +39,6 @@ Feature: SystemTesting
     Then verify the number of product is 6
 
 #Testcase written by: Faisal
-
   Scenario: Test the number of products displayed when clicking on Electronics link
     Given website is available
     When the user visits the website
@@ -52,6 +51,7 @@ Feature: SystemTesting
   Scenario: Finding Men's Clothing
     When user enters Shop
     Then user clicks on link for Men's Clothing
+
 #Testcase written by: Suzana
   Scenario: Adding a Mens product to Cart
     When user enters Shop
@@ -84,7 +84,6 @@ Feature: SystemTesting
     When user clicks on CheckOut button
     When user clicks on Continue To Checkout Button
     Then Error message is triggered
-
 
     #Testcase written by: Kalyani
   Scenario: User searches for a product

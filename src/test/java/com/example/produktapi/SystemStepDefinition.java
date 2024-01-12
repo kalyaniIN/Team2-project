@@ -60,7 +60,6 @@ public class SystemStepDefinition {
 
     }
 
-
     //Kalyani
     @When("user click on All")
     public void user_click_on_All() {
