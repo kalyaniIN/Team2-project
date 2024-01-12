@@ -28,6 +28,7 @@ public class SeleniumTestCases {
 
 
     //tests written by - Kalyani
+    //adding coment for github actions
 
     @Test
     void testAllProductsDisplayed() {
