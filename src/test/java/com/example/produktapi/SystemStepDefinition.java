@@ -327,7 +327,7 @@ public class SystemStepDefinition {
             throw new RuntimeException(e);
         }
         WebElement searchInput = driver.findElement(By.id("search"));
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         searchInput.sendKeys(searchString + Keys.ENTER);
         //wait
 

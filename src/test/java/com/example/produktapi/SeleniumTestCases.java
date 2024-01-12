@@ -221,6 +221,7 @@ public class SeleniumTestCases {
     }
 
     //Testcase written by :Uma
+    //Test githubaction
     @Test
     void addJewelerytoCart() {
         WebElement shop = driver.findElement(By.linkText("Shop"));
