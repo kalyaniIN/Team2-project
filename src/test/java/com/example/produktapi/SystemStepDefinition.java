@@ -29,7 +29,7 @@ public class SystemStepDefinition {
 
         var options = new FirefoxOptions();
         options.addArguments("--headless");
-        options.addArguments("--window-size=1900x1100");
+        options.addArguments("--window-size=1900x2200");
         driver = new FirefoxDriver(options);
 
     }
