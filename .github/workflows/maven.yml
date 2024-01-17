@@ -29,8 +29,7 @@ jobs:
         cache: maven
 
     - name: Install geckodriver    
-      run: |         
-          # Download geckodriver        
+      run: |                
           wget https://github.com/mozilla/geckodriver/releases/download/vX.Y.Z/geckodriver-vX.Y.Z-linux64.tar.gz 
           tar -xvzf geckodriver-vX.Y.Z-linux64.tar.gz        
           chmod +x geckodriver        
