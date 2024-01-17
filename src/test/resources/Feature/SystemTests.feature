@@ -179,24 +179,24 @@ Feature: SystemTesting
 #            |"WD 2TB Elements Portable External Hard Drive - USB 3.0"        |
 
             #Testcase written by: Faisal
-#  Scenario: Product from different category added to the cart
-#      Given website is available
-#      When the user visits the website
-#      When user clicks on Shop
-#      When wait for 1000 millisec
-#      When user click on jewelery
-#      When wait for 1000 millisec
-#      When user select products and clicks on addToCart
-#      When user click on electronics
-#      When wait for 1000 millisec
-#      When user select products and clicks on addToCart
-#      When user clicks on link for Men's Clothing
-#      When wait for 1000 millisec
-#      When user select products and clicks on addToCart
-#      When user click on women's clothing
-#      When wait for 1000 millisec
-#      When user select products and clicks on addToCart
-#      Then verify the number of the product to the checkout is 8
+  Scenario: Product from different category added to the cart
+      Given website is available
+      When the user visits the website
+      When user clicks on Shop
+      When wait for 1000 millisec
+      When user click on jewelery
+      When wait for 1000 millisec
+      When user select products and clicks on addToCart
+      When user click on electronics
+      When wait for 1000 millisec
+      When user select products and clicks on addToCart
+      When user clicks on link for Men's Clothing
+      When wait for 1000 millisec
+      When user select products and clicks on addToCart
+      When user click on women's clothing
+      When wait for 1000 millisec
+      When user select products and clicks on addToCart
+      Then verify the number of the product to the checkout is 8
 
       #Testcase written by: Suzana
   Scenario: Verify the All Products button on start page

@@ -24,7 +24,7 @@ public class SeleniumTestCases {
 
         var options = new FirefoxOptions();
         options.addArguments("--headless");
-        options.addArguments("--window-size=3800x2200");
+        options.addArguments("--window-size=5000x5000");
         driver = new FirefoxDriver(options);
 
         driver.get("https://webshop-agil-testautomatiserare.netlify.app/");
