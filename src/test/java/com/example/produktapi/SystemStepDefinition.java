@@ -29,6 +29,7 @@ public class SystemStepDefinition {
 
         var options = new FirefoxOptions();
         options.addArguments("--headless");
+        options.addArguments("--window-size=1200x800");
         driver = new FirefoxDriver(options);
 
     }
