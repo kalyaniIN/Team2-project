@@ -27,6 +27,15 @@ jobs:
         java-version: '21'
         distribution: 'temurin'
         cache: maven
+
+    - name: Install geckodriver    
+      run: |         
+          # Download geckodriver        
+          wget https://github.com/mozilla/geckodriver/releases/download/vX.Y.Z/geckodriver-vX.Y.Z-linux64.tar.gz 
+          tar -xvzf geckodriver-vX.Y.Z-linux64.tar.gz        
+          chmod +x geckodriver        
+          mv geckodriver /usr/local/bin/
+      
     - name: Build with Maven
       run: mvn -B package --file pom.xml
 
