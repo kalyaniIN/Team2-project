@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -25,7 +26,11 @@ public class SystemStepDefinition {
 //Uma
     @Given("website is available")
     public void website_is_available() {
-        driver = new FirefoxDriver();
+
+        var options = new FirefoxOptions();
+        options.addArguments("--headless");
+        driver = new FirefoxDriver(options);
+
     }
 
     //Uma

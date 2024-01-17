@@ -10,6 +10,8 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import java.time.Duration;
 import java.util.List;
 import java.util.Objects;
+import org.openqa.selenium.WebDriver.Options;
+import org.openqa.selenium.firefox.FirefoxOptions;
 
 
 public class SeleniumTestCases {
@@ -19,10 +21,16 @@ public class SeleniumTestCases {
   
     public void setup() {
 
-        driver = new FirefoxDriver();
+
+        var options = new FirefoxOptions();
+        options.addArguments("--headless");
+        driver = new FirefoxDriver(options);
+
         driver.get("https://webshop-agil-testautomatiserare.netlify.app/");
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
+
+
 
     }
 
