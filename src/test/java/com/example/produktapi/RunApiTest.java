@@ -5,7 +5,7 @@ import io.cucumber.junit.CucumberOptions;
 import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
-@CucumberOptions(features = "src/test/resources/feature/",  plugin = {"pretty", "html:target/team2-project-report.html"})
+@CucumberOptions(features = "src/test/resources/Feature/",  plugin = {"pretty", "html:target/team2-project-report.html"})
 
 public class RunApiTest {
 
