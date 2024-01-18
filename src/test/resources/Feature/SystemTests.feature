@@ -50,19 +50,23 @@ Feature: SystemTesting
 
 #Testcase written by: Suzana
   Scenario: Finding Men's Clothing
+    Given website is available
+    When the user visits the website
     When user enters Shop
     Then user clicks on link for Men's Clothing
 #Testcase written by: Suzana
-#  Scenario: Adding a Mens product to Cart
-#    When user enters Shop
-#    When user clicks on link for Men's Clothing
-#    Then product is added to cart
+  Scenario: Adding a Mens product to Cart
+    Given website is available
+    When the user visits the website
+    When user enters Shop
+    When user clicks on link for Men's Clothing
+    Then product is added to cart
 
   #Testcase written by: Kalyani
   Scenario: Add products to the cart and verify the cart
     Given website is available
     When the user visits the website
-    When window size is maximum
+#    When window size is maximum
     When the user is on shop page
     When wait for 1000 millisec
     When the user adds products to the cart and clicks checkout button
@@ -80,7 +84,7 @@ Feature: SystemTesting
   Scenario: Error message triggered by empty form fields
     Given website is available
     When the user visits the website
-    When window size is maximum
+#    When window size is maximum
     When user clicks on CheckOut button
     When user clicks on Continue To Checkout Button
     Then Error message is triggered
@@ -88,14 +92,16 @@ Feature: SystemTesting
 
     #Testcase written by: Kalyani
   Scenario: User searches for a product
+    Given website is available
     When the user is on the Home page
-    When window size is maximum
+#    When window size is maximum
     When the user is on the Shop page
     When the user searches for the product "Women"
     Then the user should see 7 search results
 
     #Testcase written by: Kalyani
   Scenario: Verify Homepage Logo
+    Given website is available
     When the user is on the Home page
     Then the homepage logo is displayed
 
@@ -103,12 +109,14 @@ Feature: SystemTesting
     Scenario: Verify 'Home' link in the footer
       Given website is available
       When the user visits the website
-      When window size is maximum
+#      When window size is maximum
       When the user clicks on the 'Home' link in the footer
       Then the current URL should be the Home page URL
 
     #Testcase written by: Kalyani
   Scenario: Verify PayPal Checkout Information
+    Given website is available
+    When the user visits the website
     When the user is on the checkout page
     When the user clicks on the PayPal button
     Then the user should see the message "You will be redirected to PayPal in the next step."
@@ -149,7 +157,7 @@ Examples:
 Scenario: Verify clicking on the shop link from footer displays products page
   Given website is available
   When the user visits the website
-  When window size is maximum
+#  When window size is maximum
   When user clicks on shop link in the footer
   Then the title should be "Webbutiken"
 
@@ -200,6 +208,7 @@ Scenario: Verify clicking on the shop link from footer displays products page
 
       #Testcase written by: Suzana
   Scenario: Verify the All Products button on start page
+    Given website is available
     When the user visits the website
     When user clicks on All Products button on start page
     Then all products are displayed
@@ -208,12 +217,13 @@ Scenario: Verify clicking on the shop link from footer displays products page
   Scenario: Verify the footer link Checkout
     Given website is available
     When the user visits the website
-    When window size is maximum
+#    When window size is maximum
     When user clicks on the footer link Checkout
     Then Checkout form page is visible
 
 #Testcase written by: Suzana
   Scenario: Fill in all fields in Checkout form
+    Given website is available
     When the user visits the website
     When user clicks on CheckOut button
     And user fills in all fields
