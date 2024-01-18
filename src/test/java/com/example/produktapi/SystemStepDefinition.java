@@ -372,7 +372,15 @@ public class SystemStepDefinition {
     @When("the user clicks on the 'Home' link in the footer")
     public void the_user_clicks_on_the_link_in_the_footer() {
         WebElement homeLink = driver.findElement(By.xpath("/html/body/div[2]/footer/ul/li[1]/a"));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", homeLink);
+//        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", homeLink);
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+
+        js.executeScript("arguments[0].scrollIntoView();", homeLink);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
 
         homeLink.click();
     }
@@ -394,7 +402,15 @@ public class SystemStepDefinition {
     @When("the user clicks on the PayPal button")
     public void the_user_clicks_on_the_pay_pal_button() {
         WebElement payPalButton = driver.findElement(By.id("paypal"));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", payPalButton);
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+
+        js.executeScript("arguments[0].scrollIntoView();", payPalButton);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+//        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", payPalButton);
 
         payPalButton.click();
     }
@@ -519,8 +535,15 @@ public class SystemStepDefinition {
     @When("user clicks on shop link in the footer")
     public void user_clicks_on_shop_link_in_the_footer() {
         WebElement shop = driver.findElement(By.xpath("//*[@class='nav col-md-4 justify-content-end']//*[text()='Shop']"));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", shop);
+//        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", shop);
+        JavascriptExecutor js = (JavascriptExecutor) driver;
 
+        js.executeScript("arguments[0].scrollIntoView();", shop);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
         shop.click();
 
     }
