@@ -109,7 +109,7 @@ public class SystemStepDefinition {
         //Go to Electronics
         driver.findElement(By.linkText("Electronics")).click();
         //wait
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
     }
 
 
@@ -117,8 +117,10 @@ public class SystemStepDefinition {
     @When("user select products and clicks on addToCart")
     public void user_select_products_and_clicks_on_addToCart() {
         List<WebElement> selectproduct = driver.findElements(By.className("btn-primary"));
-        selectproduct.get(0).click();
-        selectproduct.get(1).click();
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].click();",selectproduct.get(0));
+        js.executeScript("arguments[0].click();",selectproduct.get(1));
+
     }
 
     //Uma
