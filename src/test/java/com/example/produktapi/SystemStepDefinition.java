@@ -29,7 +29,9 @@ public class SystemStepDefinition {
 
         var options = new FirefoxOptions();
         options.addArguments("--headless");
-        options.addArguments("--window-size=5000x5000");
+        options.addArguments("--window-size=1920x3080");
+//        Dimension d = new Dimension(1920,3080);
+//        driver.manage().window().setSize(d);
         driver = new FirefoxDriver(options);
 
     }
@@ -193,7 +195,10 @@ public class SystemStepDefinition {
 
         // 7. Add a Men's Clothing product to cart
         WebElement ProductAddToCart = driver.findElement(By.xpath("//*[@id=\"main\"]/div[1]/div/div/button"));
-        ProductAddToCart.click();
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].click();",ProductAddToCart);
+
+//        ProductAddToCart.click();
 
         // 8. Get number of product in cart after adding a new product
         var gettingNumberOfTheProductAfterAddingANew = driver.findElement(By.xpath("//*[@id=\"buttonSize\"]")).getText();
@@ -367,6 +372,8 @@ public class SystemStepDefinition {
     @When("the user clicks on the 'Home' link in the footer")
     public void the_user_clicks_on_the_link_in_the_footer() {
         WebElement homeLink = driver.findElement(By.xpath("/html/body/div[2]/footer/ul/li[1]/a"));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", homeLink);
+
         homeLink.click();
     }
     //Kalyani
@@ -387,6 +394,8 @@ public class SystemStepDefinition {
     @When("the user clicks on the PayPal button")
     public void the_user_clicks_on_the_pay_pal_button() {
         WebElement payPalButton = driver.findElement(By.id("paypal"));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", payPalButton);
+
         payPalButton.click();
     }
     //Kalyani
@@ -510,6 +519,8 @@ public class SystemStepDefinition {
     @When("user clicks on shop link in the footer")
     public void user_clicks_on_shop_link_in_the_footer() {
         WebElement shop = driver.findElement(By.xpath("//*[@class='nav col-md-4 justify-content-end']//*[text()='Shop']"));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", shop);
+
         shop.click();
 
     }
