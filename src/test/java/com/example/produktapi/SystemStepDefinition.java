@@ -195,7 +195,10 @@ public class SystemStepDefinition {
 
         // 7. Add a Men's Clothing product to cart
         WebElement ProductAddToCart = driver.findElement(By.xpath("//*[@id=\"main\"]/div[1]/div/div/button"));
-        ProductAddToCart.click();
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].click();",ProductAddToCart);
+
+//        ProductAddToCart.click();
 
         // 8. Get number of product in cart after adding a new product
         var gettingNumberOfTheProductAfterAddingANew = driver.findElement(By.xpath("//*[@id=\"buttonSize\"]")).getText();
