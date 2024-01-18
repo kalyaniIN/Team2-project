@@ -12,8 +12,9 @@ import java.util.List;
 import java.util.Objects;
 import org.openqa.selenium.WebDriver.Options;
 import org.openqa.selenium.firefox.FirefoxOptions;
+import org.springframework.boot.test.context.SpringBootTest;
 
-
+@SpringBootTest
 public class SeleniumTestCases {
     private static WebDriver driver;
 
