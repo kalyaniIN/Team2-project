@@ -1,7 +1,6 @@
 package com.example.produktapi;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.*;
-import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -10,11 +9,11 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import java.time.Duration;
 import java.util.List;
 import java.util.Objects;
-import org.openqa.selenium.WebDriver.Options;
+
 import org.openqa.selenium.firefox.FirefoxOptions;
 
 
-public class SeleniumTestCases {
+public class SeleniumTests {
     private static WebDriver driver;
 
     @BeforeEach
