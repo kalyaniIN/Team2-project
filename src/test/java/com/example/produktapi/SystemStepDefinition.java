@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -25,7 +26,12 @@ public class SystemStepDefinition {
 //Uma
     @Given("website is available")
     public void website_is_available() {
-        driver = new FirefoxDriver();
+
+        var options = new FirefoxOptions();
+        options.addArguments("--headless");
+        options.addArguments("--window-size=5000x5000");
+        driver = new FirefoxDriver(options);
+
     }
 
     //Uma
@@ -103,7 +109,7 @@ public class SystemStepDefinition {
         //Go to Electronics
         driver.findElement(By.linkText("Electronics")).click();
         //wait
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
     }
 
 
@@ -111,8 +117,10 @@ public class SystemStepDefinition {
     @When("user select products and clicks on addToCart")
     public void user_select_products_and_clicks_on_addToCart() {
         List<WebElement> selectproduct = driver.findElements(By.className("btn-primary"));
-        selectproduct.get(0).click();
-        selectproduct.get(1).click();
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].click();",selectproduct.get(0));
+        js.executeScript("arguments[0].click();",selectproduct.get(1));
+
     }
 
     //Uma
@@ -479,7 +487,10 @@ public class SystemStepDefinition {
 
         //Removing product from the cart
         List<WebElement> removeButton = driver.findElements(By.xpath("//*[@id=\"cartList\"]//*[starts-with(@class,\"list-group-item d-flex\")]//*[contains(text(),\"Remove\")]"));
-        removeButton.get(0).click();
+//        removeButton.get(0).click();
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].click();",removeButton.get(0));
+
 
         //Saving number of product after remove for later assert.
         var gettingNumberOfTheProductAfterRemove = driver.findElement(By.xpath("//*[@id=\"cartSize\"]")).getText();

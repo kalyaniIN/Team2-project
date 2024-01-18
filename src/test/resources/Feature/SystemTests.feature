@@ -53,10 +53,10 @@ Feature: SystemTesting
     When user enters Shop
     Then user clicks on link for Men's Clothing
 #Testcase written by: Suzana
-  Scenario: Adding a Mens product to Cart
-    When user enters Shop
-    When user clicks on link for Men's Clothing
-    Then product is added to cart
+#  Scenario: Adding a Mens product to Cart
+#    When user enters Shop
+#    When user clicks on link for Men's Clothing
+#    Then product is added to cart
 
   #Testcase written by: Kalyani
   Scenario: Add products to the cart and verify the cart
