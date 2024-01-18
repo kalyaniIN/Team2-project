@@ -487,7 +487,10 @@ public class SystemStepDefinition {
 
         //Removing product from the cart
         List<WebElement> removeButton = driver.findElements(By.xpath("//*[@id=\"cartList\"]//*[starts-with(@class,\"list-group-item d-flex\")]//*[contains(text(),\"Remove\")]"));
-        removeButton.get(0).click();
+//        removeButton.get(0).click();
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].click();",removeButton.get(0));
+
 
         //Saving number of product after remove for later assert.
         var gettingNumberOfTheProductAfterRemove = driver.findElement(By.xpath("//*[@id=\"cartSize\"]")).getText();
